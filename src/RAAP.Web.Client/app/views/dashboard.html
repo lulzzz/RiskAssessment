@@ -1,0 +1,221 @@
+﻿
+<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h2>
+            <span>Dashboard</span>
+        </h2>
+        <span flex></span>
+
+    </div>
+</md-toolbar>
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+
+        <div flex-xs layout="row">
+            <md-card flex-gt-xs="33" >
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Processes by category</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <canvas id="graphProcessCategories" class="chart chart-doughnut" chart-data="vm.processesByCategoryData" chart-labels="vm.processesByCategoryLabels"></canvas> 
+                </md-card-content>
+
+            </md-card>
+
+            <md-card flex-gt-xs="33">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Assets by category</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <canvas id="graphAssetCategories" class="chart chart-doughnut" chart-data="vm.assetsByCategoryData" chart-labels="vm.assetsByCategoryLabels"></canvas>
+                </md-card-content>
+
+            </md-card>
+
+            <md-card flex-gt-xs="33">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Threats by category</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <canvas id="graphThreatCategories" class="chart chart-doughnut" chart-data="vm.threatsByCategoryData" chart-labels="vm.threatsByCategoryLabels"></canvas>
+                </md-card-content>
+
+            </md-card>
+
+        </div>
+        <div flex-xs layout="row">
+            <md-card flex-gt-xs>
+                <md-card-title>
+                    <md-card-title-text layout="row">
+                        <span flex="15" class="md-headline">Your assets</span>
+                        <span flex></span>
+                    <!--
+                        <md-input-container>
+                            <label>Risk level:</label>
+                            <md-select ng-model="vm2.selectedRiskLevel" ng-model-options="{trackBy: '$value.value'}">
+                                <md-option ng-repeat="riskLevel in vm2.riskLevels" ng-value="riskLevel.value">
+                                    {{riskLevel.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <span style="width: 30px;"></span>
+                    
+                        <md-input-container>
+                            <label>Risk type:</label>
+                            <md-select ng-model="vm2.selectedRiskType" ng-model-options="{trackBy: '$value.value'}">
+                                <md-option ng-repeat="risk in vm2.riskTypes" ng-value="risk.value">
+                                    {{risk.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <span style="width: 30px;"></span>
+                        -->
+                        <div layout-gt-sm="row" class="rating-container" flex="25">
+                            <span style="min-width: 100px;">Probability</span>
+                            <md-slider flex ng-model="vm2.selectedProbabilityLevel" step="1" min="1" max="5" aria-label="rating" ng-class="{'success-slider': vm2.selectedProbabilityLevel <= 2,'yellow-slider': vm2.selectedProbabilityLevel == 3,'danger-slider': vm2.selectedProbabilityLevel > 3 }"></md-slider>
+                            <span ng-bind-html="vm2.selectedProbabilityLevel | criticalityCategory"></span>
+
+                        </div>
+                        <span flex="5"></span>
+                        <div layout-gt-sm="row" class="rating-container" flex="20">
+
+                            <md-radio-group ng-model="vm2.levelType" style="margin-top: 10px;">
+                                <md-radio-button style="min-width: 120px;" value="1">AND</md-radio-button>
+                                <md-radio-button style="min-width: 120px;" value="2">OR </md-radio-button>
+                            </md-radio-group>
+
+                        </div>
+                      
+                            <div layout-gt-sm="row" class="rating-container" flex="25">
+                                <span style="min-width: 100px;">Impact</span>
+                                <md-slider flex ng-model="vm2.selectedImpactLevel" step="1" min="1" max="5" aria-label="rating" ng-class="{'success-slider': vm2.selectedImpactLevel <= 2,'yellow-slider': vm2.selectedImpactLevel == 3,'danger-slider': vm2.selectedImpactLevel > 3 }"></md-slider>
+                                <span ng-bind-html="vm2.selectedImpactLevel | criticalityCategory"></span>
+                            </div>
+                            <md-button class="md-raised" ng-click="toggleAll()" style="height: 40px; margin-top: 0px;">show/hide</md-button>
+                            <span style="width: 30px;"></span>
+</md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <div class="md-padding" layout-xs="column" layout="row" id="soa">
+                        <p ng-show="!vm2.assets">
+                            <img src="Content/img/loading-animation.gif" style="vertical-align: top;" /> <span style="display: inline-block; padding-top: 7px; font-style: italic; ">please wait ...</span>
+                        </p>
+                        <p ng-show="vm2.assets && vm2.assets.length == 0">No assets found for this risk level</p>
+
+                        <v-accordion multiple class="vAccordion--default firstlevel" control="accordion1" id="accordion1" ng-show="vm2.assets && vm2.assets.length > 0">
+
+                            <v-pane expanded ng-repeat="asset in vm2.assets">
+                                <v-pane-header>
+                                    <div layout="row">
+                                        <span flex="10"><strong>{{asset.name}}</strong></span>
+                                        <span><strong>{{asset.description}}</strong></span>
+                                    </div>
+                                </v-pane-header>
+
+                                <v-pane-content>
+                                    <div ng-if="$pane.isExpandedOnceOrMore()">
+
+                                      
+                                        <div class="threats-container">
+                                            <md-table-container>
+                                                <table md-table>
+                                                    <thead md-head>
+                                                        <tr md-row>
+                                                            <th md-column style="width:30%"><span>Threat</span></th>
+                                                          
+
+                                                            <th md-column ng-repeat="risk in asset.threats[0].risks">
+                                                                <span>{{risk.name}}</span><br /><span>(Reg/Calc)</span>
+                                                            </th>
+
+
+                                                            <th md-column class="align-right"><span>Controls</span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody md-body>
+                                                        <tr md-row ng-repeat="item in asset.threats | orderBy:predicate:reverse">
+                                                            <td md-cell style="width:30%">{{item.name}}</td>
+                                                          
+
+                                                            <td md-cell ng-repeat="thisRisk in item.risks">
+                                                                <div class="threat-container" ng-bind-html='thisRisk | riskFilter'></div>
+                                                                <div class="threat-container" ng-bind-html='thisRisk | riskFilterCalculated'></div>
+                                                            </td>
+
+
+
+
+                                                            <td md-cell class="align-right">
+                                                                <span ng-show="item.controls.length == 0">0</span>
+                                                                <md-button ng-show="item.controls.length > 0" class="md-mini md-accent" ng-click="showControls(item.controls)">
+                                                                    {{item.controls.length}} controls
+                                                                </md-button>
+
+                                                            </td>
+
+
+                                                        </tr>
+                                                        <tr ng-show="threats.length <= 0">
+                                                            <td colspan="8">
+                                                                No threats found!
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </md-table-container>
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                </v-pane-content>
+                            </v-pane>
+
+
+
+                        </v-accordion>
+
+                    </div>
+
+
+                </md-card-content>
+
+            </md-card>
+           
+
+        </div>
+
+   
+
+
+
+        <p class="md-padding" style="font-size: 0.8em; margin-top: 0px; margin-bottom: 0px; padding-top: 0px; padding-bottom: 0px;" ng-show="vm.generatedDate">
+            Generated: {{vm.generatedDate | date:'dd.MM.yyyy HH:mm:ss' }}
+        </p>
+     
+        <div style="height:70px;width:100%;"></div>
+        
+       
+</div>
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+
+

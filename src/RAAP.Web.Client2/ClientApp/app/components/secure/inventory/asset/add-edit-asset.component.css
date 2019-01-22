@@ -1,0 +1,206 @@
+﻿.asset-edit-container {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-slider {
+    width: 300px;
+}
+
+.asset-edit-container > * {
+    width: 100%;
+}
+
+.removeThreatbtn :hover {
+    cursor: pointer;
+    border-color: gray;
+}
+
+.editThreatbtn :hover {
+    cursor: pointer;
+    border-color: gray;
+}
+
+.editAssetbtn :hover {
+    cursor: pointer;
+    border-color: gray;
+}
+
+.removeAssetbtn :hover {
+    cursor: pointer;
+    border-color: gray;
+}
+
+.marginDiv-Asset {
+    margin-left: 20px;
+}
+
+.marginLinks-Asset {
+    margin-top: 10px;
+    margin-left: 23px;
+}
+
+    .marginLinks-Asset a:first-child {
+        margin-top: 15px;
+        width: 100px;
+    }
+
+    .marginLinks-Asset a:nth-child(2) {
+        margin-top: 15px;
+        margin-left: 10px;
+    }
+
+.bussinessDiv-Asset {
+    min-height: 300px;
+    border: 1px solid #cfdbe2;
+    background-color: #EDF1F2;
+    overflow-x: scroll;
+}
+
+    .bussinessDiv-Asset div {
+        word-wrap: break-word;
+        padding: 15px 15px;
+        font-size: 14px;
+    }
+
+.removeAssetbtn, .removeThreatbtn {
+    box-shadow: none;
+    float: right;
+    margin-left: 30px;
+    font-size: 16px;
+}
+
+.editAssetbtn, .editThreatbtn {
+    box-shadow: none;
+    float: right;
+    font-size: 16px;
+}
+
+    .removeAssetbtn a, .editAssetbtn a, .editThreatbtn a, .removeThreatbtn a {
+        color: rgb(255,64,129);
+    }
+
+.matDialogBox {
+    box-shadow: none !important;
+}
+
+.removeThreatbtn :hover {
+    cursor: pointer;
+    border-color: gray;
+}
+
+.editThreatbtn :hover {
+    cursor: pointer;
+    border-color: gray;
+}
+
+.editAssetbtn :hover {
+    cursor: pointer;
+    border-color: gray;
+}
+
+.removeAssetbtn :hover {
+    cursor: pointer;
+    border-color: gray;
+}
+
+.removeAssetbtn a, .editAssetbtn a {
+    color: rgb(255,64,129);
+}
+
+.removeAssetbtn {
+    margin-left: 30px;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+    .flex-row .fixed-width {
+        width: 200px;
+        padding-top: 1.25em;
+        margin-left: 1.25em;
+    }
+
+.threat-container {
+    margin-right: 10px;
+}
+
+.block-padding > * + * {
+    margin-left: 20px;
+}
+
+.marginRisks {
+    margin-top: 15px;
+}
+
+.matSlideDecoration {
+    min-width: 160px;
+}
+
+.matTabDecoration {
+    background-color: white;
+    margin: 8px;
+}
+
+.matSlideHeight {
+    height: 50px;
+}
+
+.pieCard {
+    max-width: 50%
+}
+
+::ng-deep .assetSoaTableCell {
+    display: flex !important;
+    align-items: center !important;
+}
+
+::ng-deep .soaTabs .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.copyAssetbtn {
+    float: right;
+    padding-right: 50px;
+    color: rgb(255,64,129);
+}
+    .copyAssetbtn:hover {
+        cursor: pointer;
+        border-color: gray;
+    }
+
+.rtrm-slider-danger {
+    color: #f05050;
+}
+
+.rtrm-slider-danger ::ng-deep .mat-slider-horizontal .mat-slider-track-wrapper {
+    background-color: #f05050;
+}
+
+.rtrm-slider-success {
+    color: #27c24c;
+}
+
+.rtrm-slider-success ::ng-deep .mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+    border: #27c24c;
+}
+
+.rtrm-slider-success ::ng-deep .mat-slider-horizontal .mat-slider-track-wrapper {
+    background-color: #27c24c;
+}
+        
+.rtrm-slider-warn {
+    color: #fad732;
+}
+
+.rtrm-slider-warn ::ng-deep .mat-slider-horizontal .mat-slider-track-wrapper {
+    background-color: #fad732;
+}
+
+.evaluationAndPlanButton {
+    margin: 5px 0px 0px 10px;
+}

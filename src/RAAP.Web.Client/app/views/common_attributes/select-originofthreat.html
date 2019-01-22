@@ -1,0 +1,64 @@
+﻿<md-dialog aria-label="Select origin of threat to add" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h3 class="modal-title">
+                    Select origin of threat to add
+                </h3>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="ok()">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+
+
+
+                <md-table-container>
+                    <table md-table>
+                        <thead md-head md-order="vm.orderBy" md-on-reorder="gridReOrder">
+                            <tr md-row>
+
+                                <th md-column><span md-column md-order-by="name">Origin of Threat</span><input type="text" ng-model="filter_name" class="search-filter" /></th>
+                                <th md-column><span md-column md-order-by="category">Category</span><input type="text" ng-model="filter_type" class="search-filter" /></th>
+                                <th md-column class="align-right"></th>
+
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="item in vm.dataset.items | filter:{ name: filter_name, attributeCategoryName : filter_type }">
+                                <td md-cell>{{item.name}}</td>
+                                <td md-cell>{{item.attributeCategoryName}}</td>
+                               
+                                <td md-cell class="align-right">
+                                    <md-button class="md-mini md-accent" ng-click="addCause(item)">
+                                        Add
+                                    </md-button>
+                                </td>
+
+                            </tr>
+                            <tr md-row ng-show="vm.dataset.items.length <= 0">
+                                <td md-cell colspan="5">
+                                    No available origin of threat to add!
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <md-table-pagination md-limit="vm.pageSize" md-page="vm.page" md-total="{{vm.dataset.totalItems}}" md-on-paginate="gridPagination" md-options="[5, 10, 15, 20]"></md-table-pagination>
+                </md-table-container>
+
+
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+   
+            <md-button class="md-primary" ng-click="ok();">Close</md-button>
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>

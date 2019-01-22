@@ -1,0 +1,66 @@
+﻿<form class="form-group" role="form" id="categoryForm" name="categoryForm">
+
+    <md-toolbar class="md-whiteframe-1dp white-tb">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span><span ng-if="createMode">Create</span><span ng-if="!createMode">Edit</span> risk type</span>
+            </h2>
+            <span flex></span>
+
+            <md-button class="md-raised md-warn" aria-label="Delete" ng-click="delete()" ng-hide="createMode || runningInModalChild">
+                Delete
+            </md-button>
+            <md-button class="md-raised" aria-label="Save" ng-click="save(createMode)">
+                Save
+            </md-button>
+            <md-button class="md-raised" aria-label="Save & Exit" ng-click="save(true)" ng-show="!createMode">
+                Save & Exit
+            </md-button>
+            <md-button class="md-raised" aria-label="Exit" ng-click="exit()">
+                Exit
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-content flex id="main-view">
+        <div layout="column" flex="noshrink">
+            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+
+            <md-card>
+
+                <md-content class="md-padding">
+
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Name</label>
+                            <input ng-model="vm.name" required placeholder="Name">
+                        </md-input-container>
+
+                    </div>
+
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Description</label>
+                            <textarea ng-model="vm.description" md-maxlength="1000" rows="5" md-select-on-focus></textarea>
+                        </md-input-container>
+
+                    </div>
+
+                </md-content>
+
+            </md-card>
+
+        </div>
+
+        <div layout="row" flex="noshrink" ng-hide="runningInModalChild">
+            <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+        </div>
+    </md-content>
+
+
+
+
+
+
+ </form>

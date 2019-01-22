@@ -1,0 +1,125 @@
+<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <div flex-xs layout="row" class="layout-row flex-xs">
+        <mat-card flex-gt-xs="33">
+            <mat-card-title>
+                <mat-card-title>
+                    <span class="md-headline">Processes by category</span>
+                </mat-card-title>
+            </mat-card-title>
+            <canvas *ngIf="processChartData.length > 0"
+                    baseChart
+                    [legend]="false"
+                    [colors]="colors"
+                    [data]="processChartData"
+                    [labels]="processChartLabels"
+                    chartType="doughnut"></canvas>
+        </mat-card>
+        <mat-card flex-gt-xs="33">
+            <mat-card-title>
+                <mat-card-title>
+                    <span class="md-headline">Assets by category</span>
+                </mat-card-title>
+            </mat-card-title>
+            <canvas *ngIf="assetsChartData.length > 0"
+                    baseChart
+                    [colors]="colors"
+                    [legend]="false"
+                    [data]="assetsChartData"
+                    [labels]="assetsChartLabels"
+                    chartType="doughnut"></canvas>
+        </mat-card>
+        <mat-card flex-gt-xs="33">
+            <mat-card-title>
+                <mat-card-title>
+                    <span class="md-headline">Threats by category</span>
+                </mat-card-title>
+            </mat-card-title>
+            <canvas *ngIf="threatsChartData.length > 0"
+                    baseChart
+                    [colors]="colors"
+                    [legend]="false"
+                    [data]="threatsChartData"
+                    [labels]="threatsChartLabels"
+                    chartType="doughnut"></canvas>
+        </mat-card>
+    </div>
+    <div flex-xs layout="row">
+        <mat-card flex-gt-xs>
+            <mat-card-title>
+                <mat-card-title layout="row">
+                    <div layout-gt-sm="row">
+                        <span flex="15" class="md-headline">Your assets</span>
+                        <span flex></span>
+                        <div layout-gt-sm="row" class="rating-container" flex="25">
+                            <span flex="30" class="dashboardTextSize dashboardMargin">Probability</span>
+                            <div class="{{slider1.value|sliderFilter}}">
+                                <mat-slider flex="30" step="1" min="1" max="5" #slider1 aria-label="rating" class="sliderWidth" [(ngModel)]="probabilitySlider" (change)="setProbability();"></mat-slider>
+                                <span flex="30"   class="dashboardMargin dashboardTextSize decorateInline">{{slider1.value|sliderName}} </span>
+                            </div>
+                        </div>
+                        <span flex="5"></span>
+                        <div layout-gt-sm="row" flex="20">
+                            <mat-radio-group [(ngModel)]="radioAndOr" (click)="setProbability();">
+                                <mat-radio-button  value="1" class="dashboardTextSize">AND</mat-radio-button>
+                                <mat-radio-button  value="2" class="dashboardTextSize">OR </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <div layout-gt-sm="row" class="rating-container" flex="25">
+                            <span flex="30" class="dashboardTextSize dashboardMargin">Impact</span>
+                            <div class="{{slider2.value|sliderFilter}}">
+                                <mat-slider flex="30" step="1" min="1" max="5" aria-label="rating" #slider2 class="sliderWidth" [(ngModel)]="impactSlider" (change)="setImpact();"></mat-slider>
+                                <span flex="35" class="dashboardMargin dashboardTextSize decorateInline">{{slider2.value|sliderName}} </span>
+                            </div>
+
+                        </div>
+                        <button mat-raised-button (click)="toggleAccordion();">Show/Hide</button>
+                    </div>
+                    <span></span>
+                </mat-card-title>
+            </mat-card-title>
+            <mat-card-content>
+                <div class="mat-padding" layout-xs="column" layout="row" id="soa">
+                    <p *ngIf="assets.length == 0; else t">No assets found for this risk level</p>
+                    <ng-template #t>
+                        <mat-accordion flex="96" [multi]="true">
+                            <mat-expansion-panel *ngFor="let asset of assets" expanded="{{expanded|expandedFilter}}">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        {{asset.name}}
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        {{asset.description}}
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <div [fxFlex]="calc3cols" class="col3">
+                                    <ngx-datatable [columnMode]="'force'"
+                                                   [headerHeight]="50"
+                                                   [footerHeight]="0"
+                                                   [rowHeight]="50"
+                                                   [rows]="asset.threats">
+                                        <ngx-datatable-column name="Threat" prop="name"></ngx-datatable-column>
+                                        <ngx-datatable-column name="nbv(Reg/Calc)" prop="risks">
+                                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                                <div class="threat-wrapper" *ngFor="let risk of value">
+                                                    <div class="threat-container" [innerHtml]="risk | riskFilter"></div>
+                                                </div>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="gadg(Reg/Calc)" prop="risks">
+                                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                                <div class="threat-wrapper" *ngFor="let risk of value">
+                                                    <div class="threat-container" [innerHtml]="risk | riskFilterCalculated"></div>
+                                                </div>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Controls" prop="controlsCount"></ngx-datatable-column>
+                                    </ngx-datatable>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </ng-template>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+﻿<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+
+    <form [formGroup]="originOfThreatForm">
+        <mat-card>
+            <mat-card-content>
+                <div class="container">
+                    <div [fxFlex]="calc3cols" class="col3"></div>
+                    <div class="button-row">
+                        <button *ngIf="editMode" mat-raised-button color="warn" (click)="onDeleteOriginOfThreat()" [disabled]="disableButtons">DELETE</button>
+                        <button mat-raised-button color="accent" (click)="onSaveOriginOfThreat()" [disabled]="originOfThreatForm.invalid || disableButtons">{{ editMode ? 'UPDATE' : 'ADD' }}</button>
+                        <button mat-raised-button (click)="onExitOriginOfThreat()">EXIT</button>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-content>
+                <div class="origin-edit-container">
+                    <div layout-gt-sm="row">
+                        <div flex="50">
+                            <mat-form-field>
+                                <input matInput placeholder="Name" formControlName="name" />
+                                <mat-error *ngIf="originOfThreatForm.hasError('required', 'name')">Name is required field</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div flex="50" class="divMarginsDecoration">
+                            <mat-form-field>
+                                <mat-select placeholder="Category" formControlName="attributeCategoryName" [(ngModel)]="selectedOriginOfThreatCategory.name">
+                                    <mat-option selected *ngFor="let cat of originOfThreatCategory" [value]="cat.name">
+                                        {{ cat.name }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="originOfThreatForm.hasError('required', 'attributeCategoryName')">Please choose an category</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="basic-container">
+                        <mat-card class="matCardDecoration">
+                            <mat-card-title class="cardTitle">Timeframe</mat-card-title>                           
+                            <mat-card-content class="timeframe-list timeframePadding">
+                                <mat-grid-list cols="12" rowHeight="2:1" gutterSize="6px" class="matGridDecoration">
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration" (click)="updateMonthEnum(1)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(1) }">Jan</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration" (click)="updateMonthEnum(2)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(2) }">Feb</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateMonthEnum(4)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(4) }">Mar</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateMonthEnum(8)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(8) }">Apr</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateMonthEnum(16)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(16) }">May</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe  matGridTileDecoration"  (click)="updateMonthEnum(32)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(32) }">Jun</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateMonthEnum(64)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(64) }">Jul</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateMonthEnum(128)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(128) }">Aug</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateMonthEnum(256)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(256) }">Sep</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateMonthEnum(512)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(512) }">Oct</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateMonthEnum(1024)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(1024) }">Nov</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateMonthEnum(2048)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasMonth(2048) }">Dec</mat-grid-tile>
+                                </mat-grid-list>
+
+                                <mat-grid-list cols="7" rowHeight="3:1" gutterSize="6px"  class="matGridDecoration">
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateDayEnum(1)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasDay(1) }">Mon</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateDayEnum(2)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasDay(2) }">Tue</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateDayEnum(4)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasDay(4) }">Wed</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateDayEnum(8)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasDay(8) }">Thu</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateDayEnum(16)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasDay(16) }">Fri</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration "  (click)="updateDayEnum(32)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasDay(32) }">Sat</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateDayEnum(64)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasDay(64) }">Sun</mat-grid-tile>
+                                </mat-grid-list>
+
+                                <mat-grid-list cols="3" rowHeight="6:1" gutterSize="6px">
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateTimeEnum(1)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasTime(1) }">00:00 - 08:00</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateTimeEnum(2)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasTime(2) }">08:00 - 16:00</mat-grid-tile>
+                                    <mat-grid-tile class="default-timeframe matGridTileDecoration"  (click)="updateTimeEnum(4)" *ngIf="loaded" [ngClass]="{'selected-timeframe' : hasTime(4) }">16:00 - 24:00</mat-grid-tile>
+                                </mat-grid-list>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <p class="cardTitle">Source</p>
+                    <mat-radio-group formControlName="source" placeholder="Izaberi">
+                        <mat-radio-button value="1">Internal</mat-radio-button>
+                        <mat-radio-button style="padding-left:25px" value="2">External</mat-radio-button>
+                        <mat-radio-button style="padding-left:25px" value="3">Both</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-form-field class="matFormDecoration">
+                        <textarea matInput #input placeholder="Description" formControlName="description" maxlength="1000"></textarea>
+                        <mat-hint align="end">{{input.value?.length || 0}}/1000</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <textarea matInput #comment placeholder="Comment" formControlName="comment" maxlength="1000"></textarea>
+                        <mat-hint align="end">{{comment.value?.length || 0}}/1000</mat-hint>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </form>
+
+</div>
+
+
+

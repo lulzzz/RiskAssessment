@@ -1,0 +1,182 @@
+﻿
+
+<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h3>
+            {{vm.control.name}} ({{vm.control.category.name}})
+        </h3>
+        <span flex></span>
+
+        <md-button class="md-raised md-warn" aria-label="Delete" ng-click="delete()" ng-show="!createMode">
+            Delete
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="edit()">
+            Edit
+        </md-button>
+
+    </div>
+</md-toolbar>
+
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+        <md-card>
+            <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="tabname">
+
+            <div class="md-padding" layout-xs="column" layout="row">
+
+                <div flex-xs flex-gt-xs="50" layout="column">
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Control</span>
+                            <ng-md-icon icon="assignment" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Prevent</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.control.prevent" aria-label="prevent">
+                                    Prevent
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Detect</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.control.detect" aria-label="detect">
+                                    Detect
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">React</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.control.react" aria-label="react">
+                                    React
+                                </md-checkbox>
+                            </div>
+
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Avoid</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.control.avoid" aria-label="avoid">
+                                    Avoid
+                                </md-checkbox>
+                            </div>
+
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Status</span>
+                                <span flex>{{vm.control.status}}</span>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Legal Obligation</span>
+                                <span flex>{{vm.control.vm.legalObligation}}</span>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Costs</span>
+                            <ng-md-icon icon="assignment" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Investment Cost</span>
+                                <span flex>{{vm.control.investmentCost}}</span>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Maintenance Cost</span>
+                                <span flex>{{vm.control.maintenanceCost}}</span>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                </div>
+                <div flex-xs flex-gt-xs="50" layout="column">
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Description</span>
+                            <ng-md-icon icon="description" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+                            {{vm.control.description}}
+
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Responsible person</span>
+                            <ng-md-icon icon="person" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+                            {{vm.control.responsibleUser && vm.control.responsibleUser.userId > 0 ? vm.control.responsibleUser.firstName + ' ' + vm.control.responsibleUser.lastName : "Nobody is responsible for '" + vm.control.name + "'"}}
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Dates</span>
+                            <ng-md-icon icon="assignment" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Deadline</span>
+                                <span flex>{{vm.control.deadline | date:'yyyy-MM-dd'}}</span>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Executed</span>
+                                <span flex>{{vm.control.executedDate | date:'yyyy-MM-dd'}}</span>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Valid to</span>
+                                <span flex>{{vm.control.validTo | date:'yyyy-MM-dd'}}</span>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Alert person</span>
+                                <span flex>{{vm.control.alertUser && vm.control.alertUser.userId > 0 ? vm.control.alertUser.firstName + ' ' + vm.control.alertUser.lastName : "Nobody"}}</span>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">When</span>
+                                <span flex>{{vm.control.alertDate | date:'yyyy-MM-dd'}}</span>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+
+                </div>
+
+            </div>
+
+            </md-tab>
+                <md-tab label="reduces risk">
+                    <md-content class="md-padding">
+                         <div risk-reduce-graphs risks="vm.control.risks"></div>
+                      </md-content>
+                </md-tab>
+                <md-tab label="evaluation">
+                    <md-content class="md-padding">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Evaluation</strong></div>
+                            <div class="panel-body">
+                                <div ng-bind-html="vm.control.evaluations[0].text" class="evaluation-view"></div>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+

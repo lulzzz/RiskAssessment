@@ -1,0 +1,161 @@
+﻿.secondDivThread-Thread {
+    margin-left: 20px;
+}
+
+.evaluationDiv-Thread {
+    min-height: 300px;
+    border: 1px solid #cfdbe2;
+    background-color: #EDF1F2;
+    overflow-x: scroll;
+    padding: 15px 15px;
+}
+
+.evaluationLink-Thread {
+    margin: 5px 0px 0px 10px;
+}
+
+.riskAssessmentLink {
+    margin-left: 10px;
+    color: rgb(181,181,181);
+}
+
+.removeControlsbtn {
+    float: right;
+    color: rgb(255,64,129);
+}
+
+    .removeControlsbtn:hover {
+        cursor: pointer;
+        border-color: gray;
+    }
+
+.removeCausesBtn {
+    float: right;
+    color: rgb(255,64,129);
+}
+
+    .removeCausesBtn:hover {
+        cursor: pointer;
+        border-color: gray;
+    }
+
+.marginDiv-Asset {
+    margin-left: 20px;
+}
+
+.marginLinksCauses, marginLinksControls, marginLinksRisk {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.marginLinksRisk a{
+    margin-top: 20px;
+    width: 120px;
+}
+
+.secondDivThread {
+    margin-left: 20px;
+}
+
+.bussinessDiv-Asset {
+    min-height: 300px;
+    border: 1px solid #cfdbe2;
+    background-color: #EDF1F2;
+    overflow-x: scroll;
+}
+
+    .bussinessDiv-Asset div {
+        word-wrap: break-word;
+        padding: 15px 15px;
+        font-size: 14px;
+    }
+
+.templateLinksControls a:first-child {
+    box-shadow: none;
+    float: right;
+    margin-left: 30px;
+    font-size: 16px;
+}
+
+.templateLinksControls a:nth-child(2) {
+    box-shadow: none;
+    float: right;
+    font-size: 16px;
+}
+
+.removeCausesBtn a, removeControlsbtn a {
+    color: rgb(255,64,129);
+}
+
+removeControlsbtn a, .removeControlsbtn a {
+    color: rgb(255,64,129);
+}
+
+.matDialogBox {
+    box-shadow: none !important;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+    .flex-row .fixed-width {
+        width: 200px;
+        padding-top: 1.25em;
+        margin-left: 1.25em;
+    }
+
+.rtrm-slider-warn .sliderColor {
+    color: #fad732;
+}
+
+.rtrm-slider-danger .sliderColor {
+    color: #f05050;
+}
+
+.rtrm-slider-success .sliderColor {
+    color: #27c24c;
+}
+
+.matSlideDecoration {
+    min-width: 160px;
+}
+
+.matTabDecoration {
+  background-color:white;
+  margin:8px;
+}
+
+.matRadioDecoration {
+    min-width: 120px;
+}
+
+.divRiskDecoration {
+    margin-top:20px;
+   padding-bottom:10px;
+}
+
+.matRadioRiskButton {
+    margin-top: 15px;
+    margin-left: 10px;
+    font-size:14px;
+}
+
+.riskNameDecoration {
+   width:150px !important;
+   margin-top:15px !important; 
+   margin-left:5px !important;
+}
+
+.copyThreatbtn {
+    float: right;
+    padding-right: 50px;
+    color: rgb(255,64,129);
+}
+
+    .copyThreatbtn:hover {
+        cursor: pointer;
+        border-color: gray;
+    }

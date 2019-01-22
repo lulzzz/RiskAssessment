@@ -1,0 +1,216 @@
+﻿
+<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h3>
+            {{vm.threat.name}} ({{vm.threat.category.name}})
+        </h3>
+        <span flex></span>
+
+        <md-button class="md-raised md-warn" aria-label="Delete" ng-click="delete()" ng-show="!createMode">
+            Delete
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="edit()">
+            Edit
+        </md-button>
+
+    </div>
+</md-toolbar>
+
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+
+        <md-card>
+            <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="threat">
+            <div class="md-padding" layout-xs="column" layout="row">
+                <div flex-xs flex-gt-xs="50" layout="column">
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">ISO 27001 (Registered & Calculated)</span>
+                            <ng-md-icon icon="assignment" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content layout="row">
+                            <div risk-graphs risks="vm.threat.risks" hasregistered="true" flex></div>
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Risk</span>
+                            <ng-md-icon icon="assignment" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Avoid risk</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.threat.avoidRisk" aria-label="Avoid risk">
+                                    Avoid risk
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Share risk</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.threat.shareRisk" aria-label="deShare risktect">
+                                    Share risk
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Reduce risk</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.threat.reduceRisk" aria-label="Reduce risk">
+                                    Reduce risk
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Accept risk</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.threat.acceptRisk" aria-label="Accept risk">
+                                    Accept risk
+                                </md-checkbox>
+                            </div>
+
+
+                            <div layout="row" class="control-prop" ng-show="vm.threat.acceptRisk || vm.threat.avoidRisk">
+                                <span flex="45">Person</span>
+                                <span flex>{{vm.threat.riskUser}}</span>
+                            </div>
+                            <div layout="row" class="control-prop"  ng-show="vm.threat.acceptRisk || vm.threat.avoidRisk">
+                                <span flex="45">Date</span>
+                                <span flex>{{vm.threat.riskDate | date:'medium'}}</span>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+
+                
+
+                </div>
+                <div flex-xs flex-gt-xs="50" layout="column">
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Description</span>
+                            <ng-md-icon icon="description" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+                            {{vm.process.description}}
+
+                        </md-card-content>
+                    </md-card>
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Threat</span>
+                            <ng-md-icon icon="assignment" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+
+                            <div layout="row" class="control-prop" ng-show="mycheckbox1">
+                                <span flex="45">Security threat</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="mycheckbox1" aria-label="prevent">
+                                    Security threat
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop" ng-show="mycheckbox2">
+                                <span flex="45">Safety threat</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="mycheckbox2" aria-label="prevent">
+                                    Safety threat
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop" ng-show="mycheckbox3">
+                                <span flex="45">Internal threat</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="mycheckbox3" aria-label="prevent">
+                                    Internal threat
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop" ng-show="mycheckbox4">
+                                <span flex="45">External threat</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="mycheckbox4" aria-label="prevent">
+                                    External threat
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop" ng-show="mycheckbox5">
+                                <span flex="45">Internal/External threat</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="mycheckbox5" aria-label="prevent">
+                                    Internal/External threat
+                                </md-checkbox>
+                            </div>
+
+
+
+                        </md-card-content>
+                    </md-card>
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Threat affects</span>
+                            <ng-md-icon icon="assignment" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Confidenciality</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.threat.confidenciality" aria-label="Confidenciality">
+                                    Confidenciality
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Integrity</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.threat.integrity" aria-label="Integrity">
+                                    Integrity
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Availability</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.threat.availability" aria-label="Availability">
+                                    Availability
+                                </md-checkbox>
+                            </div>
+                            <div layout="row" class="control-prop">
+                                <span flex="45">Authenticity</span>
+                                <md-checkbox flex ng-disabled="true" ng-model="vm.threat.authenticity" aria-label="Authenticity">
+                                    Authenticity
+                                </md-checkbox>
+                            </div>
+
+                       
+                        </md-card-content>
+                    </md-card>
+      
+                </div>
+            </div>
+
+
+            </md-tab>
+
+            <md-tab label="evaluation">
+                <md-content class="md-padding">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>Evaluation</strong>
+                        </div>
+                        <div class="panel-body">
+                            <div ng-bind-html="vm.threat.evaluations[0].text" class="evaluation-view"></div>
+                        </div>
+                    </div>
+                </md-content>
+            </md-tab>
+
+
+
+            </md-tabs>
+
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+
+
+

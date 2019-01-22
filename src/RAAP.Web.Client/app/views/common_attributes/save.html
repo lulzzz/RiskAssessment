@@ -1,0 +1,258 @@
+﻿<form class="form-group" role="form" id="attributeForm" name="attributeForm">
+
+
+    <md-toolbar class="md-whiteframe-1dp white-tb">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span><span ng-if="createMode">Create</span><span ng-if="!createMode">Edit</span> {{nameprefix}}</span>
+            </h2>
+            <span flex></span>
+
+            <md-button class="md-raised md-warn" aria-label="Delete" ng-click="delete()" ng-show="editMode">
+                Delete
+            </md-button>
+            <md-button class="md-raised" aria-label="Save" ng-click="save(false)">
+                Save
+            </md-button>
+            <md-button class="md-raised" aria-label="Save & Exit" ng-click="save(true)" ng-show="editMode">
+                Save & Exit
+            </md-button>
+            <md-button class="md-raised" aria-label="Exit" ng-click="exit()">
+                Exit
+            </md-button>
+
+
+        </div>
+    </md-toolbar>
+
+
+    <md-content flex id="main-view">
+        <div layout="column" flex="noshrink">
+
+            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><span data-ng-bind-html="alert.msg"></span></uib-alert>
+
+
+            <md-card>
+
+
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="{{nameprefix}}">
+                        <md-content class="md-padding">
+
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Name</label>
+                                    <input ng-model="vm.name" required placeholder="Name">
+                                </md-input-container>
+
+                            </div>
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Category</label>
+                                        <md-select ng-model="vm.attributeCategoryId">
+                                            <md-option ng-repeat="category in categories" ng-value="category.attributeCategoryId">
+                                                {{category.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <p>Timeframe</p>
+
+
+
+                            </div>
+                            <md-grid-list md-cols-gt-md="12" md-cols="6" md-cols-md="12"
+                                          md-row-height-gt-md="50px" md-row-height="50px"
+                                          md-gutter-gt-md="8px" md-gutter-md="8px" md-gutter="4px">
+                                <md-grid-tile ng-click="updateMonthEnum(1)" ng-class="{'selected-timeframe' : hasMonth(1) }" class="default-timeframe" style="cursor: pointer">
+                                    Jan
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateMonthEnum(2)" ng-class="{'selected-timeframe' : hasMonth(2) }" class="default-timeframe" style="cursor: pointer">
+                                    Feb
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateMonthEnum(4)" ng-class="{'selected-timeframe' : hasMonth(4) }" class="default-timeframe" style="cursor: pointer">
+                                    Mar
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateMonthEnum(8)" ng-class="{'selected-timeframe' : hasMonth(8) }" class="default-timeframe" style="cursor: pointer">
+                                    Apr
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateMonthEnum(16)" ng-class="{'selected-timeframe' : hasMonth(16) }" class="default-timeframe" style="cursor: pointer">
+                                    May
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateMonthEnum(32)" ng-class="{'selected-timeframe' : hasMonth(32) }" class="default-timeframe" style="cursor: pointer">
+                                    Jun
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateMonthEnum(64)" ng-class="{'selected-timeframe' : hasMonth(64) }" class="default-timeframe" style="cursor: pointer">
+                                    Jul
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateMonthEnum(128)" ng-class="{'selected-timeframe' : hasMonth(128) }" class="default-timeframe" style="cursor: pointer">
+                                    Aug
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateMonthEnum(256)" ng-class="{'selected-timeframe' : hasMonth(256) }" class="default-timeframe" style="cursor: pointer">
+                                    Sep
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateMonthEnum(512)" ng-class="{'selected-timeframe' : hasMonth(512) }" class="default-timeframe" style="cursor: pointer">
+                                    Oct
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateMonthEnum(1024)" ng-class="{'selected-timeframe' : hasMonth(1024) }" class="default-timeframe" style="cursor: pointer">
+                                    Nov
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateMonthEnum(2048)" ng-class="{'selected-timeframe' : hasMonth(2048) }" class="default-timeframe" style="cursor: pointer">
+                                    Dec
+                                </md-grid-tile>
+
+                            </md-grid-list>
+
+                            <md-grid-list md-cols-gt-md="7" md-cols="7" md-cols-md="7" style="margin-top: 10px;"
+                                          md-row-height-gt-md="50px" md-row-height="50px"
+                                          md-gutter-gt-md="8px" md-gutter-md="8px" md-gutter="4px">
+                                <md-grid-tile ng-click="updateDayEnum(1)" ng-class="{'selected-timeframe' : hasDay(1) }" class="default-timeframe" style="cursor: pointer">
+                                    Mon
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateDayEnum(2)" ng-class="{'selected-timeframe' : hasDay(2) }" class="default-timeframe" style="cursor: pointer">
+                                    Tue
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateDayEnum(4)" ng-class="{'selected-timeframe' : hasDay(4) }" class="default-timeframe" style="cursor: pointer">
+                                    Wed
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateDayEnum(8)" ng-class="{'selected-timeframe' : hasDay(8) }" class="default-timeframe" style="cursor: pointer">
+                                    Thu
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateDayEnum(16)" ng-class="{'selected-timeframe' : hasDay(16) }" class="default-timeframe" style="cursor: pointer">
+                                    Fri
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateDayEnum(32)" ng-class="{'selected-timeframe' : hasDay(32) }" class="default-timeframe" style="cursor: pointer">
+                                    Sat
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateDayEnum(64)" ng-class="{'selected-timeframe' : hasDay(64) }" class="default-timeframe" style="cursor: pointer">
+                                    Sun
+                                </md-grid-tile>
+
+
+                            </md-grid-list>
+
+
+                            <md-grid-list md-cols-gt-md="3" md-cols="3" md-cols-md="3" style="margin-top: 10px;"
+                                          md-row-height-gt-md="50px" md-row-height="50px"
+                                          md-gutter-gt-md="8px" md-gutter-md="8px" md-gutter="4px">
+                                <md-grid-tile ng-click="updateTimeEnum(1)" ng-class="{'selected-timeframe' : hasTime(1) }" class="default-timeframe" style="cursor: pointer">
+                                    00:00 - 08:00
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateTimeEnum(2)" ng-class="{'selected-timeframe' : hasTime(2) }" class="default-timeframe" style="cursor: pointer">
+                                    08:00 - 16:00
+                                </md-grid-tile>
+                                <md-grid-tile ng-click="updateTimeEnum(4)" ng-class="{'selected-timeframe' : hasTime(4) }" class="default-timeframe" style="cursor: pointer">
+                                    16:00 - 24:00
+                                </md-grid-tile>
+
+
+
+                            </md-grid-list>
+
+                            <div layout-gt-sm="row" ng-if="nameprefix == 'Origin of Threat'">
+                                <div layout-gt-sm="column">
+
+                                    <p>Source</p>
+
+                                    <md-radio-group ng-model="vm.source">
+                                        <md-radio-button style="min-width: 120px;" value="1">Internal</md-radio-button>
+                                        <md-radio-button style="min-width: 120px;" value="2">External </md-radio-button>
+                                        <md-radio-button style="min-width: 120px;" value="3">Both</md-radio-button>
+                                    </md-radio-group>
+                                </div>
+
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Description</label>
+                                    <textarea ng-model="vm.description" md-maxlength="1000" rows="5" md-select-on-focus></textarea>
+                                </md-input-container>
+
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Comment</label>
+                                    <textarea ng-model="vm.comment" md-maxlength="1000" rows="5" md-select-on-focus></textarea>
+                                </md-input-container>
+
+                            </div>
+
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="origin of threats" ng-if="nameprefix == 'Causes'">
+                        <md-content class="md-padding">
+
+
+                            <md-table-container>
+                                <table md-table>
+                                    <thead md-head>
+                                        <tr md-row>
+
+                                            <th md-column><span>Name</span></th>
+                                            <th md-column><span>Description</span></th>
+                                            <th md-column><span>Category</span></th>
+                                            <th md-column><span>Created</span></th>
+                                            <th md-column class="align-right"></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                        <tr md-row ng-repeat="item in vm.childAttributes | orderBy:'name'">
+                                            <td md-cell>{{item.name}}</td>
+                                            <td md-cell>{{item.description}}</td>
+                                            <td md-cell>{{item.attributeCategoryName}}</td>
+                                            <td md-cell>{{item.createdOn | date:'yyyy-MM-dd'}}</td>
+
+                                            <td md-cell class="align-right">
+                                                <md-button class="md-mini md-accent" ng-click="removeChildAttribute(item)">
+                                                    Remove
+                                                </md-button>
+                                            </td>
+
+                                        </tr>
+                                        <tr md-row ng-show="!vm.childAttributes || vm.childAttributes.length <= 0">
+                                            <td md-cell colspan="5">
+                                                No 'origin of threat' added for this cause.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </md-table-container>
+
+
+                            <md-button class="md-raised" aria-label="Add control" ng-click="selectOriginOfThreat()">
+                                Add Origin of Threat
+                            </md-button>
+
+                        </md-content>
+
+                    </md-tab>
+                </md-tabs>
+
+
+
+
+            </md-card>
+
+
+        </div>
+
+        <div layout="row" flex="noshrink">
+            <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+        </div>
+    </md-content>
+
+
+</form>|

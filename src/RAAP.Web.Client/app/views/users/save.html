@@ -1,0 +1,186 @@
+﻿<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h3>
+            User
+        </h3>
+        <span flex></span>
+        <md-button class="md-raised md-warn" aria-label="Delete" ng-click="delete()" ng-show="!createMode && vm.userId != authentication.userDetails.userId ">
+            Delete
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="save(createMode)">
+            Save
+        </md-button>
+        <md-button class="md-raised" aria-label="Save & Exit" ng-click="save(true)" ng-show="!createMode">
+            Save & Exit
+        </md-button>
+        <md-button class="md-raised" aria-label="Exit" ng-click="exit()">
+            Exit
+        </md-button>
+
+    </div>
+</md-toolbar>
+
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+
+        <md-card>
+            <form class="form-group" role="form" id="editUserForm" name="editUserForm">
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="user">
+                        <md-content class="md-padding">
+
+
+                            <div layout-gt-sm="row">
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Company</label>
+                                        <company-selector company-id="vm.companyId" />
+                                    </md-input-container>
+                                </div>
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Role</label>
+                                        <role-selector role="vm.role" />
+                                    </md-input-container>
+                                </div>
+                               
+                            </div>
+
+
+
+
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Firstname</label>
+                                        <input ng-model="vm.firstName" required/>
+                                    </md-input-container>
+                                </div>
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Lastname</label>
+                                        <input ng-model="vm.lastName" required/>
+                                    </md-input-container>
+                                </div>
+
+                            </div>
+
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Username</label>
+                                        <input ng-model="vm.username" required username-available  autocomplete="off" />
+                                        <div ng-if="editUserForm.$error.usernameAvailable">Username exists already.</div>
+                                    </md-input-container>
+                                </div>
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Email</label>
+                                        <input ng-model="vm.email" required email-available autocomplete="off"/>
+                                        <div ng-if="editUserForm.$error.emailAvailable">Email exists already.</div>
+                                    </md-input-container>
+                                </div>
+
+                            </div>
+
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Title</label>
+                                        <input ng-model="vm.title"/>
+                                    </md-input-container>
+                                </div>
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Department</label>
+                                        <input ng-model="vm.department"/>
+                                    </md-input-container>
+                                </div>
+
+                            </div>
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Phone</label>
+                                        <input ng-model="vm.phone" />
+                                    </md-input-container>
+                                </div>
+                                <div layout-gt-sm="column" flex="50">
+                                    <img ng-src="{{profileimage}}" style="max-width: 200px" ng-if="!createMode"/>
+                                    <span ng-if="createMode && profileimage">Upload complete.</span>
+                                    <div layout="row">
+                                        <div class="md-raised md-button" aria-label="Create" type="file" ngf-select="uploadFile($file, $invalidFiles)">
+                                            Upload profile image
+                                        </div>
+                                        <div>
+                                            <span class="progress" ng-show="f.progress >= 0">
+                                                <div ng-bind="f.progress + '%'"></div>
+                                            </span>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div layout-gt-sm="row" ng-if="createMode">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Password</label>
+                                        <input ng-model="vm.password" type="password" required/>
+                                    </md-input-container>
+                                </div>
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Password repeat</label>
+                                        <input ng-model="vm.passwordRepeat" type="password"/>
+                                    </md-input-container>
+                                </div>
+
+                            </div>
+
+
+
+                        </md-content>
+                    </md-tab>
+                    <md-tab ng-if="!createMode" label="change password">
+                        <md-content class="md-padding">
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>New password</label>
+                                    <input ng-model="vm.password" type="password" />
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-button class="md-raised" aria-label="Save" ng-click="updatePassword()">
+                                    Change password
+                                </md-button>
+                            </div>
+
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </form>
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+

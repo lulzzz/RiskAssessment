@@ -1,0 +1,1 @@
+ALTER TABLE [dbo].[SoaFile] ADD  Guid uniqueidentifier not null DEFAULT newid()

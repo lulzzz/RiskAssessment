@@ -1,0 +1,51 @@
+@media (max-width: 767px) {
+    /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+    .body-content {
+        padding-top: 50px;
+    }
+}
+.raaplogo {
+    height: 25px;
+    margin-right: 15px;
+}
+
+.menu-icon {
+    vertical-align: middle;
+}
+
+div.mat-expansion-panel-content:not(.mat-expanded) {
+    height: 0px !important;
+    visibility: hidden !important;
+}
+
+.mat-expansion-panel-header {
+    height: 48px;
+}
+
+.mat-list-item-content, .mat-list-item {
+    margin-right: 9px !important;
+}
+
+.process-icon {
+    font-size: 20px;
+}
+
+.arrow-left {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid blue;
+}
+
+
+.treeParent a:visited {
+    padding: 0 3px;
+    color: #222222;
+    color: rgba(34, 34, 34, 0.77);
+}
+
+
+.treeParent a:active {
+    background-color: yellow;
+}

@@ -1,0 +1,56 @@
+﻿
+<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h2>
+            <span>Show dependencies for asset</span>
+        </h2>
+        <span flex></span>
+
+    </div>
+</md-toolbar>
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+        <div flex-xs layout="row">
+            <md-card flex-gt-xs="100%">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span>Search</span>
+                        <md-autocomplete md-selected-item="vm.selectedAsset"
+                                         md-search-text="vm.query"
+                                         md-selected-item-change="item != null ? show(item.assetId) : console.log('no item!')"
+                                         md-items="item in search(vm.query)"
+                                         md-item-text="item.name"
+                                         md-min-length="2"
+                                         placeholder="Search here">
+                            <md-item-template>
+                                <span md-highlight-text="vm.query" md-highlight-flags="^i">{{item.name}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                Nothing found
+                            </md-not-found>
+                        </md-autocomplete>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content class="md-padding">
+                    <div layout-gt-sm="row">
+                        <span>This asset depends on:</span>
+                        <asset-dendogram asset="loadedAsset"></asset-dendogram>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <span>Other assets that depends on this asset:</span>
+                        <asset-dendogram-reverse asset="reverseAssetRoot"></asset-dendogram-reverse>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+
+        <div style="height:70px;width:100%;"></div>
+    </div>
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>

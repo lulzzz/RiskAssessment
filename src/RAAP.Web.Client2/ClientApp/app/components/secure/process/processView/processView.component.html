@@ -1,0 +1,100 @@
+﻿<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <form [formGroup]="processViewForm">
+        <mat-card>
+            <mat-card-content>
+                <div class="container">
+                    <div [fxFlex]="calc3cols" class="col3">
+                        <p class="headerNameSize">{{processViewForm.value.name}}({{processViewForm.value.category.name}})</p>
+                    </div>
+                    <div class="headerButtonMargin">
+                        <div class="button-row">
+                            <button mat-raised-button color="warn" (click)="onDelete();">DELETE</button>
+                            <button type="submit" mat-raised-button color="accent" [routerLink]="['/process/edit/',processViewForm.value.processId]">{{ 'EDIT'  }}</button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <app-alert></app-alert>
+        </mat-card>
+
+        <mat-tab-group class="demo-tab-group" style="background-color:white; margin:8px">
+            <mat-tab label="BUSINESS PROCESS">
+                <mat-card-content flex id="main-view">
+                    <div layout="column" flex="noshrink">
+                        <mat-card class="matDialogBox">
+                            <mat-card-content class="md-padding">
+                                <div layout-gt-sm="row">
+                                    <div layout-gt-sm="column" flex="50" class="marginDiv-Asset">
+                                        <mat-card>
+                                            <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                <a style="color:white; font-size:18px; margin:10px;">ISO 27001 (Calculated)</a>
+                                            </mat-card-header>
+                                            <mat-tab-group class="demo-tab-group" style="background-color:white; margin:8px" *ngFor="let r of risks">
+                                                <mat-tab label="{{r.name}}">
+                                                </mat-tab>
+                                            </mat-tab-group>
+                                            <mat-card-content> No risks found for this item</mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="50">
+                                        <mat-card>
+                                            <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                <a style="color:white; font-size:18px; margin:10px;">Description</a>
+                                            </mat-card-header>
+                                            <mat-card-content> {{ processViewForm.value.description }} </mat-card-content>
+                                        </mat-card>
+                                        <mat-card>
+                                            <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                <a style="color:white; font-size:18px; margin:10px;">Responsible person</a>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                {{ processViewForm.value.responsibleUser && processViewForm.value.responsibleUser.userId > 0 ?  processViewForm.value.responsibleUser.firstName + ' ' +  processViewForm.value.responsibleUser.lastName : "Nobody is responsible for '" +  processViewForm.value.name + "'"}}
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                                <div layout-gt-sm="column" flex="100" class="marginDiv-Asset">
+                                    <mat-card>
+                                        <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                            <a style="color:white; font-size:18px; margin:10px;">Threats</a>
+                                        </mat-card-header>
+                                        <mat-card-content>
+                                            <div class="container">
+                                                <div [fxFlex]="calc3cols" class="col4">
+                                                    <ngx-datatable #table
+                                                                   [columnMode]="'force'"
+                                                                   [headerHeight]="50"
+                                                                   [footerHeight]="0"
+                                                                   [rowHeight]="50"
+                                                                   [sorts]="[{prop: 'processId', dir: 'asc'}]"
+                                                                   [rows]="rows">
+                                                        <ngx-datatable-column name="Threat" prop="name"></ngx-datatable-column>
+                                                        <ngx-datatable-column name="Asset" prop="assetName"></ngx-datatable-column>
+                                                        <ngx-datatable-column name="Controls" prop="controlsCount"></ngx-datatable-column>
+                                                    </ngx-datatable>
+
+                                                </div>
+                                            </div>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </mat-card-content>
+            </mat-tab>
+            <mat-tab label="EVELUATION">
+                <mat-card class="matDialogBox">
+                    <mat-card-content>
+                        <div class="bussinessDivEvaluation">
+                            <div *ngIf="selectedEvaluation" [innerHtml]="selectedEvaluation.text" disabled></div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </form>
+</div>
+

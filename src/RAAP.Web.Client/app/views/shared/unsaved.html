@@ -1,0 +1,27 @@
+﻿<md-dialog aria-label="You have unsaved changes" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h3 class="modal-title">
+                    You have unsaved changes
+                </h3>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <p>Do you want to save your changes before leaving this page?</p>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button class="md-primary" ng-click="ok();">Save</md-button>
+            <md-button class="md-warn" ng-click="cancel();">Exit</md-button>
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,2 @@
+
+alter table Asset add TransportEncryption bit not null default 0, MessageEncryption bit not null default 0, DiskEncryption bit not null default 0, PersonalData bit not null default 0, SensitiveData bit not null default 0, HasAuthentication bit not null default 0, AuthenticationLevel int not null default 0;

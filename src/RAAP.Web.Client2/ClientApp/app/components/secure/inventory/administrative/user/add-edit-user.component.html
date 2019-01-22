@@ -1,0 +1,139 @@
+﻿<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <form [formGroup]="userForm">
+        <mat-card>
+            <mat-card-content>
+                <div class="container">
+                    <div [fxFlex]="calc3cols" class="col3"></div>
+                    <div class="button-row">
+                        <button *ngIf="editMode" mat-raised-button color="warn" (click)="onDelete()" [disabled]="disableButtons">DELETE</button>
+                        <button mat-raised-button color="accent" (click)="onSave()" [disabled]="userForm.invalid || disableButtons">{{ editMode ? 'SAVE' : 'ADD' }}</button>
+                        <button mat-raised-button (click)="onExit()">EXIT</button>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-tab-group class="demo-tab-group matTabDecoration">
+            <mat-tab label="USER">
+                <mat-card>
+                    <mat-card-content class="md-padding">
+                        <div class="control-edit-container">
+                            <div layout-gt-sm="row">
+                                <div layout-gt-sm="column" flex="50">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Company" formControlName="companyId" [(ngModel)]="selectedCompanyCategory.companyId">
+                                            <mat-option *ngFor="let cat of companyCategory" [value]="cat.companyId">
+                                                {{ cat.name }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="userForm.hasError('required', 'companyName')">Please choose a company</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="50" class="inputBlock">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <mat-select placeholder="Role" name="category"
+                                                    formControlName="roles" [value] ="selectedRole">
+                                            <mat-option *ngFor="let cat of roleCategory"
+                                                        [value]="cat.name">
+                                                {{ cat.name }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="userForm.hasError('required', 'category')">Please choose a role</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+
+                            </div>
+                            <div layout-gt-sm="row">
+                                <div layout-gt-sm="column" flex="50">
+                                    <mat-form-field>
+                                        <input matInput placeholder="First Name" formControlName="firstName">
+                                        <mat-error *ngIf="userForm.hasError('required', 'firstname')">Firstname is required field</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="50" class="inputBlock">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Last Name" formControlName="lastName">
+                                        <mat-error *ngIf="userForm.hasError('required', 'lastName')">Lastname is required field</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+
+                            </div>
+                            <div layout-gt-sm="row">
+                                <div layout-gt-sm="column" flex="50">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Username" formControlName="username">
+                                        <mat-error *ngIf="userForm.hasError('required', 'username')">Username is required field</mat-error>
+                                        <mat-error *ngIf="userForm.hasError('minlength', 'username')">Username must be at least 4 characters long</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="50" class="inputBlock">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Email" formControlName="email">
+                                        <mat-error *ngIf="userForm.hasError('required', 'email')">Email is required field</mat-error>
+                                        <mat-error *ngIf="userForm.hasError('email', 'email') && !userForm.hasError('required', 'email')">Invalid format for Email</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <div layout-gt-sm="column" flex="50">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Title" formControlName="title">
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="50" class="inputBlock">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Department" formControlName="department">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <div layout-gt-sm="column" flex="50">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Phone" formControlName="phone">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div>
+                                <input type="file" hidden #fileInput placeholder="Upload file" value="file" (change)="onAddFile()" accept=".png,.gif,.jpg,.jpeg" />
+                                <button mat-raised-button (click)="openFileDialogBox()">UPLOAD IMAGE</button>
+                                <img *ngIf="filePreviewPath" [src]="filePreviewPath" class="imgSize-AdministrativeUser" />
+                            </div>
+                            <mat-form-field *ngIf="!editMode">
+                                <input matInput type="password" placeholder="Password" formControlName="password">
+                                <mat-error *ngIf="userForm.hasError('required', 'password')">Password is required field</mat-error>
+                            </mat-form-field>
+                            <mat-form-field *ngIf="!editMode">
+                                <input matInput type="password" placeholder="Repeat password" formControlName="passwordRepeat">
+                                <mat-error *ngIf="userForm.hasError('required', 'repeatPassword')">Repeat Password is required field</mat-error>
+                            </mat-form-field>
+                        </div>
+                        </mat-card-content>
+</mat-card>
+            </mat-tab>
+            <mat-tab *ngIf="editMode" label="CHANGE PASSWORD">
+                <mat-card>
+                    <mat-card-content>
+                        <div class="control-edit-container">
+                            <mat-form-field>
+                                <input matInput type="password" placeholder="New password" [(ngModel)]="newPassword" [ngModelOptions]="{standalone: true}">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput type="password" placeholder="Repeat password" [(ngModel)]="repeatPassword" [ngModelOptions]="{standalone: true}">
+                            </mat-form-field>
+                            <button mat-raised-button (click)="onChangePassword()">CHANGE PASSWORD</button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </form>
+</div>

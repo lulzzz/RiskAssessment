@@ -1,0 +1,5 @@
+--update s1 set s1.Parent=s2.Id
+--from
+--SoaChapter s1 
+--join SoaChapter s2 on substring( s1.Name, 1, len(s1.name)-2)=s2.Name
+--where s1.name like 'a.%'

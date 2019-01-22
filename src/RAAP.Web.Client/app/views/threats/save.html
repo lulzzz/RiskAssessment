@@ -1,0 +1,299 @@
+﻿
+<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h2>
+            <span><span ng-if="createMode">Create</span><span ng-if="!createMode">Edit</span> threat</span>
+        </h2>
+        <span flex></span>
+        <md-switch ng-model="vm.enabled" aria-label="Enabled" class="md-block">
+            Enabled
+        </md-switch>
+
+        <md-button class="md-raised md-warn" aria-label="Delete" ng-click="delete()" ng-show="!createMode && !runningInModalChild">
+            Delete
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="save(createMode)">
+            Save
+        </md-button>
+        <md-button class="md-raised" aria-label="Save & Exit" ng-click="save(true)" ng-show="!createMode">
+            Save & Exit
+        </md-button>
+        <md-button class="md-raised" aria-label="Exit" ng-click="exit()">
+            Exit
+        </md-button>
+
+    </div>
+</md-toolbar>
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+
+        <md-card>
+            <form class="form-group" role="form" id="editControlForm" name="editThreatForm">
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="threat">
+                        <md-content class="md-padding">
+
+   
+                            
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Name</label>
+                                        <input ng-model="vm.name" required placeholder="Name">
+                                    </md-input-container>
+                                </div>
+
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Category</label>
+                                        <md-select ng-model="vm.category">
+                                            <md-option ng-repeat="category in categories" ng-value="category">
+                                                {{category.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Description</label>
+                                    <textarea ng-model="vm.description" md-maxlength="1000" rows="4" md-select-on-focus></textarea>
+                                </md-input-container>
+                            </div>
+
+                            
+
+
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="30">
+
+                                    <p><strong>Type of threat:</strong></p>
+
+                                    <md-radio-group ng-model="vm.securitySafety">
+                                        <md-radio-button style="min-width: 120px;" value="1">Security</md-radio-button>
+                                        <md-radio-button style="min-width: 120px;" value="2">Safety </md-radio-button>
+                                    </md-radio-group>
+
+
+                                    <p><strong>Origin of threat:</strong></p>
+
+                                    <md-radio-group ng-model="vm.internalExternal">
+                                        <md-radio-button style="min-width: 120px;" value="1">Internal</md-radio-button>
+                                        <md-radio-button style="min-width: 120px;" value="2">External </md-radio-button>
+                                        <md-radio-button style="min-width: 120px;" value="3">Both</md-radio-button>
+                                    </md-radio-group>
+                                </div>
+
+                                <div flex="70" layout-gt-sm="column" flex-gt-sm>
+                                    <p><strong>Risk</strong>
+                                    </p>
+                                    <div layout-gt-sm="row" flex-gt-sm>
+                                        <md-switch style="min-width: 160px;" ng-model="vm.avoidRisk" aria-label="Avoid risk" class="md-block">
+                                            Avoid risk
+                                        </md-switch>
+
+                                        <md-switch style="min-width: 160px;" ng-model="vm.shareRisk" aria-label="Share risk" class="md-block">
+                                            Share risk
+                                        </md-switch>
+
+                                        <md-switch style="min-width: 160px;" ng-model="vm.reduceRisk" aria-label="Reduce risk" class="md-block">
+                                            Reduce risk
+                                        </md-switch>
+                                        <md-switch style="min-width: 160px;" ng-model="vm.acceptRisk" aria-label="Accept risk" class="md-block">
+                                            Accept risk
+                                        </md-switch>
+                                    </div>
+                              
+
+                                    <p><strong>Threat affects</strong></p>
+
+                                    <div  layout-gt-sm="row" flex-gt-sm>
+                                        <md-switch style="min-width: 160px;" ng-model="vm.confidenciality" aria-label="Confidenciality" class="md-block" ng-required="(!vm.confidenciality && !vm.integrity && !vm.availability && !vm.authenticity)">
+                                            Confidenciality
+                                        </md-switch>
+
+                                        <md-switch style="min-width: 160px;" ng-model="vm.integrity" aria-label="Integrity" class="md-block" ng-required="(!vm.confidenciality && !vm.integrity && !vm.availability && !vm.authenticity)">
+                                            Integrity
+                                        </md-switch>
+
+                                        <md-switch style="min-width: 160px;" ng-model="vm.availability" aria-label="Availability" class="md-block" ng-required="(!vm.confidenciality && !vm.integrity && !vm.availability && !vm.authenticity)">
+                                            Availability
+                                        </md-switch>
+
+                                        <md-switch style="min-width: 160px;" ng-model="vm.authenticity" aria-label="Authenticity" class="md-block" ng-required="(!vm.confidenciality && !vm.integrity && !vm.availability && !vm.authenticity)">
+                                            Authenticity
+                                        </md-switch>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </md-content>
+                    </md-tab>
+
+                  
+                    <md-tab label="risk assessment">
+                        <md-content class="md-padding">
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Risk assessment method:</label>
+
+                                    </md-input-container>
+                                </div>
+                                <div flex="50" layout-gt-sm="row" flex-gt-sm>
+
+
+                                    <md-radio-group ng-model="vm.riskAssessmentMethod">
+                                        <md-radio-button value="1">ISO 27005</md-radio-button>
+                                        <!--<md-radio-button value="2" ng-show="vm.securitySafety == 1">NE 5830 </md-radio-button>-->
+                                    </md-radio-group>
+                                </div>
+                            </div>
+
+                            <div risks-editor createmode="createMode" risks="vm.risks" riskassessmentmethod="vm.riskAssessmentMethod"></div>
+                           
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="controls">
+                        <md-content class="md-padding">
+
+
+                            <md-table-container>
+                                <table md-table>
+                                    <thead md-head>
+                                        <tr md-row>
+
+                                            <th md-column><span>Name</span></th>
+                                            <th md-column><span>Category</span></th>
+                                            <th md-column><span>Deadline</span></th>
+                                            <th md-column><span>Executed date</span></th>
+                                            <th md-column class="align-right"></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                        <tr md-row ng-repeat="item in vm.controls | orderBy:'name'">
+                                            <td md-cell>{{item.name}}</td>
+                                            <td md-cell>{{item.category.name}}</td>
+                                            <td md-cell>{{item.deadline | date:'yyyy-MM-dd'}}</td>
+                                            <td md-cell>{{item.executedDate | date:'yyyy-MM-dd'}}</td>
+
+                                            <td md-cell class="align-right">
+                                                <md-button class="md-mini md-accent" ng-click="editControl(item)">
+                                                    Edit
+                                                </md-button>
+                                                <md-button class="md-mini md-accent" ng-click="removeControl(item)">
+                                                    Remove
+                                                </md-button>
+                                            </td>
+
+                                        </tr>
+                                        <tr md-row ng-show="vm.controls.length <= 0">
+                                            <td md-cell colspan="5">
+                                                No controls added for this threat.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </md-table-container>
+
+
+                            <md-button class="md-raised" aria-label="Add control" ng-click="selectControls()">
+                                Add Control
+                            </md-button>
+
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="causes">
+                        <md-content class="md-padding">
+                         
+
+                            <md-table-container>
+                                <table md-table>
+                                    <thead md-head>
+                                        <tr md-row>
+
+                                            <th md-column><span>Name</span></th>
+                                            <th md-column><span>Description</span></th>
+                                            <th md-column><span>Category</span></th>
+                                            <th md-column><span>Created</span></th>
+                                            <th md-column class="align-right"></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                        <tr md-row ng-repeat="item in vm.causes | orderBy:'name'">
+                                            <td md-cell>{{item.name}}</td>
+                                            <td md-cell>{{item.description}}</td>
+                                            <td md-cell>{{item.attributeCategoryName}}</td>
+                                            <td md-cell>{{item.createdOn | date:'yyyy-MM-dd'}}</td>
+
+                                            <td md-cell class="align-right">
+                                                <md-button class="md-mini md-accent" ng-click="removeCause(item)">
+                                                    Remove
+                                                </md-button>
+                                            </td>
+
+                                        </tr>
+                                        <tr md-row ng-show="!vm.causes || vm.causes.length <= 0">
+                                            <td md-cell colspan="5">
+                                                No causes added for this threat.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </md-table-container>
+
+
+                            <md-button class="md-raised" aria-label="Add control" ng-click="selectCauses()">
+                                Add Cause
+                            </md-button>
+
+                        </md-content>
+                    </md-tab>
+
+                    <md-tab label="evaluation">
+                        <md-content class="md-padding">
+                            <div evaluation-editor editmode="true" evaluations="vm.evaluations" editform="editControlForm"></div>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </form>
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+
+
+
+
+
+
+
+

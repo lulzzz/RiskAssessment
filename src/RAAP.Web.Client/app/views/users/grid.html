@@ -1,0 +1,79 @@
+﻿
+<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h2>
+            <span>Users</span>
+        </h2>
+        <span flex></span>
+        <div style="padding-right:20px;"><company-selector company-id="vm.companyId"/></div>
+     
+        <md-autocomplete md-selected-item="vm.selectedItem"
+                         md-search-text="vm.searchText"
+                         md-selected-item-change="item != null ? edit(item.id) : console.log('no item!')"
+                         md-items="item in search(vm.searchText)"
+                         md-item-text="item.name"
+                         md-min-length="2"
+                         placeholder="Search here">
+            <md-item-template>
+                <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.name}}</span>
+            </md-item-template>
+            <md-not-found>
+                Nothing found!
+            </md-not-found>
+        </md-autocomplete>
+        <md-button class="md-raised" aria-label="Create" ng-click="create()">
+            Create
+        </md-button>
+    </div>
+</md-toolbar>
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+
+        <md-card>
+
+
+            <md-table-container>
+                <table md-table>
+                    <thead md-head md-order="vm.orderBy" md-on-reorder="gridReOrder">
+                    <tr md-row>
+                    
+                        <th md-column md-order-by="username"><span>Username</span></th>
+                        <th md-column md-order-by="firstName"><span>Firstname</span></th>
+                        <th md-column md-order-by="lastName"><span>Lastname</span></th>
+                        <th md-column md-order-by="title"><span>Title</span></th>
+                        <th md-column md-order-by="phone"><span>Phone</span></th>
+                        <th md-column md-order-by="email"><span>Email</span></th>
+                        <th md-column md-order-by="department"><span>Department</span></th>
+
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="item in vm.dataset.items">
+                            <td md-cell><a href ng-click="edit(item.userId)">{{item.username}}</a></td>
+                            <td md-cell>{{item.firstName}}</td>
+                            <td md-cell>{{item.lastName}}</td>
+                            <td md-cell>{{item.title}}</td>
+                            <td md-cell>{{item.phone}}</td>
+                            <td md-cell>{{item.email}}</td>
+                            <td md-cell>{{item.department}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <md-table-pagination md-limit="vm.pageSize" md-page="vm.page" md-total="{{vm.dataset.totalItems}}" md-on-paginate="gridPagination" md-options="[5, 10, 15, 20]"></md-table-pagination>
+            </md-table-container>
+
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+

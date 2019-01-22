@@ -1,0 +1,2 @@
+alter table Control add Detect bit not null default 0, Prevent bit not null default 0, React bit not null default 0, AlertDate datetime2;
+alter table AssetThreat_Control add Detect bit not null default 0, Prevent bit not null default 0, React bit not null default 0, AlertDate datetime2;

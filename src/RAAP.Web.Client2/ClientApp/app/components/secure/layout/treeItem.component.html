@@ -1,0 +1,41 @@
+﻿<div style="width:200px; margin:2px" class="">
+    <div *ngIf="isExpanded; else notExanded">
+        <a class="treeParent2" style="float:left; cursor:pointer; width:10px " (click)="onExpand(item)">-</a>
+    </div>
+    <ng-template #notExanded>
+        <a class="treeParent2" style="float:left; cursor:pointer; width:10px " (click)="onExpand(item)">+</a>
+    </ng-template>
+
+
+    <!--<div *ngIf="item.threatId > 0">
+        <a style="float:left; color:#0093a7; width:180px; cursor:pointer; margin-left:3px;"[routerLink]="['/asset/view/'+ assetId + '/' + item.threatId]"> {{item.name }}</a>
+    </div>-->
+
+    <div *ngIf="item.processId > 0; else notNotProces">
+        <a style="float:left; color:#0093a7; width:180px; cursor:pointer; margin-left:3px;" [routerLink]="['/process/view/'+ item.processId]"> {{item.name }}</a>
+    </div>
+    <ng-template #notNotProces>
+        <div *ngIf="item.assetId > 0; else notNotAsset">
+            <a style="float:left; color:#0093a7; width:180px; cursor:pointer;margin-left:3px;" [routerLink]="['/asset/view/'+ processId + '/' + item.assetId]"> {{item.name }}</a>
+        </div>
+        <ng-template #notNotAsset>
+            <a style="float:left; color:#0093a7; width:180px; cursor:pointer; margin-left:3px;" [routerLink]="['/threat/view/'+ assetId + '/' + item.threatId]"> {{item.name }}</a>
+        </ng-template>
+
+
+            
+           
+        </ng-template>
+        <!--<a style="float:left; color:red; width:180px; cursor:pointer;margin-left:5px;" [routerLink]="['/process/view/'+ item.processId + '/' + item.assetId ]"> {{item.name }}</a>-->
+        <br />
+</div>
+
+<div *ngIf="isExpanded">
+    <div style="margin-left:20px;" *ngFor="let asset of item.assets">
+        <tree-component [process]="item" [item]="asset"></tree-component>
+ 
+    </div>
+    <div style="margin-left:20px;" *ngFor="let threat of item.threats">
+        <tree-component [item]="threat"></tree-component>
+    </div>
+</div>

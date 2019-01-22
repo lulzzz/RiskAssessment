@@ -1,0 +1,167 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="JWT" Version="3.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\app\assets\**" />
+    <Compile Remove="ClientApp\src\**" />
+    <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\app\assets\**" />
+    <EmbeddedResource Remove="ClientApp\src\**" />
+    <None Remove="ClientApp\app\assets\**" />
+    <None Remove="ClientApp\src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\content\raap-logo-3.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\app\app.customrequestoptions.ts" />
+    <None Remove="ClientApp\app\components\public\alert\alert.component.ts" />
+    <None Remove="ClientApp\app\components\secure\confirm-dialog\add-asset-dialog\add-asset-dialog.component.ts" />
+    <None Remove="ClientApp\app\components\secure\dashboard\dashboardmain\dashboard-slider-filter.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\administrative\soa-chapters\first-chapter-level.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\administrative\soa-chapters\second-chapter-level.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\administrative\soa-chapters\third-chapter-level.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\asset\add-edit-asset.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\assetCategory\add-edit-assetCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\assetCategory\assetCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\causeCategory\add-edit-causeCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\causeCategory\causeCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\controlCategory\add-edit-controlCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\controlCategory\controlCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\criticalityCategory\add-edit-criticalityCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\criticalityCategory\criticalityCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\originofthreatCategory\add-edit-originofthreatCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\originofthreatCategory\originofthreatCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\riskCategory\add-edit-riskCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\riskCategory\riskCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\threatCategory\add-edit-threatCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\processCategory\add-edit-processCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\processCategory\processCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\categories\threatCategory\threatCategory.component.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\control\control-slider-filter.ts" />
+    <None Remove="ClientApp\app\components\secure\inventory\threat\add-edit-threat.component.ts" />
+    <None Remove="ClientApp\app\models\alert.model.ts" />
+    <None Remove="ClientApp\app\models\asset.model.ts" />
+    <None Remove="ClientApp\app\models\businessContinuityPlan.model.ts" />
+    <None Remove="ClientApp\app\models\common.model.ts" />
+    <None Remove="ClientApp\app\models\evaluation.model.ts" />
+    <None Remove="ClientApp\app\models\process.model.ts" />
+    <None Remove="ClientApp\app\models\risk.model.ts" />
+    <None Remove="ClientApp\app\services\alert.service.ts" />
+    <None Remove="ClientApp\app\services\asset.service.ts" />
+    <None Remove="ClientApp\app\services\categories.service.ts" />
+    <None Remove="ClientApp\app\services\help.service.ts" />
+    <None Remove="ClientApp\app\services\process.service.ts" />
+    <None Remove="ClientApp\app\services\threat.service.ts" />
+    <None Remove="ClientApp\app\shared\confirm-dialog.component.ts" />
+    <None Remove="ClientApp\app\shared\dialogs.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\app.customrequestoptions.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\public\alert\alert.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\confirm-dialog\add-asset-dialog\add-asset-dialog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\dashboard\dashboardmain\dashboard-slider-filter.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\administrative\soa-chapters\first-chapter-level\first-chapter-level.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\administrative\soa-chapters\second-chapter-level\second-chapter-level.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\administrative\soa-chapters\third-chapter-level\third-chapter-level.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\asset\add-edit-asset.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\assetCategory\add-edit-assetCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\assetCategory\assetCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\causeCategory\add-edit-causeCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\causeCategory\causeCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\controlCategory\add-edit-controlCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\controlCategory\controlCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\criticalityCategory\add-edit-criticalityCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\criticalityCategory\criticalityCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\riskCategory\add-edit-riskCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\riskCategory\riskCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\originofthreatCategory\add-edit-originofthreatCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\originofthreatCategory\originofthreatCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\threatCategory\add-edit-threatCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\threatCategory\threatCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\processCategory\add-edit-processCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\categories\processCategory\processCategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\control\control-slider-filter.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\inventory\threat\add-edit-threat.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\alert.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\businessContinuityPlan.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\process.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\asset.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\common.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\evaluation.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\risk.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\alert.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\categories.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\help.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\process.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\asset.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\threat.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\secure\confirm-dialog\confirm-dialog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\dialogs.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\content\raap-logo-3.png" />
+  </ItemGroup>
+
+  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+
+    <!-- In development, the dist files won't exist on the first run or when cloning to
+         a different machine, so rebuild them if not already present. -->
+    <Message Importance="high" Text="Performing first-run Webpack build..." />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec Command="npm install" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>

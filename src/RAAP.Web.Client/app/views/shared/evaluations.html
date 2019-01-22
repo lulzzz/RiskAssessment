@@ -1,0 +1,21 @@
+﻿<div class="evaluation-container">
+
+    <div ng-bind-html="currentEvaluation.text" class="evaluation-view"></div>
+
+    <div >
+        <md-button class="md-raised" aria-label="Edit" ng-click="edit()">
+            Edit evaluation
+        </md-button>
+        <md-input-container>
+            <label>Revision</label>
+            <md-select ng-model="currentEvaluation" >
+                <md-option ng-repeat="item in evaluations" ng-value="item"  >
+                    {{item.revision + ' : ' + (item.createdOn | date: 'short') + ' (' + item.user.username + ')'}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+
+    </div>
+
+</div>
+

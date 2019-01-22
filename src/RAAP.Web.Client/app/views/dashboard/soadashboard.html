@@ -1,0 +1,78 @@
+﻿
+<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h2>
+            <span>SOA</span>
+        </h2>
+        <span flex></span>
+
+    </div>
+</md-toolbar>
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+                <md-tabs md-selected="subSelectedIndex">
+                    <md-tab label="ISO27001" ng-if="vm.enableIso">
+                    </md-tab>
+                    <md-tab label="HelseSOA" ng-if="vm.enableHelse">
+                    </md-tab>
+                    <md-tab label="GDPR" ng-if="vm.enableGdpr">
+                    </md-tab>
+                </md-tabs>
+                <div ng-show="vm.enableIso && subSelectedIndex==0">
+                    <div id="isoPie"></div>
+                </div>
+
+                <div ng-show="(vm.enableIso && vm.enableHelse && subSelectedIndex==1) || (!vm.enableIso && vm.enableHelse && subSelectedIndex==0)">
+                    <div id="helsePie"></div>
+                </div>
+
+                <div ng-show="(vm.enableGdpr && vm.enableIso && vm.enableHelse && subSelectedIndex==2) || (vm.enableGdpr && !vm.enableIso && vm.enableHelse && subSelectedIndex==1) || (vm.enableGdpr && vm.enableIso && !vm.enableHelse && subSelectedIndex==1) || (vm.enableGdpr && !vm.enableIso && !vm.enableHelse && subSelectedIndex==0)">
+                    <div id="gdprPie"></div>
+                </div>
+
+        <md-table-container>
+            <table md-table>
+                <thead md-head>
+                    <tr md-row>
+                        <th md-column flex="10">Assets {{vm.showAssetListLabel}}</th>
+                        <th md-colum flex="80" class="align-right"></th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row ng-repeat="item in vm.showAssetList">
+                        <td md-cell flex="10">
+                            <a href="#" ng-model="item.collapsed" ng-click="toggleCollapseAssetStatistics(item)">+ {{item.name}}</a> (<a href="{{ 'app/asset/edit/' + item.id}}">Edit</a>)
+
+                            <div ng-show="item.collapsed && item.statistics.deadlinePassed.length>0">Deadline passed:</div>
+                            <ul>
+                            <li ng-show="item.collapsed" ng-repeat="subItem in item.statistics.deadlinePassed"> {{subItem.name}}</li>
+                            </ul>
+                            <br/>
+                            <div ng-show="item.collapsed && item.statistics.notImplemented.length>0">Not implemented:</div>
+                            <ul>
+                                <li ng-show="item.collapsed" ng-repeat="subItem in item.statistics.notImplemented"> {{subItem.name}}</li>
+                            </ul>
+                            <br />
+                            <div ng-show="item.collapsed && item.statistics.inProgress.length>0">In progress:</div>
+                            <ul>
+                                <li ng-show="item.collapsed" ng-repeat="subItem in item.statistics.inProgress"> {{subItem.name}}</li>
+                            </ul>
+                            <br />
+                        </td>
+                        <td md-cell flex="80" class="align-right"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+
+
+        <div style="height:70px;width:100%;"></div>
+    </div>
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>

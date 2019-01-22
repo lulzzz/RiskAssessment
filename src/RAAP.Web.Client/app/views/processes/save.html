@@ -1,0 +1,143 @@
+﻿<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h2>
+            <span><span ng-if="createMode">Create</span><span ng-if="!createMode">Edit</span> business process</span>
+        </h2>
+        <span flex></span>
+        <md-switch ng-model="vm.enabled" aria-label="Enabled" class="md-block">
+            Enabled
+        </md-switch>
+
+        <md-button class="md-raised md-warn" aria-label="Delete" ng-click="delete()" ng-show="!createMode">
+            Delete
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="save(createMode)">
+            Save
+        </md-button>
+        <md-button class="md-raised" aria-label="Save & Exit" ng-click="save(true)" ng-show="!createMode">
+            Save & Exit
+        </md-button>
+        <md-button class="md-raised" aria-label="Exit" ng-click="exit()">
+            Exit
+        </md-button>
+
+    </div>
+</md-toolbar>
+
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+     
+        <md-card>
+            <form class="form-group" role="form" id="editProcessForm" name="editProcessForm">
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="business process">
+                        <md-content class="md-padding">
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Name</label>
+                                    <input ng-model="vm.name" required placeholder="Name">
+                                </md-input-container>
+
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Business process category</label>
+                                    <md-select ng-model="vm.category">
+                                        <md-option ng-repeat="category in categories" ng-value="category">
+                                            {{category.name}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                              
+
+                            </div>
+
+                            <div layout-gt-sm="row">
+
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Responsible person</label>
+                                    <responsible-user-selector responsible-user-id="vm.responsibleUserId"/>
+                                </md-input-container>
+                               
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Description</label>
+                                    <textarea ng-model="vm.description" md-maxlength="1000" rows="5" md-select-on-focus></textarea>
+                                </md-input-container>
+                             
+                            </div>
+
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="assets">
+                        <md-content class="md-padding">
+
+                                    <md-table-container>
+                                        <table md-table>
+                                            <thead md-head>
+                                            <tr md-row>
+
+                                                <th md-column><span>Name</span></th>
+                                                <th md-column><span>Category</span></th>
+                                                <th md-column><span>Sub-category</span></th>
+                                                <th md-column class="align-right"></th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody md-body>
+                                            <tr md-row ng-repeat="item in vm.assets | orderBy:'name'">
+                                                <td md-cell>{{item.name}}</td>
+                                                <td md-cell>{{item.category | assetCategory}}</td>
+                                                <td md-cell>{{item.subCategory.name}}</td>
+
+                                                <td md-cell class="align-right">
+                                                    <md-button class="md-mini md-accent" ng-click="removeAsset(item)">
+                                                        Remove
+                                                    </md-button>
+                                                </td>
+
+                                            </tr>
+                                                <tr  md-row ng-show="vm.assets.length <= 0">
+                                                    <td md-cell colspan="4">
+                                                        No assets added for this business process.
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </md-table-container>
+
+                             
+                                    <md-button class="md-raised" aria-label="Add asset" ng-click="selectAssets()">
+                                        Add Asset
+                                    </md-button>
+
+                         
+
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="evaluation">
+                        <md-content class="md-padding">
+                            <div evaluation-editor editmode="true" evaluations="vm.evaluations" editform="editProcessForm"></div>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </form>
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+

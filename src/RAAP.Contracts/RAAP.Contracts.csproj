@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{151CF9B5-7ACE-492B-9E3E-87330340E9A0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RAAP.Contracts</RootNamespace>
+    <AssemblyName>RAAP.Contracts</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssetSubCategory\AssetSubCategory.cs" />
+    <Compile Include="AssetSubCategory\CreateAssetSubCategory.cs" />
+    <Compile Include="AssetSubCategory\UpdateAssetSubCategory.cs" />
+    <Compile Include="Asset\Asset.cs" />
+    <Compile Include="Asset\AssetCategory.cs" />
+    <Compile Include="Asset\AssetSoa.cs" />
+    <Compile Include="Asset\AssetSoaList.cs" />
+    <Compile Include="Asset\CreateAsset.cs" />
+    <Compile Include="Asset\RecoveryCalculateType.cs" />
+    <Compile Include="Asset\ReverseAsset.cs" />
+    <Compile Include="Asset\TimeCost.cs" />
+    <Compile Include="Asset\UpdateAsset.cs" />
+    <Compile Include="AttributeCategory\AttributeCategory.cs" />
+    <Compile Include="AttributeCategory\UpdateAttributeCategory.cs" />
+    <Compile Include="AttributeCategory\CreateAttributeCategory.cs" />
+    <Compile Include="Attribute\Attribute.cs" />
+    <Compile Include="Attribute\UpdateAttribute.cs" />
+    <Compile Include="Attribute\CreateAttribute.cs" />
+    <Compile Include="BusinessContinuityPlan\BusinessContinuityPlan.cs" />
+    <Compile Include="Common\PagedQuery.cs" />
+    <Compile Include="Common\PagedResult.cs" />
+    <Compile Include="Common\PagedResultItems.cs" />
+    <Compile Include="Common\SimpleSearchResult.cs" />
+    <Compile Include="Company\Company.cs" />
+    <Compile Include="Company\UpdateCompany.cs" />
+    <Compile Include="Company\CreateCompany.cs" />
+    <Compile Include="Attribute\Enums.cs" />
+    <Compile Include="Dashboard\DashboardReport.cs" />
+    <Compile Include="Evaluation\Evaluation.cs" />
+    <Compile Include="Help\UpdateHelpEntry.cs" />
+    <Compile Include="Help\HelpEntry.cs" />
+    <Compile Include="Help\CreateHelpEntry.cs" />
+    <Compile Include="Incident\Incident.cs" />
+    <Compile Include="Incident\IncidentStatus.cs" />
+    <Compile Include="Incident\IncidentType.cs" />
+    <Compile Include="Incident\CreateIncident.cs" />
+    <Compile Include="Incident\UpdateIncident.cs" />
+    <Compile Include="Control\ControlStatus.cs" />
+    <Compile Include="Control\ControlType.cs" />
+    <Compile Include="Control\CreateControl.cs" />
+    <Compile Include="Control\Control.cs" />
+    <Compile Include="Control\UpdateControl.cs" />
+    <Compile Include="ControlCategory\CreateControlCategory.cs" />
+    <Compile Include="ControlCategory\ControlCategory.cs" />
+    <Compile Include="ControlCategory\UpdateControlCategory.cs" />
+    <Compile Include="CriticalityCategory\CreateCriticalityCategory.cs" />
+    <Compile Include="CriticalityCategory\CriticalityCategory.cs" />
+    <Compile Include="CriticalityCategory\UpdateCriticalityCategory.cs" />
+    <Compile Include="Language\Language.cs" />
+    <Compile Include="ProcessCategory\ProcessCategory.cs" />
+    <Compile Include="ProcessCategory\CreateProcessCategory.cs" />
+    <Compile Include="ProcessCategory\UpdateProcessCategory.cs" />
+    <Compile Include="Process\Process.cs" />
+    <Compile Include="Process\CreateProcess.cs" />
+    <Compile Include="Process\UpdateProcess.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Risk\Risk.cs" />
+    <Compile Include="Risk\RiskReduce.cs" />
+    <Compile Include="Risk\RiskType.cs" />
+    <Compile Include="Soa\Chapter.cs" />
+    <Compile Include="Soa\Soa.cs" />
+    <Compile Include="Soa\SoaFile.cs" />
+    <Compile Include="Soa\SoaLink.cs" />
+    <Compile Include="Soa\SoaStatistics.cs" />
+    <Compile Include="Soa\SoaType.cs" />
+    <Compile Include="ThreatCategory\CreateThreatCategory.cs" />
+    <Compile Include="ThreatCategory\ThreatCategory.cs" />
+    <Compile Include="ThreatCategory\UpdateThreatCategory.cs" />
+    <Compile Include="Threat\CreateThreat.cs" />
+    <Compile Include="Threat\Threat.cs" />
+    <Compile Include="Threat\UpdateThreat.cs" />
+    <Compile Include="User\ProfileImage.cs" />
+    <Compile Include="User\SetPassword.cs" />
+    <Compile Include="User\CommonUser.cs" />
+    <Compile Include="User\ChangePassword.cs" />
+    <Compile Include="User\UpdateUser.cs" />
+    <Compile Include="User\CreateUser.cs" />
+    <Compile Include="User\User.cs" />
+    <Compile Include="Vulnerability\CreateVulnerabilityCatalog.cs" />
+    <Compile Include="Vulnerability\CreateVulnerability.cs" />
+    <Compile Include="Vulnerability\UpdateVulnerabilityCatalog.cs" />
+    <Compile Include="Vulnerability\UpdateVulnerability.cs" />
+    <Compile Include="Vulnerability\VulnerabilityCatalog.cs" />
+    <Compile Include="Vulnerability\Vulnerability.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

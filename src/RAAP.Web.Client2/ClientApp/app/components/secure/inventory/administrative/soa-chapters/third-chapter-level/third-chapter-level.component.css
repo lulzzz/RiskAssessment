@@ -1,0 +1,43 @@
+﻿:host {
+    flex: 1 1 auto;
+}
+
+.title-width {
+    width: 200px;
+}
+
+.second-div-control {
+    margin-left: 20px;
+}
+
+.title-panel-chapter {
+    width: 100px;
+}
+
+.title-panel-description {
+    width: 300px;
+}
+
+.delete-chapter {
+    cursor: pointer;
+    font-weight: 500;
+    color: red;
+}
+
+.add-chapter {
+    cursor: pointer;
+    font-weight: 500;
+    color: blue;
+}
+
+.top-padding {
+    padding-top: 20px;
+}
+
+.reason-padding-top {
+    padding-top: 15px;
+}
+
+.reason-controls-left {
+    padding-left: 50px;
+}

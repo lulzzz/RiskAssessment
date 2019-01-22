@@ -1,0 +1,45 @@
+﻿<div class="raap-loader" dw-loading="key" dw-loading-options="{text: 'Please wait ...', overlay:true, spinner:true, spinnerOptions : { color: '#fff',radius:20, length: 14, width: 8 }}"></div>
+
+
+
+<md-content layout="row">
+   
+    <span flex></span>
+    <md-whiteframe layout="column" flex="33" class="md-whiteframe-2dp" style="margin-top: 50px; margin-bottom: 50px;">
+        <md-toolbar>
+            <div><img src="content/img/raap-logo-3.png" alt="Image" style="padding-top: 10px;" /></div>
+        </md-toolbar>
+
+
+        <div layout="column">
+            <md-content class="md-padding">
+                <div>Enter your username and password below.</div>
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+            </md-content>
+           
+        </div>
+        <form layout="column" class="md-padding" ng-submit="login()">
+            <md-input-container class="md-icon-float md-block">
+                <label>Username</label>
+                <md-icon icon="logout" class="name"><ng-md-icon icon="person"></ng-md-icon></md-icon>
+                <input type="text" ng-model="vm.userName" placeholder="Username" aria-label="Username"/>
+            </md-input-container>
+            <md-input-container class="md-icon-float md-block">
+                <label>Password</label>
+                <md-icon icon="logout" class="name"><ng-md-icon icon="mode_edit"></ng-md-icon></md-icon>
+                <input type="password" ng-model="vm.password" placeholder="Password" aria-label="Password"/>
+            </md-input-container>
+            <md-button class="md-raised md-primary" type="submit" aria-label="login">
+                Sign In
+            </md-button>
+
+            <p style="text-align: center">
+                Lost password? <a aria-label="login" ng-href="/WebClient/lostpassword" href="/WebClient/lostpassword" >Click here to recover your password</a>
+            </p>
+          
+        </form>
+        <span flex></span>
+    </md-whiteframe>
+    <span flex></span>
+</md-content>
+

@@ -1,0 +1,51 @@
+﻿.default-timeframe {
+    background-color: #E0E0E0;
+}
+
+.selected-timeframe {
+    background-color: #5EC9FF;
+}
+
+.removeOrigintbtn {
+    float: right;
+    color: rgb(255,64,129);
+}
+
+    .removeOrigintbtn:hover {
+        cursor: pointer;
+        border-color: gray;
+    }
+
+.matDialogBox {
+    box-shadow: none !important;
+}
+
+.timeframePadding{
+    padding-left:0;
+}
+
+.originBtnMargin{
+    margin-left:20px;
+}
+
+.cardTitle{
+    padding-left:0px;
+    font-size:19px;
+}
+
+.matTabDecoration {
+    background-color: white;
+    margin: 8px;
+}
+
+.matCardDecoration {
+    display: initial !important;
+}
+
+.matGridDecoration {
+   margin-bottom:6px;
+}
+
+.matGridTile {
+ cursor: pointer;
+}

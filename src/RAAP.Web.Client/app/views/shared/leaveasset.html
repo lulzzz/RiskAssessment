@@ -1,0 +1,31 @@
+﻿<md-dialog aria-label="You are leaving this asset" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h3 class="modal-title">
+                    You are leaving this asset
+                </h3>
+
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <p>Do you want to leave this asset?</p>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button class="md-primary" ng-click="ok();">Ok</md-button>
+            <md-button class="md-warn" ng-click="cancel();">Cancel</md-button>
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+
+
+

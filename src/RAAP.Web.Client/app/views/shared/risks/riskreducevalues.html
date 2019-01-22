@@ -1,0 +1,18 @@
+﻿
+
+<!-- ISO 27005 -->
+
+<div layout-gt-sm="row" class="rating-container">
+    <span>Probability </span>
+    <md-slider flex ng-model="risk.isoProbability" step="1" min="1" max="100" aria-label="rating" ng-class="{'success-slider': risk.isoProbability <= 0}"></md-slider>
+    <span ng-bind-html="risk.isoProbability | reduceCategory"></span>
+</div>
+
+<div layout-gt-sm="row" class="rating-container">
+    <span>Impact </span>
+    <md-slider flex ng-model="risk.isoImpact" step="1" min="1" max="100" aria-label="rating" ng-class="{'success-slider': risk.isoImpact <= 0 }"></md-slider>
+    <span ng-bind-html="risk.isoImpact | reduceCategory"></span>
+</div>
+
+
+

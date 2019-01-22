@@ -1,0 +1,1 @@
+alter table Asset add  Authenticity int not null default 1;

@@ -1,0 +1,2 @@
+
+alter table Asset_Threat add Value int null default 3, Vulnerability int null default 3, Threat int null default 3, RiskAssessmentMethod int not null default 1, AcceptRisk bit not null default 0, Confidenciality bit not null default 0, Integrity bit not null default 0, Availability bit not null default 0, TransferRisk bit not null default 0;

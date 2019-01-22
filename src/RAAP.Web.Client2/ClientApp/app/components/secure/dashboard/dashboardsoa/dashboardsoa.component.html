@@ -1,0 +1,91 @@
+<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <mat-card>
+        <mat-tab-group class="demo-tab-group" style="background-color:white; margin:8px" (selectedTabChange)="onTabChanged($event)">
+            <mat-tab label="ISO27001">
+                <mat-card-content class="pieCard" flex id="main-view">
+                    <div>
+                        <canvas baseChart
+                                [data]="isoPie.pieChartData"
+                                [labels]="isoPie.pieChartLabels"
+                                [chartType]="pieChartType"
+                                [colors]="isoPie.pieChartColors"
+                                [legend]="pieChartLegend"
+                                [options]="pieChartOptions"
+                                (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                </mat-card-content>
+            </mat-tab>
+
+            <mat-tab label="HelseSOA">
+                <mat-card-content class="pieCard" flex id="main-view">
+                    <div>
+                        <canvas baseChart
+                                [data]="helsePie.pieChartData"
+                                [labels]="helsePie.pieChartLabels"
+                                [chartType]="pieChartType"
+                                [colors]="helsePie.pieChartColors"
+                                [legend]="pieChartLegend"
+                                [options]="pieChartOptions"
+                                (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                </mat-card-content>
+            </mat-tab>
+
+            <mat-tab label="GDPR">
+                <mat-card-content class="pieCard" flex id="main-view">
+                    <div>
+                        <canvas baseChart
+                                [data]="gdprPie.pieChartData"
+                                [labels]="gdprPie.pieChartLabels"
+                                [chartType]="pieChartType"
+                                [colors]="gdprPie.pieChartColors"
+                                [legend]="pieChartLegend"
+                                [options]="pieChartOptions"
+                                (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                </mat-card-content>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card>
+    <mat-card *ngIf = "((enableIso && subSelectedIndex == 0) || (enableHelse && subSelectedIndex == 1) || (enableGdpr && subSelectedIndex == 2))">
+        <mat-card-title>Assets {{ showAssetListLabel }}</mat-card-title>
+        <mat-card-content>
+            <mat-accordion [multi]="true">
+                <mat-expansion-panel *ngFor="let item of showAssetList" [disabled]="!item.statistics || (!item.statistics.notImplemented.length && !item.statistics.inProgress.length && !item.statistics.deadlinePassed.length )">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="panelTitle">
+                            {{ item.name }}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <a mat-button mat-accent color="accent" [routerLink]="['/asset/edit/', item.id]">Edit</a>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div *ngIf="item.statistics && item.statistics.deadlinePassed">
+                        <div [hidden]="!item.statistics.deadlinePassed.length > 0">Deadline passed:</div>
+                        <ul>
+                            <li *ngFor="let subItem of item.statistics.deadlinePassed"> {{ subItem ? subItem.name : ''}}</li>
+                        </ul>
+                    </div>
+                    <br />
+                    <div *ngIf="item.statistics && item.statistics.notImplemented">
+                        <div [hidden]="!item.statistics.notImplemented.length>0">Not implemented:</div>
+                        <ul>
+                            <li *ngFor="let subItem of item.statistics.notImplemented"> {{subItem ? subItem.name : ''}}</li>
+                        </ul>
+                    </div>
+                    <br />
+                    <div *ngIf="item.statistics && item.statistics.inProgress">
+                        <div [hidden]="!item.statistics.inProgress.length>0">In progress:</div>
+                        <ul>
+                            <li *ngFor="let subItem of item.statistics.inProgress"> {{subItem ? subItem.name : ''}}</li>
+                        </ul>
+                        <br />
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-card-content>
+    </mat-card>
+</div>

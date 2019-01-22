@@ -1,0 +1,24 @@
+﻿
+<div class="evaluation-container">
+
+    <div ng-bind-html="currentBusinessContinuityPlan.text" class="evaluation-view" style="background-color: #EDF1F2;"></div>
+
+    <div>
+        <md-button class="md-raised" aria-label="Edit" ng-click="edit()">
+            Edit plan
+        </md-button>
+        <md-input-container>
+            <label>Revision</label>
+            <md-select ng-model="currentBusinessContinuityPlan">
+                <md-option ng-repeat="item in businessContinuityPlans" ng-value="item">
+                    {{item.revision + ' : ' + (item.createdOn | date: 'short')}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+
+    </div>
+
+</div>
+
+
+

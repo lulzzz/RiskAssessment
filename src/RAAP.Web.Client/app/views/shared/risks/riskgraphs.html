@@ -1,0 +1,13 @@
+﻿
+<p ng-show="!risks || risks.length <= 0">No risks found for this item</p>
+
+<md-tabs ng-repeat="risk in risks" md-dynamic-height md-border-bottom >
+    <md-tab label="{{risk.name}}">
+
+        <div layout="row" style="padding-top: 15px;">
+            <div flex="50" risk-graph showcalculated="true" risk="risk" ng-attr-titlerisk="'Registered'"></div>
+            <div ng-if="hasRegistered" risk-graph showcalculated="false"  flex="50" risk="risk" ng-attr-titlerisk="'Calculated'"></div>
+        </div>
+ 
+    </md-tab>
+</md-tabs>

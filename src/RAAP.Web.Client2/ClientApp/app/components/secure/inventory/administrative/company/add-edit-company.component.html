@@ -1,0 +1,98 @@
+﻿<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <form [formGroup]="companyForm">
+        <mat-card>
+            <mat-card-content>
+                <div class="container">
+                    <div [fxFlex]="calc3cols" class="col3"></div>
+                    <div class="button-row">
+                        <button *ngIf="editMode" mat-raised-button color="warn" (click)="onDelete()" [disabled]="disableButtons">DELETE</button>
+                        <button mat-raised-button color="accent" (click)="onSave()" [disabled]="companyForm.invalid || disableButtons">{{ editMode ? 'SAVE' : 'ADD' }}</button>
+                        <button mat-raised-button (click)="onExit()">EXIT</button>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-content>
+                <div layout="column" flex="noshrink">
+                    <mat-card class="matDialogBox">
+                        <mat-card-content class="md-padding">
+                            <div layout-gt-sm="row">
+                                <div layout-gt-sm="column" flex="33">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <input matInput placeholder="Name" formControlName="name">
+                                        <mat-error *ngIf="companyForm.hasError('required', 'name')">Name is required field</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="33" class="inputBlock">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <input matInput placeholder="Organization Number" formControlName="organizationNumber">
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="33" class="inputBlock">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <input matInput placeholder="Email" formControlName="email">
+                                        <mat-error *ngIf="companyForm.hasError('required', 'email')">Email is required field</mat-error>
+                                        <mat-error *ngIf="companyForm.hasError('email', 'email') && !companyForm.hasError('required', 'email')">Invalid format for Email</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <div layout-gt-sm="column" flex="33" class="">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <input matInput placeholder="Address1" formControlName="address1">
+                                        <mat-error *ngIf="companyForm.hasError('required', 'address1')">Address1 is required field</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="33" class="inputBlock">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <input matInput placeholder="Address2" formControlName="address2">
+                                        <mat-error *ngIf="companyForm.hasError('required', 'address2')">Address2 is required field</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="33" class="inputBlock">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <input matInput placeholder="Address3" formControlName="address3">
+                                        <mat-error *ngIf="companyForm.hasError('required', 'address3')">Address3 is required field</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <div layout-gt-sm="column" flex="33">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <input matInput placeholder="Address4" formControlName="address4">
+                                        <mat-error *ngIf="companyForm.hasError('required', 'address4')">Address4 is required field</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="33" class="inputBlock">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <input matInput placeholder="Phone" formControlName="phone">
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="33" class="inputBlock">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <input matInput placeholder="Homepage" formControlName="homepage">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <input type="file" hidden #fileInput placeholder="Upload file" value="file" (change)="onAddFile()" accept=".png,.gif,.jpg,.jpeg" />
+                                <button mat-raised-button (click)="openFileDialogBox()">UPLOAD IMAGE</button>
+                            </div>
+                            <img *ngIf="filePreviewPath" [src]="filePreviewPath" class="imageSize-AdministrativeCompany companyImgDecoration" />
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </form>
+</div>

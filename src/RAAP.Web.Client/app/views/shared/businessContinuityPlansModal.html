@@ -1,0 +1,32 @@
+﻿
+<md-dialog aria-label="Business continuity plan" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h3 class="modal-title">
+                    Edit business continuity plan
+                </h3>
+
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <text-angular ng-model="currentBusinessContinuityPlan.text" ta-toolbar="[['h1', 'h2', 'h3','p', 'pre', 'quote'],['bold', 'italics', 'underline', 'ul', 'ol'], ['justifyLeft','justifyCenter','justifyRight']]"></text-angular>
+
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button class="md-primary" ng-click="addBusinessContinuityPlan();ok();">Save</md-button>
+            <md-button class="md-warn" ng-click="cancel();">Cancel</md-button>
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+
+

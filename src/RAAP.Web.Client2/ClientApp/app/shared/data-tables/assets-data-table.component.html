@@ -1,0 +1,47 @@
+﻿<mat-table #table [dataSource]="dataSource" *ngIf="data.length">
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="active">
+        <mat-header-cell *matHeaderCellDef> Active </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.active}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.subCategory.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="recoveryTime">
+        <mat-header-cell *matHeaderCellDef> Recovery time </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.recoveryCalculateType}} </mat-cell>
+    </ng-container>
+
+    <ng-container *ngFor="let col of riskColumnDefs" matColumnDef="{{ col.name }}">
+        <mat-header-cell *matHeaderCellDef>{{ col.header }}</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <div class="flex-row" [innerHtml]="col.cell(element)"></div>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions" *ngIf="showActions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <div class="text-right">
+                <a color="accent" (click)="edit(row)" *ngIf="showEdit">EDIT</a>
+                <a color="accent" (click)="remove(row)" *ngIf="showRemove">REMOVE</a>
+            </div>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row class="no-bottom-border" *matHeaderRowDef="displayColumns"></mat-header-row>
+    <mat-row class="no-bottom-border" *matRowDef="let row; columns: displayColumns;"></mat-row>
+</mat-table>

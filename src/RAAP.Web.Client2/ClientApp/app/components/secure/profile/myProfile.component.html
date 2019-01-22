@@ -1,0 +1,64 @@
+﻿<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <form [formGroup]="profileForm">
+        <mat-tab-group class="demo-tab-group matTabDecoration">
+            <mat-tab label="PERSONAL DETAILS">
+                <mat-card>
+                    <mat-card-content class="md-padding">
+                        <div class="control-edit-container">
+                            <div layout-gt-sm="row">
+                                <div layout-gt-sm="column" flex="50">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Firstname" formControlName="firstName" [readonly]="true">
+                                        <mat-error *ngIf="profileForm.hasError('required', 'firstname')">Firstname is required field</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="50" class="secondDivProfile">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Lastname" formControlName="lastName" [readonly]="true">
+                                        <mat-error *ngIf="profileForm.hasError('required', 'lastName')">Lastname is required field</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <div layout-gt-sm="column" flex="50">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Username" formControlName="username" [readonly]="true">
+                                        <mat-error *ngIf="profileForm.hasError('required', 'username')">Username is required field</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="50" class="secondDivProfile">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Email" formControlName="email" [readonly]="true">
+                                        <mat-error *ngIf="profileForm.hasError('required', 'email')">Email is required field</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="PASSWORD">
+                <mat-card>
+                    <mat-card-content>
+                        <div class="control-edit-container">
+                            <mat-form-field>
+                                <input matInput type="password" placeholder="Old password" [(ngModel)]="oldPassword" [ngModelOptions]="{standalone: true}">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput type="password" placeholder="New password" [(ngModel)]="newPassword" [ngModelOptions]="{standalone: true}">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput type="password" placeholder="Repeat password" [(ngModel)]="repeatPassword" [ngModelOptions]="{standalone: true}">
+                            </mat-form-field>
+                            <button mat-raised-button (click)="onChangePassword()">CHANGE PASSWORD</button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </form>
+</div>
+

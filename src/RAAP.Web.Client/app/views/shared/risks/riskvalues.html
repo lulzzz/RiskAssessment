@@ -1,0 +1,57 @@
+﻿
+
+<!-- ISO 27005 -->
+
+<div ng-show="riskassessmentmethod == 1">
+
+    <div layout-gt-sm="row" class="rating-container">
+        <span>Probability </span>
+        <md-slider flex ng-model="risk.isoProbability" step="1" min="1" max="5" aria-label="rating" ng-class="{'success-slider': risk.isoProbability <= 2,'yellow-slider': risk.isoProbability == 3,'danger-slider': risk.isoProbability > 3 }"></md-slider>
+        <span ng-bind-html="risk.isoProbability | criticalityCategory"></span>
+    </div>
+
+
+
+</div>
+
+<div ng-show="riskassessmentmethod == 1">
+    <div layout-gt-sm="row" class="rating-container">
+        <span>Impact </span>
+        <md-slider flex ng-model="risk.isoImpact" step="1" min="1" max="5" aria-label="rating" ng-class="{'success-slider': risk.isoImpact <= 2,'yellow-slider': risk.isoImpact == 3,'danger-slider': risk.isoImpact > 3 }"></md-slider>
+        <span ng-bind-html="risk.isoImpact | criticalityCategory"></span>
+    </div>
+</div>
+
+<!-- NS 5830 -->
+
+<div ng-show="riskassessmentmethod == 2">
+
+    <div layout-gt-sm="row" class="rating-container">
+        <span>Value </span>
+        <md-slider flex ng-model="risk.nsValue" step="1" min="1" max="5" aria-label="rating" ng-class="{'success-slider': risk.nsValue <= 2,'yellow-slider': risk.nsValue == 3,'danger-slider': risk.nsValue > 3 }"></md-slider>
+        <span ng-bind-html="risk.nsValue | criticalityCategory"></span>
+    </div>
+
+</div>
+
+<div ng-show="riskassessmentmethod == 2">
+
+    <div layout-gt-sm="row" class="rating-container">
+        <span>Vulnerability </span>
+        <md-slider flex ng-model="risk.nsVulnerability" step="1" min="1" max="5" aria-label="rating" ng-class="{'success-slider': risk.nsVulnerability <= 2,'yellow-slider': risk.nsVulnerability == 3,'danger-slider': risk.nsVulnerability > 3 }"></md-slider>
+        <span ng-bind-html="risk.nsVulnerability | criticalityCategory"></span>
+    </div>
+
+</div>
+
+<div ng-show="riskassessmentmethod == 2">
+
+    <div layout-gt-sm="row" class="rating-container">
+        <span>Threat </span>
+        <md-slider flex ng-model="risk.nsThreat" step="1" min="1" max="5" aria-label="rating" ng-class="{'success-slider': risk.nsThreat <= 2,'yellow-slider': risk.nsThreat == 3,'danger-slider': risk.nsThreat > 3 }"></md-slider>
+        <span ng-bind-html="risk.nsThreat | criticalityCategory"></span>
+    </div>
+
+</div>
+
+

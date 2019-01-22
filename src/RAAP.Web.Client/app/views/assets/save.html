@@ -1,0 +1,558 @@
+﻿<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h2>
+            <span ng-if="createMode">Create asset</span><span ng-if="!createMode">Edit {{vm.name}}</span>
+        </h2>
+        <span flex></span>
+        <md-switch ng-model="vm.enabled" aria-label="Enabled" class="md-block">
+            Enabled
+        </md-switch>
+
+        <md-button class="md-raised md-warn" aria-label="Delete" ng-click="delete()" ng-show="!createMode">
+            Delete
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="save(createMode)">
+            Save
+        </md-button>
+        <md-button class="md-raised" aria-label="Save & Exit" ng-click="save(true)" ng-show="!createMode">
+            Save & Exit
+        </md-button>
+        <md-button class="md-raised" aria-label="Exit" ng-click="exit()">
+            Exit
+        </md-button>
+
+    </div>
+</md-toolbar>
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+        <md-card >
+            <form class="form-group" role="form" id="editAssetForm" name="editAssetForm" >
+                <md-tabs md-dynamic-height >
+                <md-tab label="asset" >
+                    <md-content class="md-padding" >
+
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Name</label>
+                                <input ng-model="vm.name" required placeholder="Name">
+                            </md-input-container>
+
+                        </div>
+
+
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Asset type</label>
+                                <md-select ng-model="vm.category">
+                                    <md-option ng-repeat="category in categories" ng-value="category.id">
+                                        {{category.name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+
+                        </div>
+
+                        <div layout-gt-sm="row">
+
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Asset category</label>
+                                <md-select ng-model="vm.subCategory">
+                                    <md-option ng-repeat="category in subCategories" ng-value="category">
+                                        {{category.name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+                        </div>
+
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Description</label>
+                                <textarea ng-model="vm.description" md-maxlength="1000" rows="5" md-select-on-focus></textarea>
+                            </md-input-container>
+
+                        </div>
+
+                        <div layout-gt-sm="row">
+                            <asset-dendogram asset="vm"></asset-dendogram>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <asset-dendogram-reverse asset="reverseAssetRoot"></asset-dendogram-reverse>
+                        </div>
+
+                    </md-content>
+                </md-tab>
+
+                <md-tab label="Recovery and Criticality" >
+
+                    <md-content class="md-padding" >
+
+                        <div layout-gt-sm="row">
+                            <md-switch ng-model="vm.calculateSubRecovery" aria-label="Calculate recovery time from sub-assets" class="md-block">
+                                Calculate recovery time from sub-assets
+                            </md-switch>
+                        </div>
+
+                        <div layout-gt-sm="row">
+
+                            <div layout-gt-sm="column" flex="25">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>System Recovery Time (minutes)</label>
+                                    <input id="SystemRecoveryTime" type="number" placeholder="SystemRecoveryTime" data-ng-model="vm.systemRecoveryTime"/>
+                                    <span class="label-span">{{vm.systemRecoveryTime.minutesToDDHHmm()}} </span>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>System Recovery Cost</label>
+                                    <input id="SystemRecoveryCost" type="number" placeholder="SystemRecoveryCost" data-ng-model="vm.systemRecoveryCost"/>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="column" flex="25">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Data Recovery Time (minutes)</label>
+                                    <input id="DataRecoveryTime" type="number" placeholder="DataRecoveryTime" data-ng-model="vm.dataRecoveryTime"/>
+                                    <span class="label-span">{{vm.dataRecoveryTime.minutesToDDHHmm()}} </span>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Data Recovery Cost</label>
+                                    <input id="DataRecoveryCost" type="number" placeholder="DataRecoveryCost" data-ng-model="vm.dataRecoveryCost"/>
+
+                                </md-input-container>
+                            </div>
+
+
+                            <div layout-gt-sm="column" flex="25">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Integrity Check Time (minutes)</label>
+                                    <input id="IntegrityCheckTime" type="number" placeholder="IntegrityCheckTime" data-ng-model="vm.integrityCheckTime"/>
+                                    <span class="label-span">{{vm.integrityCheckTime.minutesToDDHHmm()}} </span>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Integrity Check Cost</label>
+                                    <input id="IntegrityCheckCost" type="number" placeholder="IntegrityCheckCost" data-ng-model="vm.integrityCheckCost"/>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="column" flex="25">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Max Down Time (minutes)</label>
+                                    <input id="MaxDownTime" type="number" readonly="readonly" placeholder="MaxDownTime" ng-model="calculatedValue1"/>
+                                    <span class="label-span">{{(vm.dataRecoveryTime+vm.integrityCheckTime+vm.systemRecoveryTime).minutesToDDHHmm()}}</span>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Max Down Cost</label>
+                                    <input id="MaxDownCost" type="number" readonly="readonly" placeholder="MaxDownCost" ng-model="calculatedValue2"/>
+
+                                </md-input-container>
+                            </div>
+                        </div>
+
+
+
+
+                        <div layout-gt-sm="row">
+                            <md-switch ng-model="vm.calculateSubCriticality" aria-label="Calculate criticality from sub-assets" class="md-block">
+                                Calculate criticality from sub-assets
+                            </md-switch>
+                        </div>
+
+                        <div layout-gt-sm="row" class="rating-container" flex="50">
+                            <span>Confidenciality </span>
+                            <md-slider flex ng-model="vm.confidenciality" step="1" min="1" max="5" aria-label="rating" ng-class="{'success-slider': vm.confidenciality <= 2,'yellow-slider': vm.confidenciality == 3,'danger-slider': vm.confidenciality > 3 }"></md-slider>
+                            <span ng-bind-html="vm.confidenciality | criticalityCategory"></span>
+                        </div>
+                        <div layout-gt-sm="row" class="rating-container" flex="50">
+                            <span>Integrity </span>
+                            <md-slider flex ng-model="vm.integrity" min="1" max="5" aria-label="rating" ng-class="{'success-slider': vm.integrity <= 2,'yellow-slider': vm.integrity == 3,'danger-slider': vm.integrity > 3 }"></md-slider>
+                            <span ng-bind-html="vm.integrity | criticalityCategory"></span>
+                        </div>
+                        <div layout-gt-sm="row" class="rating-container" flex="50">
+                            <span>Availability </span>
+                            <md-slider flex ng-model="vm.availability" step="1" min="1" max="5" aria-label="rating" ng-class="{'success-slider': vm.availability <= 2,'yellow-slider': vm.availability == 3,'danger-slider': vm.availability > 3 }"></md-slider>
+                            <span ng-bind-html="vm.availability | criticalityCategory"></span>
+                        </div>
+                        <div layout-gt-sm="row" class="rating-container" flex="50">
+                            <span>Authenticity </span>
+                            <md-slider flex ng-model="vm.authenticity" step="1" min="1" max="5" aria-label="rating" ng-class="{'success-slider': vm.authenticity <= 2,'yellow-slider': vm.authenticity == 3,'danger-slider': vm.authenticity > 3 }"></md-slider>
+                            <span ng-bind-html="vm.authenticity | criticalityCategory"></span>
+                        </div>
+
+                        <div layout-gt-sm="row" flex="50">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Criticality category</label>
+                                <md-select ng-model="vm.criticalityCategory">
+                                    <md-option ng-repeat="category in criticalityCategories" ng-value="category">
+                                        {{category.name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+                        </div>
+
+                        <div layout-gt-sm="row">
+
+                            <div layout-gt-sm="column" flex="20">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>T1 (minutes)</label>
+                                    <input type="number" data-ng-model="vm.timeCosts[0].time" />
+                                    <span class="label-span">{{vm.timeCosts[0].time.minutesToDDHHmm()}}</span>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>T1 (cost)</label>
+                                    <input type="number" data-ng-model="vm.timeCosts[0].cost" />
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="column" flex="20">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>T2 (minutes)</label>
+                                    <input type="number" data-ng-model="vm.timeCosts[1].time" />
+                                    <span class="label-span">{{vm.timeCosts[1].time.minutesToDDHHmm()}}</span>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>T2 (cost)</label>
+                                    <input type="number" data-ng-model="vm.timeCosts[1].cost" />
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="column" flex="20">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>T3(minutes)</label>
+                                    <input type="number" data-ng-model="vm.timeCosts[2].time" />
+                                    <span class="label-span">{{vm.timeCosts[2].time.minutesToDDHHmm()}}</span>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>T3 (cost)</label>
+                                    <input type="number" data-ng-model="vm.timeCosts[2].cost" />
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="column" flex="20">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>T4 (minutes)</label>
+                                    <input type="number" data-ng-model="vm.timeCosts[3].time" />
+                                    <span class="label-span">{{vm.timeCosts[3].time.minutesToDDHHmm()}}</span>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>T4 (cost)</label>
+                                    <input type="number" data-ng-model="vm.timeCosts[3].cost" />
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="column" flex="20">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>T5 (minutes)</label>
+                                    <input type="number" data-ng-model="vm.timeCosts[4].time" />
+                                    <span class="label-span">{{vm.timeCosts[4].time.minutesToDDHHmm()}}</span>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>T5 (cost)</label>
+                                    <input type="number" data-ng-model="vm.timeCosts[4].cost" />
+                                </md-input-container>
+                            </div>
+
+                        </div>
+                        <div style="height:100px;width:100%;"></div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="business continuity" >
+                    <md-content class="md-padding" >
+                        <div layout-gt-sm="row">
+                            <md-switch ng-model="vm.requiresBusinessContinuityPlan" aria-label="Requires business continuity plan" class="md-block">
+                                Requires business continuity plan
+                            </md-switch>
+                        </div>
+
+                        <div ng-show="vm.requiresBusinessContinuityPlan" business-continuity-plan-editor editmode="true" businesscontinuityplans="vm.businessContinuityPlans" editform="editAssetForm"></div>
+
+                    </md-content>
+                </md-tab>
+  
+                    <md-tab label="assets" >
+                        <md-content class="md-padding" >
+
+                            <md-table-container>
+
+                                <table md-table>
+                                    <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Name</th>
+                                        <th md-column>Active</th>
+                                        <th md-column>Type</th>
+                                        <th md-column>Category</th>
+                                        <th md-column ng-show="vm.calculateSubRecovery">Recovery time</th>
+                                        <th md-column ng-repeat="risk in vm.assets[0].risks">
+                                            <span>{{risk.name}}</span><br /><span>(Reg/Calc)</span>
+                                        </th>
+                                        <th md-column class="align-right"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                    <tr md-row ng-repeat="item in vm.assets | orderBy:'name'">
+
+                                        <td md-cell>{{item.name}}</td>
+                                        <td md-cell>{{item.enabled | yesNo}}</td>
+                                        <td md-cell>{{mapCategoryToName(item.category)}}</td>
+                                        <td md-cell>{{item.subCategory.name}}</td>
+                                        <td md-cell ng-show="vm.calculateSubRecovery">
+                                            <div>
+                                                <label class="radio-inline c-radio">
+                                                    <input id="recoveryParallel" type="radio" name="{{item.name}}recoverytype" data-ng-model="item.recoveryCalculateType" value="1">
+                                                    <span class="fa fa-circle"></span> Parallel
+                                                </label>
+                                                <label class="radio-inline c-radio">
+                                                    <input id="recoverySerial" type="radio" name="{{item.name}}recoveryType" data-ng-model="item.recoveryCalculateType" value="2">
+                                                    <span class="fa fa-circle"></span> Serial
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td md-cell ng-repeat="thisRisk in item.risks">
+                                            <div class="threat-container" ng-bind-html='thisRisk | riskFilter'></div>
+                                            <div class="threat-container" ng-bind-html='thisRisk | riskFilterCalculated'></div>
+                                        </td>
+
+                                      
+                                        <td md-cell class="align-right">
+                                            <md-button class="md-mini md-accent" ng-click="editAsset(item.assetId)">
+                                                Edit
+                                            </md-button>
+                                            <md-button class="md-mini md-accent" ng-click="removeAsset(item)">
+                                                Remove
+                                            </md-button>
+
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr md-row ng-show="vm.assets.length <= 0">
+                                        <td md-cell colspan="9">
+                                            No items found!
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </md-table-container>
+
+                            <md-button class="md-raised" aria-label="Edit" ng-click="selectAssets()">
+                                Add Asset
+                            </md-button>
+
+                        
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="threats" >
+                        <md-content class="md-padding" >
+
+
+                            <md-table-container>
+
+                                <table md-table>
+                                    <thead md-head>
+                                        <tr md-row>
+                                            <th md-column>Name</th>
+                                            <th md-column>Category</th>
+                                            
+                                            <th md-column ng-repeat="risk in vm.threats[0].risks">
+                                                <span>{{risk.name}}</span><br /><span>(Reg/Calc)</span>
+                                            </th>
+
+                                            <th md-column>Controls</th>
+                                       
+
+                                            <th md-column class="align-right"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                        <tr md-row ng-repeat="item in vm.threats | orderBy:'name'">
+
+
+
+                                            <td md-cell>{{item.name}}</td>
+                                            <td md-cell>{{item.category.name}}</td>
+                                            <td md-cell ng-repeat="thisRisk in item.risks">
+                                                <div class="threat-container" ng-bind-html='thisRisk | riskFilter'></div>
+                                                <div class="threat-container" ng-bind-html='thisRisk | riskFilterCalculated'></div>
+                                            </td>
+                                            <td md-cell>{{item.controls.length}} </td>
+
+                                            <td md-cell class="align-right">
+                                                <md-button class="md-mini md-accent" ng-click="editThreat(item)">
+                                                    Edit
+                                                </md-button>
+                                                <md-button class="md-mini md-accent" ng-click="removeThreat(item)">
+                                                    Remove
+                                                </md-button>
+
+                                            </td>
+
+
+                                        </tr>
+
+                                        <tr md-row ng-show="vm.threats.length <= 0">
+                                            <td md-cell colspan="9">
+                                                No items found!
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </md-table-container>
+
+                            <md-button class="md-raised" aria-label="Add threat" ng-click="selectThreats()">
+                                Add Threat
+                            </md-button>
+
+
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="evaluation" >
+                        <md-content class="md-padding" >
+                            <div evaluation-editor editmode="true" evaluations="vm.evaluations" editform="editAssetForm"></div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="soa" >
+                        <md-content class="md-padding" >
+                            <md-tabs md-selected="subSelectedIndex">
+                                <md-tab label="ISO27001" ng-if="enableIso">
+                               </md-tab>
+                                <md-tab label="HelseSOA" ng-if="enableHelse">
+                                </md-tab>
+                                <md-tab label="GDPR" ng-if="enableGdpr">
+                                </md-tab>
+                            </md-tabs>
+                            <div ng-show="enableIso && subSelectedIndex==0">
+                                <div id="isoPieChart"></div>
+                                <md-table-container>
+                                    <table md-table>
+                                        <thead md-head>
+                                            <tr md-row>
+                                                <th md-column>Name</th>
+                                                <th md-column>Deadline</th>
+                                                <th md-column>Executed date</th>
+                                                <th md-column>Valid to</th>
+                                                <th md-column>Comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody md-body>
+                                            <tr md-row ng-repeat="assetSoa in getAssetSoas(1)">
+
+                                                <td md-cell style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden">
+                                                    <md-switch ng-model="assetSoa.implemented" aria-label="Enabled" class="md-block" ng-change="isoPie.updateProp('data.content', getSoaPercentageData(1))">
+                                                        {{assetSoa.soaChapterName}}
+                                                    </md-switch>
+                                                </td>
+                                                <td md-cell><md-datepicker ng-model="assetSoa.deadline" md-placeholder="Deadline" ng-change="isoPie.updateProp('data.content', getSoaPercentageData(1))"></md-datepicker></td>
+                                                <td md-cell><md-datepicker ng-model="assetSoa.executedDate" md-placeholder="Executed" ng-change="isoPie.updateProp('data.content', getSoaPercentageData(1))"></md-datepicker></td>
+                                                <td md-cell><md-datepicker ng-model="assetSoa.validTo" md-placeholder="Valid to" ng-change="isoPie.updateProp('data.content', getSoaPercentageData(1))"></md-datepicker></td>
+                                                <td md-cell><textarea ng-model="assetSoa.comment" md-placeholder="Comment"></textarea></td>
+                                            </tr>
+
+                                            <tr md-row ng-show="vm.assets.length <= 0">
+                                                <td md-cell colspan="9">
+                                                    No relevant SOA chapters
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </md-table-container>
+                            </div>
+
+                            <div ng-show="(enableIso && enableHelse && subSelectedIndex==1) || (!enableIso && enableHelse && subSelectedIndex==0)">
+                                <div id="helsePieChart"></div>
+                                <md-table-container>
+
+                                    <table md-table>
+                                        <thead md-head>
+                                            <tr md-row>
+                                                <th md-column>Name</th>
+                                                <th md-column>Deadline</th>
+                                                <th md-column>Executed date</th>
+                                                <th md-column>Valid to</th>
+                                                <th md-column>Comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody md-body>
+                                            <tr md-row ng-repeat="assetSoa in getAssetSoas(4)">
+
+                                                <td md-cell>
+                                                    <md-switch ng-model="assetSoa.implemented" aria-label="Enabled" class="md-block" ng-change="helsePie.updateProp('data.content', getSoaPercentageData(4))">
+                                                        {{assetSoa.soaChapterName}}
+                                                    </md-switch>
+                                                </td>
+                                                <td md-cell ><md-datepicker ng-model="assetSoa.deadline" md-placeholder="Deadline" ng-change="helsePie.updateProp('data.content', getSoaPercentageData(4))"></md-datepicker></td>
+                                                <td md-cell ><md-datepicker ng-model="assetSoa.executedDate" md-placeholder="Executed date" ng-change="helsePie.updateProp('data.content', getSoaPercentageData(4))"></md-datepicker></td>
+                                                <td md-cell ><md-datepicker ng-model="assetSoa.validTo" md-placeholder="Valid to" ng-change="helsePie.updateProp('data.content', getSoaPercentageData(4))"></md-datepicker></td>
+                                                <td md-cell><textarea ng-model="assetSoa.comment" md-placeholder="Comment"></textarea></td>
+                                            </tr>
+
+                                            <tr md-row ng-show="vm.assets.length <= 0">
+                                                <td md-cell colspan="9">
+                                                    No relevant SOA chapters
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </md-table-container>
+                            </div>
+                            
+                            <div ng-show="(enableGdpr && enableIso && enableHelse && subSelectedIndex==2) || (enableGdpr && !enableIso && enableHelse && subSelectedIndex==1) || (enableGdpr && enableIso && !enableHelse && subSelectedIndex==1) || (enableGdpr && !enableIso && !enableHelse && subSelectedIndex==0)">
+                                <div id="gdprPieChart"></div>
+                                <md-table-container>
+
+                                    <table md-table>
+                                        <thead md-head>
+                                            <tr md-row>
+                                                <th md-column>Name</th>
+                                                <th md-column>Deadline</th>
+                                                <th md-column>Executed date</th>
+                                                <th md-column>Valid to</th>
+                                                <th md-column>Comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody md-body>
+                                            <tr md-row ng-repeat="assetSoa in getAssetSoas(5)">
+
+                                                <td md-cell>
+                                                    <md-switch ng-model="assetSoa.implemented" aria-label="Enabled" class="md-block" ng-change="gdprPie.updateProp('data.content', getSoaPercentageData(5))">
+                                                        {{assetSoa.soaChapterName}}
+                                                    </md-switch>
+                                                </td>
+                                                <td md-cell><md-datepicker ng-model="assetSoa.deadline" md-placeholder="Deadline" ng-change="gdprPie.updateProp('data.content', getSoaPercentageData(5))"></md-datepicker></td>
+                                                <td md-cell><md-datepicker ng-model="assetSoa.executedDate" md-placeholder="Executed date" ng-change="gdprPie.updateProp('data.content', getSoaPercentageData(5))"></md-datepicker></td>
+                                                <td md-cell><md-datepicker ng-model="assetSoa.validTo" md-placeholder="Valid to" ng-change="gdprPie.updateProp('data.content', getSoaPercentageData(5))"></md-datepicker></td>
+                                                <td md-cell><textarea ng-model="assetSoa.comment" md-placeholder="Comment"></textarea></td>
+                                            </tr>
+
+                                            <tr md-row ng-show="vm.assets.length <= 0">
+                                                <td md-cell colspan="9">
+                                                    No relevant SOA chapters
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </md-table-container>
+                            </div>        
+                        </md-content>
+                    </md-tab>
+            </md-tabs>
+</form>
+        </md-card>
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+
+
+
+

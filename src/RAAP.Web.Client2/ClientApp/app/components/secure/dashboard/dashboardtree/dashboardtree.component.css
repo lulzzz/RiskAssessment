@@ -1,0 +1,24 @@
+﻿.form {
+    min-width: 150px;
+    padding: 16px;
+}
+
+p {
+    margin-left: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    color: gray
+}
+
+.pleaseDiv {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notifier {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: gray
+}

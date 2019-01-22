@@ -1,0 +1,277 @@
+﻿
+<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h3>
+            Edit Statement of Applicability
+        </h3>
+        <span flex></span>
+
+        <md-button class="md-raised md-warn" aria-label="Delete" ng-click="exit()">
+            Exit
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="save(true)">
+            Save & Exit
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="save(false)">
+            Save
+        </md-button>
+    </div>
+</md-toolbar>
+
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
+
+        <md-card>
+            <div class="md-padding" layout-xs="column" layout="row" id="soa">
+
+                <v-accordion class="vAccordion--default firstlevel" control="accordion1" id="accordion1">
+
+                    <v-pane multiple ng-repeat="level1 in vm.chapters">
+                        <v-pane-header>
+                            <div layout="row">
+                                <span flex="10"><strong>{{level1.name}}</strong></span>
+                                <span><strong>{{level1.description}}</strong></span>
+                            </div>
+                        </v-pane-header>
+
+                        <v-pane-content>
+                            <div ng-if="$pane.isExpandedOnceOrMore()">
+                                <v-accordion class="vAccordion--default secondlevel" multiple>
+
+                                    <div ng-repeat="level2 in level1.subChapters">
+
+                                        <div layout="column"   style="border-bottom: 2px solid #2196f3; margin-bottom: 15px; padding-bottom: 5px;">
+                                            <div layout="row">
+                                                <span flex="10" class="level2align"><strong>{{level2.name}}</strong> </span>
+                                                <span flex><strong>{{level2.description}}</strong></span>
+                                            </div>
+                                            <div layout="row">
+                                                <span flex="10" class="level2align"></span>
+                                                <span flex class="level2goal">{{level2.goal}}</span>
+                                            </div>
+                                        </div>
+
+
+                                        <v-accordion class="vAccordion--default thirdlevel" multiple>
+
+
+                                            <v-pane multiple ng-repeat="level3 in level2.subChapters track by $index">
+
+                                                <v-pane-header inactive class="level3">
+
+                                                    <div layout="row">
+                                                        <span flex="10" ng-click="$pane.toggle();" class="headerlink">{{level3.name}} </span>
+                                                        <span flex="40" ng-click="$pane.toggle();" class="headerlink">{{level3.description}}</span>
+                                                        <md-switch ng-model="level3.riskAssessments" aria-label="RA">RA</md-switch>
+                                                        <md-switch ng-model="level3.currentControl" aria-label="Cur.">Cur.</md-switch>
+                                                        <md-switch ng-model="level3.contractual" aria-label="Cont.">Cont.</md-switch>
+                                                        <md-switch ng-model="level3.dataProtectionLaw" aria-label="DPL">DPL</md-switch>
+
+                                                        <md-select flex ng-model="level3.compliance">
+                                                            <md-option value="0">None</md-option>
+                                                            <md-option value="1">Not started</md-option>
+                                                            <md-option value="2">Startet</md-option>
+                                                            <md-option value="3">Implemented</md-option>
+                                                        </md-select>
+
+                                                    </div>
+
+                                                </v-pane-header>
+
+                                                <v-pane-content>
+
+
+                                                    <div layout="row" ng-if="$pane.isExpandedOnceOrMore()">
+                                                        <div flex="10"></div>
+                                                        <div flex layout="column">
+
+                                                            <div layout="row" class="thirdlevel-header">
+                                                                {{level3.goal}}
+                                                            </div>
+
+                                                            <div layout="row">
+                                                                <md-input-container class="md-block" flex="25">
+                                                                    <label>Responsible person</label>
+                                                                    <responsible-user-selector responsible-user-id="level3.ResponsibleUser"/>
+                                                                </md-input-container>
+
+                                                                <div layout-gt-sm="column" flex="25">
+                                                                    <p>Deadline</p>
+                                                                    <md-datepicker ng-model="level3.complianceDate" md-placeholder="Deadline"></md-datepicker>
+                                                                </div>
+                                                                <md-input-container class="md-block" flex="25">
+                                                                    <label>Implemented by</label>
+                                                                    <responsible-user-selector responsible-user-id="level3.implementationUser"/>
+                                                                </md-input-container>
+                                                                <div layout-gt-sm="column" flex="25">
+                                                                    <p>Implemented</p>
+                                                                    <md-datepicker ng-model="level3.implementationDate" md-placeholder="Implemented"></md-datepicker>
+                                                                </div>
+
+
+
+                                                            </div>
+
+<<<<<<< HEAD
+                                                            <div layout="row">
+                                                                <div layout="column" flex="50" class="twocol-first">
+                                                                    <label>Source Reference</label>
+                                                                    <textarea type="text" class="form-control" placeholder="Source Reference" data-ng-model="level3.sourceReference"/>
+
+                                                                </div>
+                                                                <div layout="column" flex="50" class="twocol-last">
+                                                                    <label>Control Description</label>
+                                                                    <textarea type="text" class="form-control" placeholder="Control Description" data-ng-model="level3.controlDescription"/>
+
+=======
+                                                        </v-pane-header>
+
+                                                        <v-pane-content>
+
+
+                                                            <div layout="row" ng-if="$pane.isExpanded()">
+                                                                <div flex="10"></div>
+                                                                <div flex layout="column">
+
+                                                                    <div layout="row" class="thirdlevel-header">
+                                                                        {{level3.goal}}
+                                                                    </div>
+
+                                                                    <div layout="row">
+                                                                        <md-input-container class="md-block" flex="25">
+                                                                            <label>Responsible person</label>
+                                                                            <responsible-user-selector responsible-user-id="level3.ResponsibleUser"/>
+                                                                        </md-input-container>
+
+                                                                        <div layout-gt-sm="column" flex="25">
+                                                                            <p>Deadline</p>
+                                                                            <md-datepicker ng-model="level3.complianceDate" md-placeholder="Deadline"></md-datepicker>
+                                                                        </div>
+                                                                        <md-input-container class="md-block" flex="25">
+                                                                            <label>Implemented by</label>
+                                                                            <responsible-user-selector responsible-user-id="level3.implementationUser"/>
+                                                                        </md-input-container>
+                                                                        <div layout-gt-sm="column" flex="25">
+                                                                            <p>Implemented</p>
+                                                                            <md-datepicker ng-model="level3.implementationDate" md-placeholder="Implemented"></md-datepicker>
+                                                                        </div>
+
+
+
+                                                                    </div>
+
+                                                                    <div layout="row">
+                                                                        <div layout="column" flex="50" class="twocol-first">
+                                                                            <label>Source Reference</label>
+                                                                            <textarea type="text" class="form-control" placeholder="Source Reference" data-ng-model="level3.sourceReference"/>
+
+                                                                        </div>
+                                                                        <div layout="column" flex="50" class="twocol-last">
+                                                                            <label>Control Description</label>
+                                                                            <textarea type="text" class="form-control" placeholder="Control Description" data-ng-model="level3.controlDescription"/>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div layout="row">
+                                                                        <div layout="column" flex="50" class="twocol-first">
+                                                                            <label>Guide</label>
+                                                                            <textarea disabled rows="10" type="text" class="form-control" placeholder="Guide" data-ng-model="level3.howTo"/>
+
+                                                                        </div>
+                                                                        <div layout="column" flex="50" class="twocol-last">
+                                                                            <label>Additional info</label>
+                                                                            <textarea disabled rows="10" type="text" class="form-control" placeholder="AdditionalInfo" data-ng-model="level3.info"/>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div layout="row" ng-repeat="f in level3.files">
+                                                                        <span><a href="{{fileBaseUri}}{{f.fileId}}">{{f.fileName}}</a></span>
+                                                                    </div>
+
+                                                                    <div layout="row" ng-controller="uploadController">
+                                                                        <md-button class="md-raised" aria-label="Create" type="file" ngf-select="uploadFiles($file, $invalidFiles, level3.id)">
+                                                                            Upload file
+                                                                        </md-button>
+                                                                        <div>
+                                                                            <span class="progress" ng-show="f.progress >= 0">
+                                                                            <div ng-bind="f.progress + '%'"></div>
+                                                                        </span>
+                                                                        </div>
+                                                                    </div>
+>>>>>>> SoA: Download files.
+                                                                </div>
+                                                            </div>
+
+                                                            <div layout="row">
+                                                                <div layout="column" flex="50" class="twocol-first">
+                                                                    <label>Guide</label>
+                                                                    <textarea disabled rows="10" type="text" class="form-control" placeholder="Guide" data-ng-model="level3.howTo"/>
+
+                                                                </div>
+                                                                <div layout="column" flex="50" class="twocol-last">
+                                                                    <label>Additional info</label>
+                                                                    <textarea disabled rows="10" type="text" class="form-control" placeholder="AdditionalInfo" data-ng-model="level3.info"/>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div layout="row" ng-repeat="f in level3.files">
+                                                                <span>{{f.fileName}}</span>
+                                                            </div>
+
+                                                            <div layout="row" ng-controller="uploadController">
+                                                                <md-button class="md-raised" aria-label="Create" type="file" ngf-select="uploadFiles($file, $invalidFiles, level3.id)">
+                                                                    Upload file
+                                                                </md-button>
+                                                                <div>
+                                                                    <span class="progress" ng-show="f.progress >= 0">
+                                                                    <div ng-bind="f.progress + '%'"></div>
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </v-pane-content>
+
+
+                                            </v-pane>
+                                        </v-accordion>
+
+                                    
+
+
+
+
+
+                                    </div>
+                                </v-accordion>
+                            </div>
+
+                        </v-pane-content>
+                    </v-pane>
+
+
+
+                </v-accordion>
+
+
+            </div>
+
+
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+

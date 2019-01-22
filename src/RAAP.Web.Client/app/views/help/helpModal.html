@@ -1,0 +1,36 @@
+﻿
+<md-dialog aria-label="Mango (Fruit)" ng-cloak >
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h3 class="modal-title" ng-show="!editMode">
+                    {{vm.title}}
+                </h3>
+                <md-input-container ng-show="editMode" class="md-block help-input-title">
+                    <input ng-model="vm.title" required autofocus />
+                </md-input-container>  
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div ng-show="!editMode" ng-bind-html="vm.description"></div>
+                <text-angular ng-show="editMode" ng-model="vm.description" ta-toolbar="[['h1', 'h2', 'h3','p', 'pre', 'quote'],['bold', 'italics', 'underline', 'ul', 'ol'], ['justifyLeft','justifyCenter','justifyRight']]"></text-angular>
+
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+           
+            <span flex></span>
+            <md-button class="md-primary" ng-click="saveHelp();" ng-show="editMode">Save</md-button>
+            <md-button class="md-warn" ng-click="exitEditMode();" ng-show="editMode">Cancel</md-button>
+            <md-button class="md-primary" ng-click="enterEditMode();" ng-show="isAdmin && !editMode">Edit</md-button>
+            <md-button class="md-warn" ng-click="cancel();" ng-show="!editMode">Close</md-button>
+
+        
+        </md-dialog-actions>
+    </form>
+</md-dialog>

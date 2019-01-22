@@ -1,0 +1,81 @@
+﻿
+<md-dialog aria-label="Controls" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h3 class="modal-title">
+                    Controls
+                </h3>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="ok()">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+
+
+
+                <md-table-container>
+                    <table md-table>
+                        <thead md-head md-order="vm.orderBy" md-on-reorder="gridReOrder">
+                            <tr md-row>
+
+                                <th md-column><span md-column md-order-by="name">Control</span></th>
+                                <th md-column><span md-column md-order-by="status">Status</span></th>
+                                <th md-column><span md-column md-order-by="deadline">Deadline</span></th>
+                                <th md-column><span md-column md-order-by="executedDate">Executed date</span></th>
+                                <th md-column><span md-column md-order-by="validTo">Valid to</span></th>
+                                <th md-column><span md-column md-order-by="investmentCost">Investment Cost</span></th>
+                                <th md-column><span md-column md-order-by="maintenanceCost">Maintenance Cost</span></th>
+                               
+                                <th md-column ng-repeat="risk in controls[0].risks">
+                                    <span md-column>{{risk.name}}</span><br /><span>(Prob/Imp)</span>
+                                </th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="item in controls | orderBy:predicate:reverse">
+                                <td md-cell>{{item.name}}</td>
+                                <td md-cell>{{item.status}}</td>
+                                <td md-cell>{{item.deadline | date:'yyyy-MM-dd'}}</td>
+                                <td md-cell>{{item.executedDate | date:'yyyy-MM-dd'}}</td>
+                                <td md-cell>{{item.validTo | date:'yyyy-MM-dd'}}</td>
+                                <td md-cell>{{item.investmentCost}}</td>
+                                <td md-cell>{{item.maintenanceCost}}</td>
+
+                                <td md-cell ng-repeat="thisRisk in item.risks">
+                                    {{thisRisk.isoProbability}}% / {{thisRisk.isoImpact}}%
+                                </td>
+
+                       
+                            </tr>
+                            <tr md-row ng-show="controls.length <= 0">
+                                <td md-cell colspan="10">
+                                    No controls found!
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+               </md-table-container>
+
+
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button class="md-primary" ng-click="ok();">Close</md-button>
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+
+
+
+
+

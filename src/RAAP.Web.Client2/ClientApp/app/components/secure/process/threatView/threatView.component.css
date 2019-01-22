@@ -1,0 +1,28 @@
+.bussinessDivEvaluation {
+    min-height: 300px;
+    border: 1px solid #cfdbe2;
+    background-color: #EDF1F2;
+    overflow-x: scroll;
+}
+
+    .bussinessDivEvaluation div {
+        word-wrap: break-word;
+        padding: 15px 15px;
+        font-size: 14px;
+    }
+
+    .checkboxThreatDecoration{
+        margin-left:15px;
+    }
+
+.headerNameSize{
+    font-size:20px;
+}
+
+.headerButtonMargin {
+    margin-top: 15px;
+}
+
+.viewThreatRisk{
+    margin-top:6px;
+}

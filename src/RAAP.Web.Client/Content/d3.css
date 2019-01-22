@@ -1,0 +1,14 @@
+﻿.node circle {     
+  fill: #fff;    
+  stroke: steelblue;    
+  stroke-width: 1.5px; 
+} 
+.node {    
+  font: 20px sans-serif; 
+} 
+.link {    
+  fill: none;    
+  stroke: steelblue;    
+  stroke-width: 1.5px; 
+}
+

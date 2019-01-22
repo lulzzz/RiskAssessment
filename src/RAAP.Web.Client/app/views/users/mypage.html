@@ -1,0 +1,97 @@
+﻿<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h3>
+            My page
+        </h3>
+        <span flex></span>
+
+    </div>
+</md-toolbar>
+
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+
+        <md-card>
+            <form class="form-group" role="form" id="editProcessForm" name="editProcessForm">
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="personal details">
+                        <md-content class="md-padding">
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Firstname</label>
+                                    <input ng-model="vm.firstName" readonly="readonly"/>
+                                </md-input-container>
+
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Lastname</label>
+                                    <input ng-model="vm.lastName" readonly="readonly"/>
+                                </md-input-container>
+
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Username</label>
+                                    <input ng-model="vm.username" readonly="readonly"/>
+                                </md-input-container>
+
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Email</label>
+                                    <input ng-model="vm.email" readonly="readonly" />
+                                </md-input-container>
+
+                            </div>
+                      
+
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="password">
+                        <md-content class="md-padding">
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Old password</label>
+                                    <input ng-model="vm.password" type="password"/>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>New password</label>
+                                    <input ng-model="vm.newPassword" type="password"/>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>New password repeat</label>
+                                    <input ng-model="vm.newPasswordRepeat" type="password"/>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-button class="md-raised" aria-label="Save" ng-click="updatePassword()">
+                                    Change password
+                                </md-button>
+                            </div>
+
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </form>
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+

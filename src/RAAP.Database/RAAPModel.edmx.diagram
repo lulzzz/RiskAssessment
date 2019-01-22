@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="72811d1af58c4e28afd889b869c6866e" Name="Diagram1">
+        <EntityTypeShape EntityType="RAAP.Asset" Width="1.5" PointX="3" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.Asset_Asset" Width="1.5" PointX="5.25" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.Asset_Threat" Width="1.5" PointX="8.25" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.AssetSubCategory" Width="1.5" PointX="0.75" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.AssetThreat_Attributes" Width="1.5" PointX="13.5" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.AssetThreat_Control" Width="1.5" PointX="16.5" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.AttributeCategory" Width="1.5" PointX="1.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.AttributeLink" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.Attribute" Width="1.5" PointX="3.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.AttributeType" Width="1.5" PointX="1.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.BusinessContinuityPlan" Width="1.5" PointX="5.25" PointY="34" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.Consequence" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.Control" Width="1.5" PointX="3.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.ControlCategory" Width="1.5" PointX="1.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.ControlRisk" Width="1.5" PointX="18.75" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.CriticalityCategory" Width="1.5" PointX="0.75" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.DowntimeEffect" Width="1.5" PointX="5.25" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.HtmlComment" Width="1.5" PointX="21.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.Incident" Width="1.5" PointX="5.25" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.Process" Width="1.5" PointX="11.25" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.ProcessCategory" Width="1.5" PointX="9" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.Risk" Width="1.5" PointX="13.5" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.RiskParameter" Width="1.5" PointX="15.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.RiskType" Width="1.5" PointX="16.5" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.Soa" Width="1.5" PointX="8.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.SoaFile" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.SoaLink" Width="1.5" PointX="11" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.Threat" Width="1.5" PointX="6" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.ThreatCategory" Width="1.5" PointX="3.75" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.ThreatRisk" Width="1.5" PointX="13.5" PointY="30.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.ThreatSource" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.TimeCost" Width="1.5" PointX="5.25" PointY="48.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.Vulnerability" Width="1.5" PointX="5.25" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RAAP.VulnerabilityCatalog" Width="1.5" PointX="3" PointY="33.75" IsExpanded="true" />
+        <AssociationConnector Association="RAAP.FK_Asset_Asset_Asset" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Asset_Asset_Asset1" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Asset_AssetCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Asset_CriticalityCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Asset_Threat_Asset" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_BusinessContinuityPlan_Asset" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_DowntimeEffect_Asset" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_HtmlComment_Asset" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Incident_Asset" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Risk_Risk" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_ThreatRisk_Asset" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_TimeCost_Asset" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Asset_Threat_Threat" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_AssetThreat_Attributes_AssetThreatId" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_AssetThreat_Control_Asset_Threat" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_HtmlComment_Asset_Threat" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Risk_Asset_Threat" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_ThreatRisk_Asset_Threat" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_AssetThreat_Attributes_AttributeCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_AssetThreat_Attributes_AttributeId" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_AssetThreat_Attributes_AttributeTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_AssetThreat_Control_Control" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_ControlRisk_AssetThreat_Control" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_HtmlComment_AssetThreat_Control" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_AttributeCategories_AttributeTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Attributes_AttributeCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_AttributeLinks_Attribute1" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_AttributeLinks_Attribute2" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Attributes_AttributeTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Control_ControlCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_ControlRisk_Control" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Incident_Control" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_ControlRisk_RiskType" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_HtmlComment_Process" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_HtmlComment_Threat" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Process_ProcessCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Risk_Process" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_ThreatRisk_Process" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_RiskParameter_Risk" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_ThreatRisk_RiskType" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_SoaLink_Soa" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Threat_Risk_Threat" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Threat_ThreatCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.FK_Vulnerabilities_VulnerabilityCatalogs" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.Asset_Vulnerability" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.Process_Asset" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.Threat_Attributes" ManuallyRouted="false" />
+        <AssociationConnector Association="RAAP.Threat_Control" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RAAP.Asset_SoaChapter" Width="1.5" PointX="5.25" PointY="40.75" />
+        <AssociationConnector Association="RAAP.FK_Asset_SoaChapter_Asset" />
+        <EntityTypeShape EntityType="RAAP.SoaSetting" Width="1.5" PointX="0.75" PointY="8.75" />
+        <AssociationConnector Association="RAAP.FK_Asset_SoaChapter_Soa" />
+        <AssociationConnector Association="RAAP.FK__HtmlComme__Contr__3335971A" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

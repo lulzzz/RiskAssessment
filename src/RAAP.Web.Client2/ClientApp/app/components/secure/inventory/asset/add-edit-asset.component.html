@@ -1,0 +1,537 @@
+﻿<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <form [formGroup]="assetForm">
+        <mat-card>
+            <mat-card-content>
+                <div class="container">
+                    <div [fxFlex]="calc3cols" class="col3"></div>
+                    <div>
+                        <div class="button-row">
+                            <mat-slide-toggle class="matSlideDecoration" name="enabled" formControlName="enabled">Enabled</mat-slide-toggle>
+                            <button *ngIf="editMode" mat-raised-button color="warn" (click)="onDelete()" [disabled]="disableButtons">DELETE</button>
+                            <button type="submit" mat-raised-button color="accent" (click)="onSubmit()" [disabled]="assetForm.invalid || disableButtons">{{ editMode ? 'UPDATE' : 'ADD' }}</button>
+                            <a mat-raised-button routerLink="/asset">EXIT</a>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-tab-group class="demo-tab-group matTabDecoration">
+            <mat-tab label="ASSET">
+                <mat-card-content flex id="main-view">
+                    <div layout="column" flex="noshrink">
+                        <mat-card class="matDialogBox">
+                            <mat-card-content class="md-padding">
+                                <div layout-gt-sm="row">
+                                    <div layout-gt-sm="column" flex="50">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <input matInput placeholder="Name"
+                                                   formControlName="name">
+                                            <mat-error *ngIf="assetForm.hasError('required', 'name')">Name is required field</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="50" class="marginDiv-Asset">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+
+                                            <mat-select placeholder="Asset Type" name="category" [(ngModel)]="selectedAssetCategory"
+                                                        formControlName="category">
+                                                <mat-option *ngFor="let cat of assetCategory"
+                                                            [value]="cat.id">
+                                                    {{ cat.name }}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="assetForm.hasError('required', 'category')">Please choose a asset type</mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div layout-gt-sm="column" flex="50" class="marginDiv-Asset">
+                                        <mat-form-field class="md-block" flex-gt-sm *ngIf="editMode; else assetsubcat">
+                                            <mat-select placeholder="Asset Category" name="categoryName" formControlName="categoryName" [(ngModel)]="assetForm.controls.subCategory.value.assetSubCategoryId">
+                                                <mat-option *ngFor="let category of subCategory" [value]="category.assetSubCategoryId">
+                                                    {{ category.name }}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="assetForm.hasError('required', 'subCategory')">Please choose a asset sub-category</mat-error>
+                                        </mat-form-field>
+                                        <ng-template #assetsubcat>
+                                            <mat-form-field class="md-block" flex-gt-sm>
+                                                <mat-select placeholder="Asset Category" name="subCategory"
+                                                            formControlName="subCategory" [(ngModel)]="selectedsubCategory">
+                                                    <mat-option *ngFor="let category of subCategory"
+                                                                [value]="category">
+                                                        {{ category.name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="assetForm.hasError('required', 'subCategory')">Please choose a asset sub-category</mat-error>
+                                            </mat-form-field>
+                                        </ng-template>
+                                    </div>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <textarea matInput #input name="description" placeholder="Description" rows="4"
+                                                  formControlName="description" maxlength="1000">
+                                        </textarea>
+                                        <mat-hint align="end">{{input.value?.length || 0}}/1000</mat-hint>
+                                    </mat-form-field>
+                                </div>
+
+                                <p *ngIf="generateGraph" style="">This Asset depends on:</p>
+                                <app-tree-graph *ngIf="generateGraph" [data]="treeDataDepends"></app-tree-graph>
+
+                                <p *ngIf="generateGraph">Others Assets that depend on this: </p>
+                                <app-tree-graph *ngIf="generateGraph" [reverse]="true" [data]="treeDataOtherDepends"></app-tree-graph>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </mat-card-content>
+            </mat-tab>
+            <mat-tab label="RECOVERY AND CRITICALITY">
+                <mat-card-content flex id="main-view">
+                    <div layout="column" flex="noshrink">
+                        <mat-card class="matDialogBox">
+                            <mat-card-content class="md-padding">
+                                <div layout-gt-sm="row" style="margin-bottom:15px">
+                                    <mat-slide-toggle class="matSlideDecoration" name="calculateSubRecovery" formControlName="calculateSubRecovery">Calculate recovery time from sub-assets</mat-slide-toggle>
+                                </div>
+                                <div layout-gt-sm="row">
+                                    <div layout-gt-sm="column" flex="21">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <input matInput placeholder="System Recovery Time(minutes)"
+                                                   formControlName="systemRecoveryTime" type="number" min="0">
+                                            <mat-error *ngIf="assetForm.hasError('required', 'systemRecoveryTime')">System Recovery Time(minutes) is required field</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="25" class="marginDiv-Asset">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <input matInput placeholder="Data Recovery Time (minutes)"
+                                                   formControlName="dataRecoveryTime" type="number" min="0">
+                                            <mat-error *ngIf="assetForm.hasError('required', 'dataRecoveryTime')">Data Recovery Time (minutes) is required field</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="25" class="marginDiv-Asset">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <input matInput placeholder="Integrity Check Time (minutes)"
+                                                   formControlName="integrityCheckTime" type="number" min="0">
+                                            <mat-error *ngIf="assetForm.hasError('required', 'integrityCheckTime')">Integrity Check Time (minutes) is required field</mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div layout-gt-sm="column" flex="21" class="marginDiv-Asset">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <input matInput placeholder="Max Down Time (minutes)"
+                                                   formControlName="maxDownTime" type="number" min="0" value="{{assetForm.value.systemRecoveryTime + assetForm.value.dataRecoveryTime +  assetForm.value.integrityCheckTime}}">
+                                            <mat-error *ngIf="assetForm.hasError('required', 'maxDownTime')">Max Down Time (minutes) is required field</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div layout-gt-sm="row">
+                                    <div layout-gt-sm="column" flex="21">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <input matInput placeholder="System Recovery Cost"
+                                                   formControlName="systemRecoveryCost" type="number" min="0">
+                                            <mat-error *ngIf="assetForm.hasError('required', 'systemRecoveryCost')">System Recovery Cost is required field</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="25" class="marginDiv-Asset">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <input matInput placeholder="Data Recovery Cost"
+                                                   formControlName="dataRecoveryCost" type="number" min="0">
+                                            <mat-error *ngIf="assetForm.hasError('required', 'dataRecoveryCost')">Data Recovery Cost is required field</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="25" class="marginDiv-Asset">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <input matInput placeholder="Integrity Check Cost"
+                                                   formControlName="integrityCheckCost" type="number" min="0">
+                                            <mat-error *ngIf="assetForm.hasError('required', 'integrityCheckCost')">Name is required field</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="21" class="marginDiv-Asset">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <input matInput placeholder="Max Down Cost"
+                                                   formControlName="maxDownCost" type="number" min="0" value="{{assetForm.value.systemRecoveryCost + assetForm.value.dataRecoveryCost +  assetForm.value.integrityCheckCost}}">
+                                            <mat-error *ngIf="assetForm.hasError('required', 'maxDownCost')">Max Down Cost is required field</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div layout-gt-sm="row">
+                                    <mat-slide-toggle class="matSlideDecoration" name="calculateSubCriticality" formControlName="calculateSubCriticality"> Calculate criticality from sub-assets</mat-slide-toggle>
+                                </div>
+                                <div layout-gt-sm="row" class="{{slider1.value|assetSliderFilter}}">
+                                    <a  flex="10" class="marginRisks">Confidenciality</a>
+                                    <mat-slider flex="90" min="0" max="5" step="1" #slider1 formControlName="confidenciality" aria-label="Primary color slider" value="confidenciality"></mat-slider>
+                                    <a class="{{slider1.value|assetSliderFilter}}">{{slider1.value}}</a>
+                                </div>
+                                <div layout-gt-sm="row" class="{{slider2.value|assetSliderFilter}}">
+                                    <a flex="10" class="marginRisks">Integrity</a>
+                                    <mat-slider flex="90" min="0" max="5" step="1" #slider2 color="warm" formControlName="integrity" aria-label="Primary color slider" value="integrity"></mat-slider>
+                                    <a class="{{slider2.value|assetSliderFilter}}">{{slider2.value}}</a>
+                                </div>
+                                <div layout-gt-sm="row" class="{{slider3.value|assetSliderFilter}}">
+                                    <a flex="10" class="marginRisks">Availability</a>
+                                    <mat-slider flex="90" min="0" max="5" step="1" #slider3 color="warm" aria-label="Primary color slider" formControlName="availability" value="availability"></mat-slider>
+                                    <a class="{{slider3.value|assetSliderFilter}}">{{slider3.value}}</a>
+                                </div>
+                                <div layout-gt-sm="row" class="{{slider4.value|assetSliderFilter}}">
+                                    <a flex="10" class="marginRisks">Authenticity</a>
+                                    <mat-slider flex="90" min="0" max="5" step="1" #slider4 color="warm" aria-label="Primary color slider" formControlName="authenticity" value="authenticity"></mat-slider>
+                                    <a class="{{slider4.value|assetSliderFilter}}">{{slider4.value}}</a>
+                                </div>
+                                <div layout-gt-sm="column" flex="100">
+                                    <mat-form-field class="md-block" flex-gt-sm *ngIf="editMode; else templateName">
+                                        <mat-select placeholder="Criticality Category" name="critCatName" formControlName="critCatName" [(ngModel)]="assetForm.controls.criticalityCategory.value">
+                                            <mat-option *ngFor="let critCat of criticalityCategories" [value]="critCat.criticalityCategoryId">
+                                                {{ critCat.name }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="assetForm.hasError('required', '')">Please choose a criticality Category</mat-error>
+                                    </mat-form-field>
+                                    <ng-template #templateName>
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <mat-select placeholder="Criticality Category" name="criticalityCategory"
+                                                        formControlName="criticalityCategory" [(ngModel)] = "selectedCriticalityCategories">
+                                                <mat-option *ngFor="let critCat of criticalityCategories"
+                                                            [value]="critCat">
+                                                    {{ critCat.name }}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="assetForm.hasError('required', 'subCategory')">Please choose a criticality Category</mat-error>
+                                        </mat-form-field>
+                                    </ng-template>
+                                </div>
+                                <div>
+                                    <div formArrayName="timeCosts" layout-gt-sm="row" class="block-padding">
+                                        <div layout-gt-sm="column" flex="20" *ngFor="let c of assetForm.controls.timeCosts.controls; let i = index">
+                                            <div [formGroupName]="i">
+                                                <mat-form-field class="md-block" flex-gt-sm>
+                                                    <input matInput placeholder="T{{i+1}} (minutes)"
+                                                           formControlName="time" type="number" min="0" value="{{ c.value.time }}">
+                                                    <mat-error *ngIf="assetForm.hasError('required', 'systemRecoveryTime')">System Recovery Time(minutes) is required field</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div formArrayName="timeCosts" layout-gt-sm="row"  class="block-padding">
+                                        <div layout-gt-sm="column" flex="20" *ngFor="let c of assetForm.controls.timeCosts.controls; let i = index ">
+                                            <div [formGroupName]="i">
+                                                <mat-form-field class="md-block" flex-gt-sm>
+                                                    <input matInput placeholder="T{{i+1}} (cost)"
+                                                           formControlName="cost" type="number" min="0" value="{{ c.value.cost }}">
+                                                    <mat-error *ngIf="assetForm.hasError('required', 'systemRecoveryTime')">System Recovery Time(minutes) is required field</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </mat-card-content>
+            </mat-tab>
+            <mat-tab label="BUSINESS CONTINUITY">
+                <mat-card class="matDialogBox">
+                    <mat-card-content>
+                        <mat-slide-toggle class="matSlideDecoration matSlideHeight"  name="requiresBusinessContinuityPlan"  formControlName="requiresBusinessContinuityPlan">Requires business continuity plan</mat-slide-toggle>
+                        <div *ngIf="assetForm.value.requiresBusinessContinuityPlan">
+                            <div class="bussinessDiv-Asset">
+                                <div *ngIf="selectedBusinessContinuityPlan" [innerHtml]="selectedBusinessContinuityPlan.text" disabled></div>
+                            </div>
+                            <div class="flex-row">
+                                <a class="evaluationAndPlanButton" mat-raised-button color="basic" (click)="onOpenPlanDialog()">EDIT PLAN</a>
+                                <mat-form-field class="fixed-width">
+                                    <mat-select [(value)]="selectedBusinessContinuityPlan" placeholder="Revision">
+                                        <mat-option *ngFor="let businessContinuityPlan of businessContinuityPlans" [value]="businessContinuityPlan">
+                                            {{businessContinuityPlan.revision}}: {{businessContinuityPlan.createdOn | date:'dd.MM.yyyy hh:mm'}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="businessContinuityPlans" [innerHtml]="businessContinuityPlans.text" disabled></div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="ASSETS">
+                <mat-card class="matDialogBox">
+                    <mat-card-content>
+                        <div class="container">
+                            <div [fxFlex]="calc3cols" class="col4">
+                                <app-assets-data-table [data]="assets"
+                                                       [riskCategories]="riskCategories"
+                                                       (onEdit)="onOpenNewAsset($event)"
+                                                       (onRemove)="onRemoveAsset($event)"
+                                                       *ngIf="riskCategories">
+                                </app-assets-data-table>
+                            </div>
+                        </div>
+                        <a class="marginLinks-Asset" mat-raised-button color="basic" (click)="onOpenAssetDialog()">ADD ASSET</a>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="THREATS">
+                <mat-card class="matDialogBox">
+                    <mat-card-content>
+                        <div class="container">
+                            <div [fxFlex]="calc3cols" class="col4">
+                                <app-threats-data-table [data]="threats"
+                                                        [riskCategories]="riskCategories"
+                                                        (onEdit)="onOpenEditThreatDialog($event)"
+                                                        (onRemove)="onRemoveThreat($event)"
+                                                         *ngIf="riskCategories">
+                                </app-threats-data-table>
+                            </div>
+                        </div>
+                        <a class="marginLinks-Asset" mat-raised-button color="basic" (click)="onOpenThreatDialog()">ADD THREAT</a>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="EVALUATION">
+                <mat-card class="matDialogBox">
+                    <mat-card-content>
+                        <div class="bussinessDiv-Asset">
+                            <div *ngIf="selectedEvaluation" [innerHtml]="selectedEvaluation.text" disabled></div>
+                        </div>
+                        <div class="flex-row">
+                            <a class="evaluationAndPlanButton" mat-raised-button color="basic" (click)="onOpenEvaluationDialog()">EDIT EVALUATION</a>
+                            <mat-form-field class="fixed-width">
+                                <mat-select [(value)]="selectedEvaluation" placeholder="Revision">
+                                    <mat-option *ngFor="let evaluaton of evaluations" [value]="evaluaton">
+                                        {{evaluaton.revision}}: {{evaluaton.createdOn | date:'dd.MM.yyyy hh:mm'}} ({{evaluaton.user.username}})
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="SOA">
+
+                <mat-tab-group *ngIf="editMode" class="soaTabs demo-tab-group" style="background-color:white; margin:8px" (selectedTabChange)="onTabChanged($event)">
+                    <mat-tab label="ISO27001">
+                        <mat-card>
+                            <mat-card-content class="pieCard" flex id="main-view">
+                                <div>
+                                    <canvas baseChart
+                                            [data]="isoPie.pieChartData"
+                                            [labels]="isoPie.pieChartLabels"
+                                            [chartType]="pieChartType"
+                                            [colors]="isoPie.pieChartColors"
+                                            [legend]="pieChartLegend"
+                                            [options]="pieChartOptions"></canvas>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+
+                        <mat-card>
+                            <div *ngIf="enableIso && subSelectedIndex==0">
+                                <ngx-datatable class="material fullscreen"
+                                               [columnMode]="'force'"
+                                               [headerHeight]="50"
+                                               [footerHeight]="0"
+                                               [rowHeight]="50"
+                                               [sorts]=""
+                                               [rows]="getAssetSoas(1)">
+                                    <ngx-datatable-column name="Name" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <mat-slide-toggle class="example-margin"
+                                                              [checked]="row['implemented']"
+                                                              (change)="onSoaChange(row, 'implemented', $event)">
+                                                {{row['soaChapterName']}}
+                                            </mat-slide-toggle>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Deadline" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <input matInput [value]="row['deadline']" [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="onSoaDateChange(row, 'deadline', $event)">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Executed date" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <input matInput [value]="row['executedDate']" [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="onSoaDateChange(row, 'executedDate', $event)">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Valid to" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <input matInput [value]="row['validTo']" [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="onSoaDateChange(row, 'validTo', $event)">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Comment" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <textarea matInput placeholder="" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" [value]="row['comment'] ? row['comment'] : ''" (keyup)="onSoaChange(row, 'comment', $event)"></textarea>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                </ngx-datatable>
+                            </div>
+                        </mat-card>
+                    </mat-tab>
+
+                    <mat-tab label="HelseSOA">
+                        <mat-card>
+                            <mat-card-content class="pieCard" flex id="main-view">
+                                <div>
+                                    <canvas baseChart
+                                            [data]="helsePie.pieChartData"
+                                            [labels]="helsePie.pieChartLabels"
+                                            [chartType]="pieChartType"
+                                            [colors]="helsePie.pieChartColors"
+                                            [legend]="pieChartLegend"
+                                            [options]="pieChartOptions"></canvas>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card>
+                            <div *ngIf="(enableIso && enableHelse && subSelectedIndex==1) || (!enableIso && enableHelse && subSelectedIndex==0)">
+                                <ngx-datatable class="material fullscreen"
+                                               [columnMode]="'force'"
+                                               [headerHeight]="50"
+                                               [footerHeight]="0"
+                                               [rowHeight]="50"
+                                               [sorts]=""
+                                               [rows]="getAssetSoas(4)">
+                                    <ngx-datatable-column name="Name" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <mat-slide-toggle class="example-margin"
+                                                              [checked]="row['implemented']"
+                                                              (change)="onSoaChange(row, 'implemented', $event)">
+                                                {{row['soaChapterName']}}
+                                            </mat-slide-toggle>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Deadline" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <input matInput [value]="row['deadline']" [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="onSoaDateChange(row, 'deadline', $event)">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Executed date" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <input matInput [value]="row['executedDate']" [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="onSoaDateChange(row, 'executedDate', $event)">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Valid to" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <input matInput [value]="row['validTo']" [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="onSoaDateChange(row, 'validTo', $event)">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Comment" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <textarea matInput placeholder="" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" [value]="row['comment'] ? row['comment'] : ''" (keyup)="onSoaChange(row, 'comment', $event)"></textarea>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                </ngx-datatable>
+                            </div>
+                        </mat-card>
+                    </mat-tab>
+
+                    <mat-tab label="GDPR">
+                        <mat-card>
+                            <mat-card-content class="pieCard" flex id="main-view">
+                                <div>
+                                    <canvas baseChart
+                                            [data]="gdprPie.pieChartData"
+                                            [labels]="gdprPie.pieChartLabels"
+                                            [chartType]="pieChartType"
+                                            [colors]="gdprPie.pieChartColors"
+                                            [legend]="pieChartLegend"
+                                            [options]="pieChartOptions"></canvas>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+
+                        <mat-card>
+                            <div *ngIf="(enableGdpr && enableIso && enableHelse && subSelectedIndex==2) || (enableGdpr && !enableIso && enableHelse && subSelectedIndex==1) || (enableGdpr && enableIso && !enableHelse && subSelectedIndex==1) || (enableGdpr && !enableIso && !enableHelse && subSelectedIndex==0)">
+                                <ngx-datatable class="material fullscreen"
+                                               [columnMode]="'force'"
+                                               [headerHeight]="50"
+                                               [footerHeight]="0"
+                                               [rowHeight]="50"
+                                               [sorts]=""
+                                               [rows]="getAssetSoas(5)">
+                                    <ngx-datatable-column name="Name" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <mat-slide-toggle class="example-margin"
+                                                              [checked]="row['implemented']"
+                                                              (change)="onSoaChange(row, 'implemented', $event)">
+                                                {{row['soaChapterName']}}
+                                            </mat-slide-toggle>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Deadline" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <input matInput [value]="row['deadline']" [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="onSoaDateChange(row, 'deadline', $event)">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Executed date" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <input matInput [value]="row['executedDate']" [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="onSoaDateChange(row, 'executedDate', $event)">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Valid to" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <input matInput [value]="row['validTo']" [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="onSoaDateChange(row, 'validTo', $event)">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Comment" [cellClass]="assetSoaTableCell">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div class="assetSoaTableCell">
+                                                <textarea matInput placeholder="" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" [value]="row['comment'] ? row['comment'] : ''" (keyup)="onSoaChange(row, 'comment', $event)"></textarea>
+                                            </div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                </ngx-datatable>
+                            </div>
+                        </mat-card>
+                    </mat-tab>
+                </mat-tab-group>
+                
+                <mat-card class="matDialogBox">
+                    <mat-card-content>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+        <!--{{ assetForm.value.timeCosts | json }}-->
+    </form>
+</div>
+

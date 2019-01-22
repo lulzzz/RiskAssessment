@@ -1,0 +1,179 @@
+﻿
+<div layout="row">
+
+    <md-sidenav layout="column" class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+        <md-toolbar id="menutoolbar">
+
+            <div class="md-toolbar-tools">
+                <a ng-href="/WebClient/dashboard" class="docs-logo" href="/WebClient/dashboard">
+                    <img src="content/img/raap-logo-3.png" alt="Logo" class="logo-image" />
+                </a>
+            </div>
+
+        </md-toolbar>
+    </md-sidenav>
+    
+
+    <md-sidenav layout="column" class="md-sidenav-left" md-is-open="false" md-component-id="mobilemenu" md-is-locked-open="false">
+        <md-toolbar id="menut2oolbar">
+            <div class="md-toolbar-tools">
+                <a ng-href="/WebClient/dashboard" class="docs-logo" href="/WebClient/dashboard">
+                    <img src="content/img/raap-logo-3.png" alt="Logo" class="logo-image" />
+                </a>
+            </div>
+
+        </md-toolbar>
+        <p>Mobile menu</p>
+    </md-sidenav>
+
+
+    <div layout="column" class="relative"  layout-fill role="main">
+        <md-toolbar ng-controller="headerController" id="headerToolbar">
+            <div class="md-toolbar-tools">
+                <md-button ng-click="toggleSidenav('mobilemenu')" hide-gt-md aria-label="Menu">
+                    <ng-md-icon icon="menu"></ng-md-icon>
+                </md-button>
+                <h3 style="font-size:18px;" class="large-header-text">
+                    Real-Time Risk Management and Asset Protection - {{authentication.userDetails.companyName}}
+                </h3>
+                <h3 style="font-size:18px;" class="small-header-text">
+                    CRMAP
+                </h3>
+                <span flex></span>
+                <md-select ng-model="languageIsoCode">
+                    <md-option ng-repeat="language in languages" ng-value="language.isoCode">
+                        {{language.name}}
+                    </md-option>
+                </md-select>
+                <md-button aria-label="Help" ng-click="viewHelp()">
+                    <ng-md-icon icon="live_help"></ng-md-icon>
+                    Help
+                </md-button>
+
+                <md-button aria-label="My page" ng-click="myPage()">
+                    <ng-md-icon icon="person"></ng-md-icon>
+                    My page
+                </md-button>
+                <md-button aria-label="Sign out" ng-click="logOut()">
+                    <ng-md-icon icon="logout"></ng-md-icon>
+                    Sign out
+                </md-button>
+            </div>
+
+        </md-toolbar>
+    </div>
+
+  
+</div>
+
+<div layout="row" ng-controller="topMenuController">
+    <md-nav-bar md-selected-nav-item="selectedName" nav-bar-aria-label="main menu">
+        <md-nav-item md-nav-click="setSelectedIndex(0)" name="dashboard">Dashboard</md-nav-item>
+        <md-nav-item md-nav-click="setSelectedIndex(1)" name="inventory">Inventory</md-nav-item>
+        <md-nav-item md-nav-click="setSelectedIndex(2)" name="business processes">Business Processes</md-nav-item>
+        <md-nav-item md-nav-click="setSelectedIndex(3)" name="soa">SoA</md-nav-item>
+        <md-nav-item md-nav-click="setSelectedIndex(4)" name="files">Files</md-nav-item>
+    </md-nav-bar>
+</div>
+
+
+    <div layout="row" layout-fill>
+
+
+
+        <section resizable r-directions="['right', 'left']" r-flex="false" id="raap-sidebar">
+            <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+
+                <div layout-fill ng-controller="menuController" id="mainmenu">
+
+                    <div id="menutabs" layout-fill>
+                        <md-content class="md-padding" ng-show="selectedtab == 0">
+                            <ul class="side-menu">
+                                <li ng-repeat="section in vm.menu.dashboardsections" class="parent-list-item"
+                                    ng-class="{'parentActive' : vm.isDashboardSectionSelected(section)}">
+                                    <h2 class="menu-heading" ng-if="section.type === 'heading'"
+                                        id="heading_{{ section.name | nospace }}">
+                                        {{section}}
+                                    </h2>
+                                    <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+                                    <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+                                </li>
+                            </ul>
+                        </md-content>
+
+                        <md-content class="md-padding" ng-show="selectedtab == 1">
+                            <ul class="side-menu">
+                                <li ng-repeat="section in vm.menu.sections" class="parent-list-item"
+                                    ng-class="{'parentActive' : vm.isSectionSelected(section)}">
+                                    <h2 class="menu-heading" ng-if="section.type === 'heading'"
+                                        id="heading_{{ section.name | nospace }}">
+                                        {{section}}
+                                    </h2>
+                                    <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+                                    <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+                                </li>
+                            </ul>
+                        </md-content>
+                        <md-content class="md-padding" style="overflow-x: auto; overflow-y: visible;" ng-show="selectedtab == 2">
+
+
+                            <md-button ng-click="createProcess();" class="md-accent" style="padding-top: 0px; margin-top: 0px; float: left;"><i class="fa fa-plus-circle"></i> new</md-button>
+                            <md-button ng-click="reloadState();" class="md-accent" style="padding-top: 0px; margin-top: 0px; float: right;"><i class="fa fa-refresh"></i> refresh</md-button>
+
+
+                            <p ng-show="vm.isLoading" style="padding-left: 15px;">
+                                <i class="fa fa-refresh fa-spin"></i> please wait ...
+                            </p>
+
+                            <p ng-show="vm.message && vm.message.length > 0" style="padding-left: 15px;">
+                                {{vm.message}}
+                            </p>
+
+                            <div style="clear: right;" ng-show="!vm.isLoading" js-tree="vm.treeConfig" ng-model="vm.treeData" tree="vm.treeInstance" tree-events="activate_node:treeNodeClick;hover_node:treeNodeHover;dehover_node:treeNodeDehover"></div>
+
+
+                        </md-content>
+                        <md-content class="md-padding" ng-show="selectedtab == 3">
+                            <ul class="side-menu">
+                                <li ng-repeat="section in vm.menu.soasections" class="parent-list-item"
+                                    ng-class="{'parentActive' : vm.isSoaSectionSelected(section)}">
+                                    <h2 class="menu-heading" ng-if="section.type === 'heading'"
+                                        id="heading_{{ section.name | nospace }}">
+                                        {{section}}
+                                    </h2>
+                                    <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+                                    <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+                                </li>
+                            </ul>
+                        </md-content>
+
+                        <md-content class="md-padding" ng-show="selectedtab == 4">
+                            <ul class="side-menu">
+                                <li ng-repeat="section in vm.menu.filesections" class="parent-list-item"
+                                    ng-class="{'parentActive' : vm.isFileSectionSelected(section)}">
+                                    <h2 class="menu-heading" ng-if="section.type === 'heading'"
+                                        id="heading_{{ section.name | nospace }}">
+                                        {{section}}
+                                    </h2>
+                                    <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+                                    <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+                                </li>
+                            </ul>
+                        </md-content>
+                    </div>
+
+
+                </div>
+
+
+
+            </md-sidenav>
+        </section>
+        <div layout="column" class="relative" layout-fill role="main">
+
+            <ui-view layout="column" class="relative" flex="no-shrink"></ui-view>
+
+            <div class="raap-loader" dw-loading="key" dw-loading-options="{text: 'Please wait ...', overlay:true, spinner:true, spinnerOptions : { color: '#fff',radius:20, length: 14, width: 8 }}"></div>
+
+        </div>
+    </div>

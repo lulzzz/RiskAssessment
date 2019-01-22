@@ -1,0 +1,168 @@
+﻿<div #panel [formGroup]="thirdChapterLevelGroup">
+    <div *ngIf="checkSoaLayout; then soa else soachapters"></div>
+    <ng-template #soa>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-description>
+                    <div class="title-panel-chapter">
+                        <h5 mat-line>{{thirdChapterLevelGroup.value.name}}</h5>
+                    </div>
+                    <div class="title-panel-description">
+                        <h5 mat-line>{{thirdChapterLevelGroup.value.description}}</h5>
+                    </div>
+                </mat-panel-description>
+                <mat-panel-description>
+                    <div layout-gt-sm="row" class="top-padding">
+                        <div layout-gt-sm="column" flex="50">
+                            <mat-slide-toggle class="md-block" formControlName="relevance" (click)="onStopPropagation($event)">Relevance</mat-slide-toggle>
+                        </div>
+                        <div layout-gt-sm="column" flex="50">
+                            <mat-slide-toggle class="md-block" formControlName="riskAssessments" (click)="onStopPropagation($event)">RA</mat-slide-toggle>
+                        </div>
+                        <div layout-gt-sm="column" flex="50">
+                            <mat-slide-toggle class="md-block" formControlName="currentControl" (click)="onStopPropagation($event)">Cur.</mat-slide-toggle>
+                        </div>
+                        <div layout-gt-sm="column" flex="50">
+                            <mat-slide-toggle class="md-block" formControlName="contractual" (click)="onStopPropagation($event)">Cont.</mat-slide-toggle>
+                        </div>
+                        <div layout-gt-sm="column" flex="50">
+                            <mat-slide-toggle class="md-block" formControlName="dataProtectionLaw" (click)="onStopPropagation($event)">DPL</mat-slide-toggle>
+                        </div>
+                        <div layout-gt-sm="column" flex="50">
+                            <mat-select class="md-block" (click)="onStopPropagation($event)" formControlName="compliance">
+                                <mat-option *ngFor="let item of compliances" [value]="item">
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-label>{{thirdChapterLevelGroup.value.goal}}</mat-label>
+            <div layout-gt-sm="row" class="reason-padding-top">
+                <mat-label class="md-block">Reason:</mat-label>
+            </div>
+            <div layout-gt-sm="row" class="reason-controls-left">
+                <mat-slide-toggle style="min-width: 160px;" class="md-block" formControlName="availability">Availability</mat-slide-toggle>
+                <mat-slide-toggle style="min-width: 160px;" class="md-block" formControlName="authenticity">Authenticity</mat-slide-toggle>
+                <mat-slide-toggle style="min-width: 160px;" class="md-block" formControlName="confidenciality">Confidenciality</mat-slide-toggle>
+                <mat-slide-toggle style="min-width: 160px;" formControlName="integrity">Integrity</mat-slide-toggle>
+            </div>
+            <div layout-gt-sm="row" class="top-padding">
+                <div layout-gt-sm="column" flex="50">
+                    <mat-form-field class="md-block" flex-gt-sm>
+                        <mat-select placeholder="Responsible person" formControlName="responisbleUserId">
+                            <mat-option *ngFor="let user of users" [value]="user">
+                                {{ user.lastName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div layout-gt-sm="column" flex="50" class="second-div-control">
+                    <mat-form-field class="md-block" flex-gt-sm>
+                        <input matInput [matDatepicker]="deadline" placeholder="Deadline" formControlName="complianceDate">
+                        <mat-datepicker-toggle matSuffix [for]="deadline"></mat-datepicker-toggle>
+                        <mat-datepicker #deadline disabled="false"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div layout-gt-sm="column" flex="50" class="second-div-control">
+                    <mat-form-field class="md-block" flex-gt-sm>
+                        <mat-select placeholder="Implemented by" formControlName="implementationUserId">
+                            <mat-option *ngFor="let user of users" [value]="user">
+                                {{ user.lastName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div layout-gt-sm="column" flex="50" class="second-div-control">
+                    <mat-form-field class="md-block" flex-gt-sm>
+                        <input matInput [matDatepicker]="implemented" placeholder="Implemented" formControlName="implementationDate">
+                        <mat-datepicker-toggle matSuffix [for]="implemented"></mat-datepicker-toggle>
+                        <mat-datepicker #implemented disabled="false"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div layout-gt-sm="row" class="top-padding">
+                <div layout-gt-sm="column" flex="50">
+                    <mat-form-field class="md-block" flex-gt-sm>
+                        <textarea matInput placeholder="Source Reference" formControlName="sourceReference" rows="2"> </textarea>
+                    </mat-form-field>
+                </div>
+                <div layout-gt-sm="column" flex="50" class="second-div-control">
+                    <mat-form-field class="md-block" flex-gt-sm>
+                        <textarea matInput placeholder="Control Description" formControlName="controlDescription" rows="2"> </textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div layout-gt-sm="row" class="top-padding">
+                <div layout-gt-sm="column" flex="50">
+                    <mat-form-field class="md-block" flex-gt-sm>
+                        <textarea matInput placeholder="Guide" formControlName="howTo" rows="10"></textarea>
+                    </mat-form-field>
+                </div>
+                <div layout-gt-sm="column" flex="50" class="second-div-control">
+                    <mat-form-field class="md-block" flex-gt-sm>
+                        <textarea matInput placeholder="Additional info" formControlName="info" rows="10"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div layout-gt-sm="row" class="top-padding">
+                <div layout-gt-sm="column" flex="50">
+                    <mat-form-field class="md-block" flex-gt-sm>
+                        <textarea matInput placeholder="Link Name" rows="2"></textarea>
+                    </mat-form-field>
+                </div>
+                <div layout-gt-sm="column" flex="50" class="second-div-control">
+                    <mat-form-field class="md-block" flex-gt-sm>
+                        <textarea matInput placeholder="Link URL" rows="2"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div layout-gt-sm="row" class="top-padding">
+                <div layout-gt-sm="column">
+                    <button type="submit" mat-raised-button color="accent">ADD LINK</button>
+                </div>
+                <div layout-gt-sm="column" style="margin-left:455px">
+                    <button type="submit" mat-raised-button color="accent">UPLOAD FILE</button>
+                </div>
+                <div layout-gt-sm="column" style="margin-left:5px">
+                    <button mat-raised-button color="warn">DELETE FILE</button>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </ng-template>
+    <ng-template #soachapters>
+        <div layout-gt-sm="row">
+            <div layout-gt-sm="column" flex="50">
+                <mat-form-field class="md-block" flex-gt-sm>
+                    <input matInput placeholder="Chapter" formControlName="name">
+                </mat-form-field>
+            </div>
+            <div layout-gt-sm="column" flex="50" class="second-div-control">
+                <mat-form-field class="md-block" flex-gt-sm>
+                    <input matInput placeholder="Name" formControlName="description">
+                </mat-form-field>
+            </div>
+            <div layout-gt-sm="column" flex="150" class="second-div-control delete-chapter">
+                <button mat-button (click)="onRemoveThirdChapterLevel()">DELETE</button>
+            </div>
+        </div>
+        <div layout-gt-sm="row">
+            <mat-form-field class="md-block" flex-gt-sm>
+                <textarea matInput placeholder="Description" rows="4" formControlName="goal"></textarea>
+            </mat-form-field>
+        </div>
+        <div layout-gt-sm="row">
+            <div layout-gt-sm="column" flex="50">
+                <mat-form-field class="md-block" flex-gt-sm>
+                    <textarea matInput placeholder="How to" rows="10" formControlName="howTo"></textarea>
+                </mat-form-field>
+            </div>
+            <div layout-gt-sm="column" flex="50" class="second-div-control">
+                <mat-form-field class="md-block" flex-gt-sm>
+                    <textarea matInput placeholder="Info" rows="10" formControlName="info"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </ng-template>
+</div>

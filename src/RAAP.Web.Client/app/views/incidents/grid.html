@@ -1,0 +1,62 @@
+﻿
+
+<h3>
+    <button class="btn btn-default btn-primary" ng-click="create()" style="float:right;margin-left:10px;">Create</button>
+    <input type="text" ng-model="vm.searchResult" placeholder="Search here ..." typeahead="result as result.name for result in search($viewValue)"
+           typeahead-on-select="edit($item.id)" typeahead-loading="vm.searchLoading" ng-class="vm.searchLoading ? 'form-incident form-incident-rounded input-searching' : 'form-incident form-incident-rounded'"
+           style="width:200px;float:right;" />
+
+    Incidents
+    <small>Your incidents. Found {{vm.dataset.totalItems}} incidents in database.</small>
+</h3>
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+                <table class="table table-striped dataTable">
+                    <thead>
+                        <tr>
+                            <th class="sorting"><a href ng-click="vm.orderByKey='incidentId'; vm.isDesc = !vm.isDesc;loadData()">#</a></th>
+                            <th class="sorting"><a href ng-click="vm.orderByKey='name'; vm.isDesc = !vm.isDesc;loadData()">Name</a></th>
+                            <th class="sorting"><a href ng-click="vm.orderByKey='description'; vm.isDesc = !vm.isDesc;loadData()">Description</a></th>
+                            <th class="sorting"><a href ng-click="vm.orderByKey='category'; vm.isDesc = !vm.isDesc;loadData()">Category</a></th>
+                            <th class="sorting"><a href ng-click="vm.orderByKey='createdOn'; vm.isDesc = !vm.isDesc;loadData()">Created</a></th>
+                            <th class="align-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.dataset.items">
+                            <th scope="row">{{item.incidentId}}</th>
+                            <td>{{item.name}}</td>
+                            <td>{{item.description}}</td>
+                            <td>{{item.category.name}}</td>
+                            <td>{{item.createdOn | date:'dd.MM.yyyy HH:mm:ss' }}</td>
+                            <td class="align-right">
+                                <a class="btn btn-default btn-sm" href ng-click="edit(item.incidentId)" role="button">Edit</a>
+                                <a class="btn btn-default btn-sm" href ng-click="delete(item.incidentId)" role="button">Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" ng-show="vm.dataset.items.length <= 0">
+                                No items found!
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <pagination total-items="vm.dataset.totalItems" ng-model="vm.page" items-per-page="vm.pageSize" ng-change="loadData()" previous-text="Previous" next-text="Next"></pagination>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

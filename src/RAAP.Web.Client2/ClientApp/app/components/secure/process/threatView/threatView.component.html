@@ -1,0 +1,138 @@
+﻿<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <form [formGroup]="threatViewForm">
+        <mat-card>
+            <mat-card-content>
+                <div class="container">
+                    <div [fxFlex]="calc3cols" class="col3"><p class="headerNameSize">{{threatViewForm.value.name}}({{threatViewForm.value.category.name}})</p></div>
+                    <div class="headerButtonMargin">
+                        <div class="button-row">
+                            <button mat-raised-button color="warn" (click)="onDelete();">DELETE</button>
+                            <button type="submit" mat-raised-button color="accent" [routerLink]="['/threat/edit/',threatViewForm.value.threatId]">{{ 'EDIT' }}</button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <app-alert></app-alert>
+        </mat-card>
+
+        <mat-tab-group class="demo-tab-group" style="background-color:white; margin:8px">
+            <mat-tab label="THREAT">
+                <mat-card-content flex id="main-view">
+                    <div layout="column" flex="noshrink">
+                        <mat-card class="matDialogBox">
+                            <mat-card-content class="md-padding">
+                                <div layout-gt-sm="row">
+                                    <div layout-gt-sm="column" flex="50" class="marginDiv-Asset">
+                                        <mat-card>
+                                            <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                <a style="color:white; font-size:18px; margin:10px;">ISO 27001 (Calculated)</a>
+                                            </mat-card-header>
+                                            <mat-tab-group class="demo-tab-group" style="background-color:white; margin:8px" *ngFor="let r of risks">
+                                                <mat-tab label="{{r.name}}">
+                                                </mat-tab>
+                                            </mat-tab-group>
+                                            <mat-card-content> No risks found for this item</mat-card-content>
+                                        </mat-card>
+                                        <div layout-gt-sm="column" flex="100" class="marginDiv-Asset">
+                                            <mat-card>
+                                                <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                    <a style="color:white; font-size:18px; margin:10px;">Risk</a>
+                                                </mat-card-header>
+                                                <mat-card-content>
+                                                    <div layout-gt-sm="row">
+                                                        <span flex="45">Avoid risk</span>
+                                                        <mat-checkbox class="checkboxThreatDecoration" checked="{{threatViewForm.value.avoidRisk?1:0}}" [disabled]="true">Avoid risk</mat-checkbox>
+                                                    </div>
+                                                    <div layout-gt-sm="row" class="viewThreatRisk">
+                                                        <span flex="45">Share risk</span>
+                                                        <mat-checkbox class="checkboxThreatDecoration" checked="{{threatViewForm.value.shareRisk?1:0}}" [disabled]="true">Share risk</mat-checkbox>
+                                                    </div>
+                                                    <div layout-gt-sm="row" class="viewThreatRisk">
+                                                        <span flex="45">Reduce risk</span>
+                                                        <mat-checkbox class="checkboxThreatDecoration" checked="{{threatViewForm.value.reduceRisk?1:0}}" [disabled]="true">Reduce risk</mat-checkbox>
+                                                    </div>
+                                                    <div layout-gt-sm="row" class="viewThreatRisk">
+                                                        <span flex="45">Accept risk</span>
+                                                        <mat-checkbox class="checkboxThreatDecoration" checked="{{threatViewForm.value.acceptRisk?1:0}}" [disabled]="true">Accept risk</mat-checkbox>
+                                                    </div>
+                                                    <div layout-gt-sm="row" class="viewThreatRisk">
+                                                        <span flex="45">Person</span>
+                                                        <span class="checkboxThreatDecoration">{{threatViewForm.value.riskUser}}</span>
+                                                    </div>
+                                                    <div layout-gt-sm="row" class="viewThreatRisk">
+                                                        <span flex="45">Date</span>
+                                                        <span class="checkboxThreatDecoration">{{threatViewForm.value.riskDate|date:'MM/dd/yyyy'}}</span>
+                                                    </div>
+                                                </mat-card-content>
+                                            </mat-card>
+                                        </div>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="50">
+                                        <mat-card>
+                                            <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                <a style="color:white; font-size:18px; margin:10px;">Description</a>
+                                            </mat-card-header>
+                                            <mat-card-content>{{ threatViewForm.value.description }}  </mat-card-content>
+                                        </mat-card>
+                                        <mat-card>
+                                            <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                <a style="color:white; font-size:18px; margin:10px;">Threat</a>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <div layout-gt-sm="row">
+                                                    <span flex="45">Internal/External threat</span>
+                                                    <mat-checkbox flex class="checkboxThreatDecoration" checked="{{threatViewForm.value.internalExternal?true:false}}" [disabled]="true">Internal threat</mat-checkbox>
+                                                </div>
+                                                <div layout-gt-sm="row">
+                                                    <span flex="45">Security threat</span>
+                                                    <mat-checkbox flex class="checkboxThreatDecoration" checked="{{threatViewForm.value.securitySafety?true:false}}" [disabled]="true">Security threat</mat-checkbox>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+
+                                        <mat-card>
+                                            <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                <a style="color:white; font-size:18px; margin:10px;">Threat affects</a>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <div layout-gt-sm="row">
+                                                    <span flex="45">Confidenciality</span>
+                                                    <mat-checkbox flex class="checkboxThreatDecoration" checked="{{threatViewForm.value.confidenciality?1:0}}" [disabled]="true">Confidenciality</mat-checkbox>
+                                                </div>
+                                                <div layout-gt-sm="row">
+                                                    <span flex="45">Integrity</span>
+                                                    <mat-checkbox flex class="checkboxThreatDecoration" checked="{{threatViewForm.value.integrity?1:0}}" [disabled]="true">Integrity</mat-checkbox>
+                                                </div>
+                                                <div layout-gt-sm="row">
+                                                    <span flex="45">Availability</span>
+                                                    <mat-checkbox class="checkboxThreatDecoration" checked="{{threatViewForm.value.availability?1:0}}" [disabled]="true">Availability</mat-checkbox>
+                                                </div>
+                                                <div layout-gt-sm="row">
+                                                    <span flex="45">Authenticity</span>
+                                                    <mat-checkbox class="checkboxThreatDecoration" checked="{{threatViewForm.value.authenticity?1:0}}" [disabled]="true">Authenticity</mat-checkbox>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </mat-card-content>
+            </mat-tab>
+            <mat-tab label="EVELUATION">
+                <mat-card class="matDialogBox">
+                    <mat-card-content>
+                        <div class="bussinessDivEvaluation">
+                            <div *ngIf="selectedEvaluation" [innerHtml]="selectedEvaluation.text" disabled></div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </form>
+</div>
+

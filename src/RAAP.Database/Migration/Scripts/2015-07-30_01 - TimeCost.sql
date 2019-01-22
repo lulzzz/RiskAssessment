@@ -1,0 +1,1 @@
+alter table Asset add MaintenanceCost decimal(18,2) null, DueDate datetime2(7) null, InvestmentCost decimal(18,2) null;

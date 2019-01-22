@@ -1,0 +1,68 @@
+﻿<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h3>
+            {{vm.company.name}}
+        </h3>
+        <span flex></span>
+
+
+        <md-button class="md-raised" aria-label="Save" ng-click="create()">
+            Create new Company
+        </md-button>
+
+    </div>
+</md-toolbar>
+
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+
+        <md-card>
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="company">
+                    <div class="md-padding" layout-xs="column" layout="row">
+
+                      
+                        <div flex-xs flex-gt-xs="100" layout="column">
+                            <md-card>
+
+                                <div class="custom-card-header md-padding">
+                                    <span class="md-headline">Description</span>
+                                    <ng-md-icon icon="description" size="30"></ng-md-icon>
+                                </div>
+                                <md-card-content>
+                                    {{vm.company.description}}
+
+                                </md-card-content>
+                            </md-card>
+
+                           
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+                </md-tab>
+               
+            </md-tabs>
+
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+
+
+

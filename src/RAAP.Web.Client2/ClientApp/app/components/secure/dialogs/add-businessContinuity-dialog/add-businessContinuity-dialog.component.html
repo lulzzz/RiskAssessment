@@ -1,0 +1,15 @@
+﻿
+<div color="primary" class="dialog-headline">
+    Edit business continuity plan
+    <mat-icon id="closeDialogBtn" class="material-icons" (click)="onCloseDialog()">cancel</mat-icon>
+</div>
+<mat-dialog-content>
+    <mat-card class="matCardDecoration">
+        <quill-editor [style]="{height: '150px'}" [(ngModel)]="businessContinuityPlan.text">
+        </quill-editor>
+    </mat-card>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>CLOSE</button>
+    <button mat-button mat-dialog-close (click)="onAddBCP()">SAVE</button>
+</mat-dialog-actions>

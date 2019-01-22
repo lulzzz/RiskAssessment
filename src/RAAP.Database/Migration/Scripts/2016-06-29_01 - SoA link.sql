@@ -1,0 +1,30 @@
+/****** Object:  Table [dbo].[SoaLink]    Script Date: 29.06.2016 00.11.12 ******/
+SET ANSI_NULLS ON
+
+
+SET QUOTED_IDENTIFIER ON
+
+
+CREATE TABLE [dbo].[SoaLink](
+	[SoaLinkId] [int] IDENTITY(1,1) NOT NULL,
+	[URL] [nvarchar](500) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[SoaId] [int] NOT NULL,
+ CONSTRAINT [PK_SoaLink] PRIMARY KEY CLUSTERED 
+(
+	[SoaLinkId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+
+ALTER TABLE [dbo].[SoaLink]  WITH CHECK ADD  CONSTRAINT [FK_SoaLink_Soa] FOREIGN KEY([SoaId])
+REFERENCES [dbo].[Soa] ([SoaId])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+
+
+ALTER TABLE [dbo].[SoaLink] CHECK CONSTRAINT [FK_SoaLink_Soa]
+
+
+

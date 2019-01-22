@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RAAPMasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Companies">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="DatabaseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProfileImage" Type="varbinary(max)" />
+          <Property Name="ProfileImageFiletype" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="250" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="250" />
+          <Property Name="Address3" Type="nvarchar" MaxLength="250" />
+          <Property Name="Address4" Type="nvarchar" MaxLength="250" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrganizationNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="Homepage" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Help">
+          <Key>
+            <PropertyRef Name="HelpId" />
+          </Key>
+          <Property Name="HelpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Language" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Slug" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Languages">
+          <Key>
+            <PropertyRef Name="IsoCode" />
+          </Key>
+          <Property Name="IsoCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Role" />
+          </Key>
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoaChapter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Parent" Type="int" />
+          <Property Name="SoaType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoaChapterItems">
+          <Key>
+            <PropertyRef Name="SoaChapterItemsId" />
+          </Key>
+          <Property Name="SoaChapterItemsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SoaChapterId" Type="int" Nullable="false" />
+          <Property Name="IsoCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Goal" Type="varchar" MaxLength="4000" />
+          <Property Name="HowTo" Type="text" />
+          <Property Name="Info" Type="text" />
+        </EntityType>
+        <EntityType Name="SoaFile">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SoaChapterId" Type="int" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Role" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="500" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="250" />
+          <Property Name="ProfileImage" Type="varbinary(max)" />
+          <Property Name="ProfileImageFiletype" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+          <Property Name="NewPasswordGuid" Type="uniqueidentifier" />
+        </EntityType>
+        <Association Name="FK_Help_Languages">
+          <End Role="Languages" Type="Self.Languages" Multiplicity="1" />
+          <End Role="Help" Type="Self.Help" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="IsoCode" />
+            </Principal>
+            <Dependent Role="Help">
+              <PropertyRef Name="Language" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoaChapter_SoaChapter">
+          <End Role="SoaChapter" Type="Self.SoaChapter" Multiplicity="0..1" />
+          <End Role="SoaChapter1" Type="Self.SoaChapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoaChapter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SoaChapter1">
+              <PropertyRef Name="Parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoaChapterItems_Languages">
+          <End Role="Languages" Type="Self.Languages" Multiplicity="1" />
+          <End Role="SoaChapterItems" Type="Self.SoaChapterItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="IsoCode" />
+            </Principal>
+            <Dependent Role="SoaChapterItems">
+              <PropertyRef Name="IsoCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoaChapterItems_SoaChapter">
+          <End Role="SoaChapter" Type="Self.SoaChapter" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SoaChapterItems" Type="Self.SoaChapterItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoaChapter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SoaChapterItems">
+              <PropertyRef Name="SoaChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Role" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Companies">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RAAPMasterModelStoreContainer">
+          <EntitySet Name="Companies" EntityType="Self.Companies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Help" EntityType="Self.Help" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoaChapter" EntityType="Self.SoaChapter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoaChapterItems" EntityType="Self.SoaChapterItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoaFile" EntityType="Self.SoaFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Help_Languages" Association="Self.FK_Help_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="Help" EntitySet="Help" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoaChapter_SoaChapter" Association="Self.FK_SoaChapter_SoaChapter">
+            <End Role="SoaChapter" EntitySet="SoaChapter" />
+            <End Role="SoaChapter1" EntitySet="SoaChapter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoaChapterItems_Languages" Association="Self.FK_SoaChapterItems_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="SoaChapterItems" EntitySet="SoaChapterItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoaChapterItems_SoaChapter" Association="Self.FK_SoaChapterItems_SoaChapter">
+            <End Role="SoaChapter" EntitySet="SoaChapter" />
+            <End Role="SoaChapterItems" EntitySet="SoaChapterItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Roles" Association="Self.FK_UserRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Users" Association="Self.FK_UserRoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Companies" Association="Self.FK_Users_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RAAPMasterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DatabaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProfileImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProfileImageFiletype" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Address3" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Address4" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Homepage" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Companies" FromRole="Companies" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Help">
+          <Key>
+            <PropertyRef Name="HelpId" />
+          </Key>
+          <Property Name="HelpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Language" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Slug" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Language1" Relationship="Self.FK_Help_Languages" FromRole="Help" ToRole="Languages" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="IsoCode" />
+          </Key>
+          <Property Name="IsoCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Helps" Relationship="Self.FK_Help_Languages" FromRole="Languages" ToRole="Help" />
+          <NavigationProperty Name="SoaChapterItems" Relationship="Self.FK_SoaChapterItems_Languages" FromRole="Languages" ToRole="SoaChapterItems" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Role1" />
+          </Key>
+          <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.UserRoles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="SoaChapter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Parent" Type="Int32" />
+          <Property Name="SoaType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Children" Relationship="Self.FK_SoaChapter_SoaChapter" FromRole="SoaChapter" ToRole="SoaChapter1" />
+          <NavigationProperty Name="ParentChapter" Relationship="Self.FK_SoaChapter_SoaChapter" FromRole="SoaChapter1" ToRole="SoaChapter" />
+          <NavigationProperty Name="SoaChapterItems" Relationship="Self.FK_SoaChapterItems_SoaChapter" FromRole="SoaChapter" ToRole="SoaChapterItems" />
+        </EntityType>
+        <EntityType Name="SoaChapterItem">
+          <Key>
+            <PropertyRef Name="SoaChapterItemsId" />
+          </Key>
+          <Property Name="SoaChapterItemsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SoaChapterId" Type="Int32" Nullable="false" />
+          <Property Name="IsoCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Goal" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="HowTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_SoaChapterItems_Languages" FromRole="SoaChapterItems" ToRole="Languages" />
+          <NavigationProperty Name="SoaChapter" Relationship="Self.FK_SoaChapterItems_SoaChapter" FromRole="SoaChapterItems" ToRole="SoaChapter" />
+        </EntityType>
+        <EntityType Name="SoaFile">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoaChapterId" Type="Int32" Nullable="false" />
+          <Property Name="Guid" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ProfileImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProfileImageFiletype" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Users_Companies" FromRole="Users" ToRole="Companies" />
+          <NavigationProperty Name="Roles" Relationship="Self.UserRoles" FromRole="Users" ToRole="Roles" />
+          <Property Name="NewPasswordGuid" Type="Guid" />
+        </EntityType>
+        <Association Name="FK_Users_Companies">
+          <End Role="Companies" Type="Self.Company" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Help_Languages">
+          <End Role="Languages" Type="Self.Language" Multiplicity="1" />
+          <End Role="Help" Type="Self.Help" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="IsoCode" />
+            </Principal>
+            <Dependent Role="Help">
+              <PropertyRef Name="Language" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoaChapterItems_Languages">
+          <End Role="Languages" Type="Self.Language" Multiplicity="1" />
+          <End Role="SoaChapterItems" Type="Self.SoaChapterItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="IsoCode" />
+            </Principal>
+            <Dependent Role="SoaChapterItems">
+              <PropertyRef Name="IsoCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoaChapter_SoaChapter">
+          <End Role="SoaChapter" Type="Self.SoaChapter" Multiplicity="0..1" />
+          <End Role="SoaChapter1" Type="Self.SoaChapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoaChapter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SoaChapter1">
+              <PropertyRef Name="Parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoaChapterItems_SoaChapter">
+          <End Role="SoaChapter" Type="Self.SoaChapter" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SoaChapterItems" Type="Self.SoaChapterItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoaChapter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SoaChapterItems">
+              <PropertyRef Name="SoaChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserRoles">
+          <End Role="Roles" Type="Self.Role" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="RAAPMasterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="Helps" EntityType="Self.Help" />
+          <EntitySet Name="Languages" EntityType="Self.Language" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="SoaChapters" EntityType="Self.SoaChapter" />
+          <EntitySet Name="SoaChapterItems" EntityType="Self.SoaChapterItem" />
+          <EntitySet Name="SoaFiles" EntityType="Self.SoaFile" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Users_Companies" Association="Self.FK_Users_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Help_Languages" Association="Self.FK_Help_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="Help" EntitySet="Helps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoaChapterItems_Languages" Association="Self.FK_SoaChapterItems_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="SoaChapterItems" EntitySet="SoaChapterItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoaChapter_SoaChapter" Association="Self.FK_SoaChapter_SoaChapter">
+            <End Role="SoaChapter" EntitySet="SoaChapters" />
+            <End Role="SoaChapter1" EntitySet="SoaChapters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoaChapterItems_SoaChapter" Association="Self.FK_SoaChapterItems_SoaChapter">
+            <End Role="SoaChapter" EntitySet="SoaChapters" />
+            <End Role="SoaChapterItems" EntitySet="SoaChapterItems" />
+          </AssociationSet>
+          <AssociationSet Name="UserRoles" Association="Self.UserRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RAAPMasterModelStoreContainer" CdmEntityContainer="RAAPMasterEntities">
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="RAAPMasterModel.Company">
+              <MappingFragment StoreEntitySet="Companies">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
+                <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+                <ScalarProperty Name="ProfileImageFiletype" ColumnName="ProfileImageFiletype" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address4" ColumnName="Address4" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="OrganizationNumber" ColumnName="OrganizationNumber" />
+                <ScalarProperty Name="Homepage" ColumnName="Homepage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Helps">
+            <EntityTypeMapping TypeName="RAAPMasterModel.Help">
+              <MappingFragment StoreEntitySet="Help">
+                <ScalarProperty Name="HelpId" ColumnName="HelpId" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="RAAPMasterModel.Language">
+              <MappingFragment StoreEntitySet="Languages">
+                <ScalarProperty Name="IsoCode" ColumnName="IsoCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="RAAPMasterModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoaChapters">
+            <EntityTypeMapping TypeName="RAAPMasterModel.SoaChapter">
+              <MappingFragment StoreEntitySet="SoaChapter">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Parent" ColumnName="Parent" />
+                <ScalarProperty Name="SoaType" ColumnName="SoaType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoaChapterItems">
+            <EntityTypeMapping TypeName="RAAPMasterModel.SoaChapterItem">
+              <MappingFragment StoreEntitySet="SoaChapterItems">
+                <ScalarProperty Name="SoaChapterItemsId" ColumnName="SoaChapterItemsId" />
+                <ScalarProperty Name="SoaChapterId" ColumnName="SoaChapterId" />
+                <ScalarProperty Name="IsoCode" ColumnName="IsoCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Goal" ColumnName="Goal" />
+                <ScalarProperty Name="HowTo" ColumnName="HowTo" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoaFiles">
+            <EntityTypeMapping TypeName="RAAPMasterModel.SoaFile">
+              <MappingFragment StoreEntitySet="SoaFile">
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="SoaChapterId" ColumnName="SoaChapterId" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="RAAPMasterModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="NewPasswordGuid" ColumnName="NewPasswordGuid" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+                <ScalarProperty Name="ProfileImageFiletype" ColumnName="ProfileImageFiletype" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserRoles" TypeName="RAAPMasterModel.UserRoles" StoreEntitySet="UserRoles">
+            <EndProperty Name="Roles">
+              <ScalarProperty Name="Role1" ColumnName="Role" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

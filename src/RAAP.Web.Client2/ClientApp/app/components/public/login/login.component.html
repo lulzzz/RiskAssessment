@@ -1,0 +1,49 @@
+
+
+<div class="publiccard">
+    
+    <form [formGroup]="form" (ngSubmit)="submit($event)">
+
+        <ng-template tdLoading [tdLoadingUntil]="!showLoadingIcon" tdLoadingStrategy="overlay">
+
+
+            <mat-card>
+                <mat-card-title>Sign in</mat-card-title>
+                <mat-card-subtitle>Enter your username and password below.</mat-card-subtitle>
+
+                <mat-card-content>
+                    <mat-form-field>
+                        <input matInput placeholder="Username" formControlName="username">
+                        <mat-error *ngIf="form.controls.username.hasError('minlength')">
+                            Username is required
+                        </mat-error>
+                        <mat-error *ngIf="form.controls.username.hasError('required')">
+                            Username is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Password" formControlName="password">
+                        <mat-error *ngIf="form.controls.password.hasError('minlength')">
+                            Password is required
+                        </mat-error>
+                        <mat-error *ngIf="form.controls.password.hasError('required')">
+                            Password is required
+                        </mat-error>
+                    </mat-form-field>
+                    <div>
+                        <button mat-raised-button color="primary" class="submit-button">Sign in</button>
+                    </div>
+
+                </mat-card-content>
+
+            </mat-card>
+            
+         
+        </ng-template>
+
+    </form>
+
+
+
+</div>

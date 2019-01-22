@@ -1,0 +1,31 @@
+
+<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <mat-card>
+        <mat-card-content>
+            <div>
+                <div *ngIf="showForm" layout="column" style="margin-bottom:20px;">
+                    <div  layout="row">
+                        <div flex="40">
+                            <mat-form-field>
+                                <input matInput placeholder="Chapter">
+                            </mat-form-field>
+                        </div>
+                        <div flex="40" style="margin-left:10px">
+                            <mat-form-field>
+                                <input flex="40" matInput placeholder="Name">
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button style="height:30px; margin-top:10px; margin-left:10px;" mat-raised-button color="warn" (click)="hideForm()">DELETE</button>
+                        </div>
+                    </div>
+                    <div>
+                        <button  mat-raised-button color="accent" >UPLOAD FILE</button>
+                    </div>
+                </div>
+                <button mat-raised-button color="white" (click)="formOpen()">ADD TEMPLATE</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+</div>

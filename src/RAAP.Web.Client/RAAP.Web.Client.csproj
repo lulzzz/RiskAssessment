@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1D8D32F5-2A93-4A19-A783-28728E429D68}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RAAP.Web.Client</RootNamespace>
+    <AssemblyName>RAAP.Web.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\controllers\app.js" />
+    <Content Include="app\controllers\soadashboard.js" />
+    <Content Include="app\controllers\attribute.js" />
+    <Content Include="app\controllers\attributeCategory.js" />
+    <Content Include="app\controllers\assettree.js" />
+    <Content Include="app\controllers\file.js" />
+    <Content Include="app\controllers\fileupload.js" />
+    <Content Include="app\controllers\help.js" />
+    <Content Include="app\controllers\incident.js" />
+    <Content Include="app\controllers\controlCategory.js" />
+    <Content Include="app\controllers\criticalityCategory.js" />
+    <Content Include="app\controllers\legal.js" />
+    <Content Include="app\controllers\legalchapter.js" />
+    <Content Include="app\controllers\okcancel.js" />
+    <Content Include="app\controllers\legal.js" />
+    <Content Include="app\controllers\risktype.js" />
+    <Content Include="app\controllers\soa.js" />
+    <Content Include="app\controllers\legalchapter.js" />
+    <Content Include="app\controllers\soachapter.js" />
+    <Content Include="app\controllers\user.js" />
+    <Content Include="app\controllers\control.js" />
+    <Content Include="app\controllers\processCategory.js" />
+    <Content Include="app\controllers\process.js" />
+    <Content Include="app\controllers\company.js" />
+    <Content Include="app\controllers\asset.js" />
+    <Content Include="app\controllers\assetSubCategory.js" />
+    <Content Include="app\controllers\header.js" />
+    <Content Include="app\controllers\threat.js" />
+    <Content Include="app\controllers\threatCategory.js" />
+    <Content Include="app\directives\businesscontinuity.js" />
+    <Content Include="app\directives\dendogram.js" />
+    <Content Include="app\directives\evaluations.js" />
+    <Content Include="app\directives\risk.js" />
+    <Content Include="app\directives\filters.js" />
+    <Content Include="app\services\languageService.js" />
+    <Content Include="app\services\reportService.js" />
+    <Content Include="app\services\risktypeService.js" />
+    <Content Include="app\services\attributeService.js" />
+    <Content Include="app\services\attributeCategoryService.js" />
+    <Content Include="app\services\fileService.js" />
+    <Content Include="app\services\helpService.js" />
+    <Content Include="app\services\menuService.js" />
+    <Content Include="app\services\soachapterService.js" />
+    <Content Include="app\services\incidentService.js" />
+    <Content Include="app\services\controlCategoryService.js" />
+    <Content Include="app\services\criticalityCategoryService.js" />
+    <Content Include="app\services\userService.js" />
+    <Content Include="app\services\controlService.js" />
+    <Content Include="app\services\processService.js" />
+    <Content Include="app\services\processCategoryService.js" />
+    <Content Include="app\services\assetSubCategoryService.js" />
+    <Content Include="app\services\companyService.js" />
+    <Content Include="app\services\assetService.js" />
+    <Content Include="app\controllers\delete.js" />
+    <Content Include="app\controllers\menu.js" />
+    <Content Include="app\controllers\login.js" />
+    <Content Include="app\controllers\dashboard.js" />
+    <Content Include="app\services\threatService.js" />
+    <Content Include="app\services\threatCategoryService.js" />
+    <Content Include="app\directives\common.js" />
+    <Content Include="app\raap.js" />
+    <Content Include="app\services\authService.js" />
+    <Content Include="app\services\httpInterceptorService.js" />
+    <Content Include="app\services\utils\toggleStateService.js" />
+    <Content Include="app\views\assets\save.html" />
+    <Content Include="app\views\assets\select-assets.html" />
+    <Content Include="app\views\assets\select-threats.html" />
+    <Content Include="app\views\common_attributes\grid.html" />
+    <Content Include="app\views\common_attributes\save.html" />
+    <Content Include="app\views\common_attributes\select-originofthreat.html" />
+    <Content Include="app\views\common_categories\save.html" />
+    <Content Include="app\views\common_categories\grid.html" />
+    <Content Include="app\views\companies\save.html" />
+    <Content Include="app\views\companies\view.html" />
+    <Content Include="app\views\controls\view.html" />
+    <Content Include="app\views\dashboard\soadashboard.html" />
+    <Content Include="app\views\dashboard\assettree.html" />
+    <Content Include="app\views\file\templateedit.html" />
+    <Content Include="app\views\file\edit.html" />
+    <Content Include="app\views\help\helpModal.html" />
+    <Content Include="app\views\incidents\create.html" />
+    <Content Include="app\views\incidents\delete.html" />
+    <Content Include="app\views\incidents\edit.html" />
+    <Content Include="app\views\incidents\grid.html" />
+    <Content Include="app\views\legalchapters\edit.html" />
+    <Content Include="app\views\legal\edit.html" />
+    <Content Include="app\views\processes\view.html" />
+    <Content Include="app\views\risktypes\grid.html" />
+    <Content Include="app\views\risktypes\save.html" />
+    <Content Include="app\views\shared\businessContinuityPlans.html" />
+    <Content Include="app\views\shared\companySelector.html" />
+    <Content Include="app\views\shared\controls.html" />
+    <Content Include="app\views\shared\dendogram.html" />
+    <Content Include="app\views\shared\leaveasset.html" />
+    <Content Include="app\views\shared\responsibleUserSelector.html" />
+    <Content Include="app\views\shared\risks\riskreducegraph.html" />
+    <Content Include="app\views\shared\risks\riskreducegraphs.html" />
+    <Content Include="app\views\shared\risks\riskgraphs.html" />
+    <Content Include="app\views\shared\risks\riskgraph.html" />
+    <Content Include="app\views\shared\risks\risksreduceeditor.html" />
+    <Content Include="app\views\shared\risks\riskseditor.html" />
+    <Content Include="app\views\shared\risks\riskreducevalues.html" />
+    <Content Include="app\views\shared\risks\riskvalues.html" />
+    <Content Include="app\views\shared\select-vulnerabilities.html" />
+    <Content Include="app\views\shared\threats.html" />
+    <Content Include="app\views\shared\businessContinuityPlansModal.html" />
+    <Content Include="app\views\shared\evaluationsModal.html" />
+    <Content Include="app\views\shared\evaluations.html" />
+    <Content Include="app\views\assets\view.html" />
+    <Content Include="app\views\shared\delete.html" />
+    <Content Include="app\views\shared\unsaved.html" />
+    <Content Include="app\views\soachapters\edit.html" />
+    <Content Include="app\views\soa\edit.html" />
+    <Content Include="app\views\threats\select-causes.html" />
+    <Content Include="app\views\threats\select-controls.html" />
+    <Content Include="app\views\threats\view.html" />
+    <Content Include="app\views\users\mypage.html" />
+    <Content Include="app\views\users\grid.html" />
+    <Content Include="app\views\companies\grid.html" />
+    <Content Include="app\views\assets\grid.html" />
+    <Content Include="app\views\dashboard.html" />
+    <Content Include="app\views\controls\save.html" />
+    <Content Include="app\views\controls\grid.html" />
+    <Content Include="app\views\shared\footer.html" />
+    <Content Include="app\views\shared\main-layout.html" />
+    <Content Include="app\views\processes\save.html" />
+    <Content Include="app\views\processes\grid.html" />
+    <Content Include="app\views\threats\delete.html" />
+    <Content Include="app\views\threats\save.html" />
+    <Content Include="app\views\threats\grid.html" />
+    <Content Include="app\views\users\save.html" />
+    <Content Include="app\views\user\changepassword.html" />
+    <Content Include="app\views\user\lostpassword.html" />
+    <Content Include="app\views\user\login.html" />
+    <Content Include="Content\32px.png" />
+    <Content Include="Content\40px.png" />
+    <Content Include="Content\angular-material.css" />
+    <Content Include="Content\angular-material.layout-attributes.css" />
+    <Content Include="Content\angular-material.layout-attributes.min.css" />
+    <Content Include="Content\angular-material.layouts.css" />
+    <Content Include="Content\angular-material.layouts.ie_fixes.css" />
+    <Content Include="Content\angular-material.layouts.min.css" />
+    <Content Include="Content\angular-material.min.css" />
+    <Content Include="Content\angular-resizable.min.css" />
+    <Content Include="Content\bootstrap-social.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\d3.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\img\dashboard01.png" />
+    <Content Include="Content\img\dashboard02.png" />
+    <Content Include="Content\img\dummy.png" />
+    <Content Include="Content\img\graph03.png" />
+    <Content Include="Content\img\loading-animation.gif" />
+    <Content Include="Content\img\raap-logo-2.png" />
+    <Content Include="Content\img\raap-logo-3.png" />
+    <Content Include="Content\img\raap-logo.png" />
+    <Content Include="Content\img\sort_both.png" />
+    <Content Include="Content\jsTree\themes\default-dark\32px.png" />
+    <Content Include="Content\jsTree\themes\default-dark\40px.png" />
+    <Content Include="Content\jsTree\themes\default-dark\style.css" />
+    <Content Include="Content\jsTree\themes\default-dark\style.min.css" />
+    <Content Include="Content\jsTree\themes\default-dark\throbber.gif" />
+    <Content Include="Content\jsTree\themes\default\32px.png" />
+    <Content Include="Content\jsTree\themes\default\40px.png" />
+    <Content Include="Content\jsTree\themes\default\style.css" />
+    <Content Include="Content\jsTree\themes\default\style.min.css" />
+    <Content Include="Content\jsTree\themes\default\throbber.gif" />
+    <Content Include="Content\layout.css" />
+    <Content Include="Content\layout2.css" />
+    <Content Include="Content\md-data-table.min.css" />
+    <Content Include="Content\simple-line-icons.css" />
+    <Content Include="Content\textAngular.css" />
+    <Content Include="Content\throbber.gif" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
+    <Content Include="Content\v-accordion.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\Simple-Line-Icons.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
+    <Content Include="Scripts\angular-aria.js" />
+    <Content Include="Scripts\angular-aria.min.js" />
+    <Content Include="Scripts\angular-chart.min.js" />
+    <Content Include="Scripts\angular-cookies.js" />
+    <Content Include="Scripts\angular-loading.min.js" />
+    <Content Include="Scripts\angular-local-storage.min.js" />
+    <Content Include="Scripts\angular-locale_nb-no.js" />
+    <Content Include="Scripts\angular-material-icons.js" />
+    <Content Include="Scripts\angular-material-mocks.js" />
+    <Content Include="Scripts\angular-material.js" />
+    <Content Include="Scripts\angular-material.min.js" />
+    <Content Include="Scripts\angular-messages.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-resizable.min.js" />
+    <Content Include="Scripts\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular-ui-router.js" />
+    <Content Include="Scripts\angular-ui-router.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap.tooltip.js" />
+    <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\d3\d3.js" />
+    <Content Include="Scripts\d3\d3.min.js" />
+    <Content Include="Scripts\d3\d3pie.min.js" />
+    <Content Include="Scripts\FileAPI.flash.swf" />
+    <Content Include="Scripts\FileAPI.js" />
+    <Content Include="Scripts\FileAPI.min.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Scripts\angular-aria.min.js.map" />
+    <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.0.js" />
+    <Content Include="Scripts\jquery-3.1.0.min.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.0.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsTree3\jstree.js" />
+    <Content Include="Scripts\jsTree3\jstree.min.js" />
+    <Content Include="Scripts\jsTree3\ngJsTree.min.js" />
+    <Content Include="Scripts\lodash.min.js" />
+    <Content Include="Scripts\md-data-table.min.js" />
+    <Content Include="Scripts\modernizr.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\ng-file-upload-all.js" />
+    <Content Include="Scripts\ng-file-upload-all.min.js" />
+    <Content Include="Scripts\ng-file-upload-shim.js" />
+    <Content Include="Scripts\ng-file-upload-shim.min.js" />
+    <Content Include="Scripts\ng-file-upload.js" />
+    <Content Include="Scripts\ng-file-upload.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\spin.min.js" />
+    <Content Include="Scripts\textAngular.min.js" />
+    <Content Include="Scripts\v-accordion.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\Simple-Line-Icons.eot" />
+    <Content Include="fonts\Simple-Line-Icons.ttf" />
+    <Content Include="fonts\Simple-Line-Icons.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\d3\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\d3\LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\d3\CHANGES.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\d3\API.md" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49436</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://raap.dev.no/WebClient</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

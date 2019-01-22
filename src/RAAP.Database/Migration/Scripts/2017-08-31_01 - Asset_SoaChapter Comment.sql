@@ -1,0 +1,1 @@
+alter table Asset_SoaChapter add Comment nvarchar(2000);

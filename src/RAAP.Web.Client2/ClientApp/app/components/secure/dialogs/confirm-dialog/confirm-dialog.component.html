@@ -1,0 +1,6 @@
+﻿<h1 mat-dialog-title>{{ title }}</h1>
+<div mat-dialog-content> {{ message }}</div>
+<div mat-dialog-actions>
+    <button type="button" class="content" mat-raised-button color="accent" (click)="dialogRef.close(true)">DELETE</button>
+    <button type="button" class="content" mat-raised-button color="white" (click)="dialogRef.close(false)">CANCEL</button>
+</div>

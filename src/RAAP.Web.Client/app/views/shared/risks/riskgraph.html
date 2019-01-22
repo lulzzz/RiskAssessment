@@ -1,0 +1,196 @@
+﻿
+
+<div class="list-group noborder">
+
+
+    <div class="list-group-item" style="border: 0px">
+        <div class="media-box">
+            <div class="media-box-body clearfix" style="padding-top:3px;">
+
+
+                <div class="graph-container">
+
+                    <table class="graph-iso">
+                        <tr>
+                            <td class="noborder"></td>
+                            <td class="noborder numberbox"></td>
+                            <td colspan="5" class="risk-x noborder"><i class="fa fa-times"></i> {{showcalculated ? 'Calculated' : 'Registered'}}</td>
+                       
+                        </tr>
+                        <tr>
+                            <td rowspan="6" class="risk-y noborder">Impact</td>
+                            <td class="noborder numberbox">5</td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==5 && dx()==1)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==5 && dx()==2)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-red">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==5 && dx()==3)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-red">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==5 && dx()==4)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-red">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==5 && dx()==5)}"></i>
+                                </span>
+                            </td>
+                           
+                        </tr>
+                        <tr>
+                            <td class="noborder numberbox">4</td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==4 && dx()==1)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==4 && dx()==2)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==4 && dx()==3)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-red">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==4 && dx()==4)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-red">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==4 && dx()==5)}"></i>
+                                </span>
+                            </td>
+                          
+                        </tr>
+                        <tr>
+                            <td class="noborder numberbox">3</td>
+                            <td class="risk-green">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==3 && dx()==1)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==3 && dx()==2)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==3 && dx()==3)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==3 && dx()==4)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-red">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==3 && dx()==5)}"></i>
+                                </span>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="noborder numberbox">2</td>
+                            <td class="risk-green">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==2 && dx()==1)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-green">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==2 && dx()==2)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==2 && dx()==3)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==2 && dx()==4)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==2 && dx()==5)}"></i>
+                                </span>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="noborder numberbox">1</td>
+                            <td class="risk-green">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==1 && dx()==1)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-green">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==1 && dx()==2)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-green">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==1 && dx()==3)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==1 && dx()==4)}"></i>
+                                </span>
+                            </td>
+                            <td class="risk-yellow">
+                                <span class="fa-stack">
+                                    <i class="fa" ng-class="{active1: (dy()==1 && dx()==5)}"></i>
+                                </span>
+                            </td>
+                            
+                        </tr>
+                                    
+                        <tr>
+                            <td class="noborder numberbox"></td>
+                            <td class="noborder numberbox">1</td>
+                            <td class="noborder numberbox">2</td>
+                            <td class="noborder numberbox">3</td>
+                            <td class="noborder numberbox">4</td>
+                            <td class="noborder numberbox">5</td>
+                           
+                        </tr>
+
+                        <tr>
+                            <td class="noborder"></td>
+                            <td class="noborder numberbox"></td>
+                            <td colspan="5" class="risk-x noborder">Probability</td>
+                            
+                        </tr>
+                    </table>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+        <!--</div>-->

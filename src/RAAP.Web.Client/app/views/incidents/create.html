@@ -1,0 +1,73 @@
+﻿
+<h3>
+    Create Incident
+    <small>Enter the fields below</small>
+</h3>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+
+
+                <form class="form-group" role="form">
+
+
+
+                    <div data-ng-hide="message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+                        <div ng-bind-html="message"></div>
+                    </div>
+
+                    <!--Start of input fields-->
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="FormName">Name</label>
+                                <input id="FormName" type="text" class="form-incident" placeholder="Name" data-ng-model="vm.name" required autofocus />
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label for="FormCategory">Category</label>
+                                <select id="FormCategory" ng-model="vm.category" ng-options="category as category.name for category in categories"></select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label for="FormDescription">Description</label>
+                                <textarea id="FormDescription" class="form-incident" placeholder="Description" data-ng-model="vm.description" rows="3"></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button class="btn btn-block btn-lg btn-primary" type="submit" data-ng-click="save()">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

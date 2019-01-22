@@ -1,0 +1,39 @@
+﻿.default-timeframe {
+    background-color: #E0E0E0;
+}
+
+
+.selected-timeframe {
+    background-color: #5EC9FF;
+}
+
+.timeframePadding {
+    padding-left:0;
+}
+
+.cardTitle {
+    padding-left: 0px;
+    font-size: 19px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px
+}
+
+.divMarginsDecoration {
+    margin-left:15px;
+}
+
+.matGridDecoration {
+    margin-bottom: 6px;
+}
+
+.matGridTileDecoration {
+    cursor: pointer;
+}
+
+.matFormDecoration {
+    margin-top:20px;
+}
+
+.matCardDecoration {
+   display:initial !important;
+}

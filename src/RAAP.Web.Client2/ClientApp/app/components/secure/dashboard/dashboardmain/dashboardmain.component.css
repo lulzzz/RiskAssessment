@@ -1,0 +1,42 @@
+.decorateInline{
+    margin-left:5px;
+}
+
+.dashboardTextSize{
+    font-size:17px;
+}
+
+.threat-container {
+    margin-right: 10px;
+}
+
+.threat-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.dashboardMargin {
+    margin-top: 13px !important;
+    min-width: 100px;
+}
+
+mat-radio-group {
+    margin-top: 10px;
+    min-width: 120px;
+}
+
+.rtrm-slider-danger{
+    color: #f05050;
+}
+
+.rtrm-slider-success {
+    color: #27c24c;
+}
+
+.rtrm-slider-warn {
+    color: #fad732;
+}
+
+.sliderWidth {
+   min-width: 100px;
+}

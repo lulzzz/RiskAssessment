@@ -1,0 +1,7 @@
+﻿.asset-edit-container {
+    display: flex;
+    flex-direction: column;
+}
+.asset-edit-container > * {
+        width: 100%;
+}

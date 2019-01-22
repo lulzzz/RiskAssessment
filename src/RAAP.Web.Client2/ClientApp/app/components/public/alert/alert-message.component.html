@@ -1,0 +1,7 @@
+﻿<div class="message-wrapper" [ngClass]="{'has-button':!data.duration}">
+    <div class="text-wrapper">{{ data.message }}</div>
+
+    <button mat-button (click)="dismiss()" *ngIf="!data.duration">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>

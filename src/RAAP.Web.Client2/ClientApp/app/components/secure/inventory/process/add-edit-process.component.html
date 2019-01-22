@@ -1,0 +1,120 @@
+﻿<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <form [formGroup]="processForm">
+        <mat-card>
+            <mat-card-content>
+                <div class="container">
+                    <div [fxFlex]="calc3cols" class="col3"></div>
+                    <div>
+                        <div class="button-row">
+                            <mat-slide-toggle class="matSlideDecoration" name="enabled" formControlName="enabled">Enabled</mat-slide-toggle>
+                            <button *ngIf="editMode" mat-raised-button color="warn" (click)="onDelete()" [disabled]="disableButtons">DELETE</button>
+                            <button type="submit" mat-raised-button color="accent" (click)="onSubmit()" [disabled]="processForm.invalid || disableButtons">{{ editMode ? 'UPDATE' : 'ADD' }}</button>
+                            <a mat-raised-button routerLink="/processes">EXIT</a>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-tab-group class="demo-tab-group matTabDecoration" >
+            <mat-tab label="BUSINESS PROCESS">
+                <mat-card-content flex id="main-view">
+                    <div layout="column" flex="noshrink">
+                        <mat-card class="matDialogBox">
+                            <mat-card-content class="md-padding">
+                                <div layout-gt-sm="row">
+                                    <div layout-gt-sm="column" flex="50">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <input matInput placeholder="Name"
+                                                   formControlName="name">
+                                            <mat-error *ngIf="processForm.hasError('required', 'name')">Name is required field</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="50" class="firstDiv-process">
+                                        <mat-form-field class="md-block" flex-gt-sm *ngIf="editMode; else templateName ">
+                                            <mat-select placeholder="Business process category" name="categoryName" formControlName="categoryName" [(ngModel)]="processForm.controls.category.value.processCategoryId">
+                                                <mat-option *ngFor="let cat of processCategory" [value]="cat.processCategoryId">
+                                                    {{ cat.name }}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="processForm.hasError('required', 'categoryName')">Please choose a process</mat-error>
+                                        </mat-form-field>
+                                        <ng-template #templateName>
+                                            <mat-form-field class="md-block" flex-gt-sm>
+                                                <mat-select placeholder="Business process category" name="category" formControlName="category">
+                                                    <mat-option *ngFor="let cat of processCategory" [value]="cat">
+                                                        {{ cat.name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="processForm.hasError('required', 'category')">Please choose a process</mat-error>
+                                            </mat-form-field>
+                                        </ng-template>
+                                    </div>
+                                </div>
+
+                                <div layout-gt-sm="column">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <mat-select placeholder="Responsable users" name="responsibleUserId"
+                                                    formControlName="responsibleUserId">
+                                            <mat-option *ngFor="let usr of processUsers" [value]="usr.userId">
+                                                {{ usr.firstName + ' ' + usr.lastName }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="processForm.hasError('required', 'users')">Please choose a process category</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div layout-gt-sm="row">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <textarea matInput name="description" #input placeholder="Description" rows="4"
+                                                  formControlName="description" maxlength="1000">
+                                        </textarea>
+                                        <mat-hint align="end">{{input.value?.length || 0}}/1000</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </mat-card-content>
+            </mat-tab>
+            <mat-tab label="ASSETS">
+                <mat-card class="matDialogBox" >
+                    <ngx-datatable class="material fullscreen matDialogBox"
+                                   [columnMode]="'force'"
+                                   [headerHeight]="50"
+                                   [footerHeight]="0"
+                                   [rowHeight]="50"
+                                   [rows]="assets">
+                        <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+                        <ngx-datatable-column name="Category" prop="subCategory.name"></ngx-datatable-column>
+                                    <ngx-datatable-column name="Type" prop="type"></ngx-datatable-column>
+                        <ngx-datatable-column name="">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                <a class="removeAssetbtn linkRemove-process" (click)="onRemoveAsset(row['assetId'])">REMOVE</a>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                        <a class="linkAdd-process" mat-raised-button color="basic" (click)="onOpenAssetDialog()">ADD ASSET</a>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="EVALUATION">
+                <mat-card class="matDialogBox">
+                    <mat-card-content>
+                        <div class="evalutionDiv-process">
+                            <div *ngIf="selectedEvaluation" [innerHtml]="selectedEvaluation.text" disabled></div>
+                        </div>
+                        <div class="flex-row">
+                            <a class="evaluationEditButton" mat-raised-button color="basic" (click)="onOpenEvaluationDialog()">EDIT EVALUATION</a>
+                            <mat-form-field class="fixed-width">
+                                <mat-select [(value)]="selectedEvaluation" placeholder="Revision">
+                                    <mat-option *ngFor="let evaluaton of evaluations" [value]="evaluaton">
+                                        {{evaluaton.revision}}: {{evaluaton.createdOn | date:'dd.MM.yyyy hh:mm'}} ({{evaluaton.user.username}})
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </form>
+</div>

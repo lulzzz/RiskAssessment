@@ -1,0 +1,1 @@
+alter table SoaChapter drop column Name, Description, Goal, HowTo,Info;

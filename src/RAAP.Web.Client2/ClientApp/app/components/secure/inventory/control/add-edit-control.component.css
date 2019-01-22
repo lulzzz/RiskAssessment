@@ -1,0 +1,97 @@
+﻿.evaluationDiv-Control {
+    min-height: 300px;
+    border: 1px solid #cfdbe2;
+    background-color: #EDF1F2;
+    overflow-x: scroll;
+    padding: 15px 15px;
+}
+
+.evaluationLink-Control {
+    margin: 5px 0px 0px 10px;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+    .flex-row .fixed-width {
+        width: 200px;
+        padding-top: 1.25em;
+        margin-left: 1.25em;
+    }
+
+.matDialogBox {
+    box-shadow: none !important;
+}
+
+.matSlideDecoration {
+    min-width: 160px;
+}
+
+.matTabDecoration {
+    background-color: white;
+    margin: 8px;
+}
+
+.divFormDecoration {
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.matSlideName {
+   width:150px !important;
+   margin-top:15px !important;
+   margin-left:5px !important;
+}
+
+.divRiskReduceDecoration{
+    margin-left:30px;
+}
+
+.rtrm-slider-danger {
+    color: #f05050;
+}
+
+
+.rtrm-slider-danger ::ng-deep .mat-slider-horizontal .mat-slider-track-wrapper {
+    background-color: #f05050;
+}
+
+.rtrm-slider-success {
+    color: #27c24c;
+}
+
+.rtrm-slider-success ::ng-deep .mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+    border: #27c24c;
+}
+
+.rtrm-slider-success ::ng-deep .mat-slider-horizontal .mat-slider-track-wrapper {
+    background-color: #27c24c;
+}
+
+.rtrm-slider-warn {
+    color: #fad732;
+}
+
+.rtrm-slider-warn ::ng-deep .mat-slider-horizontal .mat-slider-track-wrapper {
+    background-color: #fad732;
+}
+
+.copyControlsbtn {
+    float: right;
+    padding-right: 50px;
+    color: rgb(255,64,129);
+}
+
+    .copyControlsbtn:hover {
+        cursor: pointer;
+        border-color: gray;
+    }
+
+.headerPurposeDecoration{
+    font-size:19px;
+    padding-left:0;
+}

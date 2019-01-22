@@ -1,0 +1,251 @@
+
+
+
+a, a:link, a:visited {
+    color: #0093a7;
+    outline: 0;
+}
+
+a:hover, a:active {
+    color: #004e66;
+    outline: 0;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.spacer {
+    width: 20px;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+.publiccard {
+    max-width: 700px;
+  
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+   
+}
+
+.publiccard .mat-card {
+    width: 100%;
+}
+
+.tab-content {
+    margin-top: 20px;
+}
+
+
+.mat-raised-button.gridbutton {
+    line-height: 30px;
+    min-width: 70px;
+}
+
+    .gridbutton span {
+        font-size: 12px;
+        line-height: 30px;
+    }
+
+
+.sort-btn {
+
+    position: absolute;
+    display: block;
+    right: 10px;
+    top: 0;
+    overflow: hidden;
+    margin-top: 15px;
+}
+.filter-select {
+    border: 1px solid #ccc;
+    border-radius: 3.01px;
+    display: block;
+    
+    padding: 3px 3px 3px 3px;
+}
+
+
+.filter-input {
+    border: 1px solid #ccc;
+    border-radius: 3.01px;
+    display: block;
+    width: 80%;
+    padding:4px 3px 4px 3px;
+   
+}
+
+.ngx-datatable.material .datatable-header .datatable-header-cell {
+    color: #000;
+}
+.casedesc {
+    display: inline-block;
+    min-width: 140px;
+    font-weight: bold;
+}
+
+.td-expansion-panel-header.mat-ripple {
+    background-color: #F7F7F7;
+}
+
+.td-expansion-panel {
+    margin-bottom: 20px;
+    box-shadow: inherit;
+}
+
+
+.tab-content .mat-list-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.gridbutton {
+    float: right;
+    margin-top: 5px;
+}
+
+.menu-checkbox {
+    font-size: 13px;
+}
+
+.menu-icon-color {
+    color:#004e66
+}
+
+.attachment-container {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.attachment-table {
+    width: 100%;
+}
+
+.attachment-table-th {
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    text-align: left;
+}
+
+.attachment-table-th-right {
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    text-align: right;
+}
+
+.comment-form {
+    padding-left: 70px;
+    padding-top: 10px;
+    max-width: 800px;
+}
+
+.reply-button-container {
+    margin-top: 20px;
+}
+
+.reply-container {
+    margin-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+.example-spacer {
+    flex: 1 1 auto;
+}
+.reply-container-form-field {
+    width: 300px;
+    display: block;
+}
+
+.case-details-left {
+    min-width: 450px;
+    float: left
+}
+
+.case-details-right {
+    float: left;
+}
+
+
+.casetoolbar {
+    position: fixed;
+    z-index: 2000;
+    width: 100%;
+}
+
+.threat-green,
+.threat-red,
+.threat-yellow {
+    display: inline-flex;
+    border-radius: 11px;
+    padding: 2px 11px;
+    background-color: #27c24c;
+    font-size:14px;
+    line-height:1.25em;
+    color: white;
+    margin-right: 10px;
+}
+
+.threat-red {
+    background-color: #f05050;
+}
+
+.threat-yellow {
+    background-color: #fad732;
+}
+
+.rtrm-slider-warn .mat-slider .mat-slider-thumb,
+.rtrm-slider-warn .mat-slider .mat-slider-track-fill {
+    background-color: #fad732;
+}
+
+
+.rtrm-slider-success .mat-slider .mat-slider-thumb,
+.rtrm-slider-success .mat-slider .mat-slider-track-fill {
+    background-color: #27c24c;
+}
+
+.rtrm-slider-danger .mat-slider .mat-slider-thumb,
+.rtrm-slider-danger .mat-slider .mat-slider-track-fill {
+    background-color: #f05050;
+}
+
+.mat-header-cell {
+    color: black !important;
+}
+
+.ngx-datatable .datatable-footer .pageSizeSelect {
+    line-height: 50px;
+    height: 50px;
+    padding: 0 1.2rem;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 40%;
+    flex: 1 1 40%;
+}
+
+.ngx-datatable .datatable-footer .pageSizeSelect .mat-select {
+    text-align: center;
+    width: 20%;
+}
+
+.mat-dialog-content .material.ngx-datatable {
+    box-shadow:none;
+}
+
+.mat-dialog-content .material.ngx-datatable .datatable-footer .pageSizeSelect {
+    -ms-flex: 1 1 40%;
+    flex: 1 1 40%;
+    padding:unset;
+}
+
+.mat-dialog-content .material.ngx-datatable .datatable-footer .pageSizeSelect .mat-select {
+    text-align: center;
+    width: 30%;
+}
+
+.mat-dialog-content .material.ngx-datatable .datatable-footer .page-count {
+    -ms-flex: 1 1 40%;
+    flex: 1 1 40%;
+}

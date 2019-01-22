@@ -1,0 +1,5 @@
+﻿<md-select ng-model="responsibleUserId">
+    <md-option ng-repeat="u in users" ng-value="u.userId">
+        {{u.firstName + ' ' + u.lastName}}
+    </md-option>
+</md-select>

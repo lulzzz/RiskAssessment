@@ -1,0 +1,28 @@
+﻿<mat-card>
+    <form class="form">
+        <mat-form-field>
+            <input matInput placeholder="Search Assets" [matAutocomplete]="auto" [formControl]="assetCtrl" (keyup.enter)="sendAsset($event.target.value)">
+            <button matSuffix mat-icon-button (click)="clearInput()"><mat-icon>clear</mat-icon></button>
+
+            <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option #selected *ngFor="let a of filteredAssets | async" [value]="a.name" (click)="sendSelected(a)">
+                        <span >{{ a.name }}</span>
+                    </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+
+    <div>
+        <div *ngIf="remove()">
+            <p *ngIf="generateGraph" style="">This Asset depends on:</p>
+            <app-tree-graph *ngIf="generateGraph" [data]="data"></app-tree-graph>
+
+            <p *ngIf="generateGraph">Others Assets that depend on this: </p>
+            <app-tree-graph *ngIf="generateGraph" [reverse]="true" [data]="data1"></app-tree-graph>
+
+            <div class="pleaseDiv" *ngIf="!generateGraph">
+                <p class="notifier">Please select an asset</p>
+            </div>
+        </div>
+    </div>
+</mat-card>

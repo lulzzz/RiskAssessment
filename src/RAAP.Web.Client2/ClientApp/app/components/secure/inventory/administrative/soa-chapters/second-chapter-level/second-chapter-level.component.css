@@ -1,0 +1,23 @@
+﻿:host {
+    flex: 1 1 auto;
+}
+
+.chapters-padding-left {
+    padding-left: 50px
+}
+
+.second-div-control {
+    margin-left: 20px;
+}
+
+.delete-chapter {
+    cursor: pointer;
+    font-weight: 500;
+    color: red;
+}
+
+.add-chapter {
+    cursor: pointer;
+    font-weight: 500;
+    color: blue;
+}

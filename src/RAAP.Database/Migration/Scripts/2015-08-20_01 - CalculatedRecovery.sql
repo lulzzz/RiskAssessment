@@ -1,0 +1,1 @@
+alter table Asset add CalculatedDataRecoveryCost  decimal(18,2) null, CalculatedDataRecoveryTime  int null, CalculatedSystemRecoveryCost  decimal(18,2) null, CalculatedSystemRecoveryTime  int null, CalculatedIntegrityCheckCost  decimal(18,2) null, CalculatedIntegrityCheckTime int null ; 

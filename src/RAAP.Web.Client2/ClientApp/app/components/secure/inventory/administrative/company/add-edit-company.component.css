@@ -1,0 +1,16 @@
+﻿.imageSize-AdministrativeCompany {
+    max-width: 200px;
+}
+
+
+.inputBlock {
+ margin-left:20px !important;
+}
+
+.matDialogBox {
+    box-shadow: none !important;
+}
+
+.companyImgDecoration {
+    height: 80px !important;
+}

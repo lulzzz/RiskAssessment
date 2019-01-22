@@ -1,0 +1,112 @@
+<app-alert></app-alert>
+
+<td-layout>
+    <td-navigation-drawer flex sidenavTitle="CRMAP" name="{{fullName}}" email="{{userEmail}}">
+        <mat-nav-list [tdLayoutToggle]="true">
+            <a mat-list-item [routerLink]="'/dashboardmain'"><mat-icon>dashboard</mat-icon>Dashboard</a>
+            <a mat-list-item [routerLink]="'/inventorydashboard'"><mat-icon>account_balance</mat-icon>Inventory</a>
+            <a mat-list-item [routerLink]="'/processdashboard'"><mat-icon>assignment</mat-icon>Business Processes</a>
+            <a mat-list-item [routerLink]="'/soa/iso27001/edit/1'"><mat-icon>book</mat-icon>SOA</a>
+            <a mat-list-item [routerLink]="'/filesdashboard'"><mat-icon>description</mat-icon>Files</a>
+            <a mat-list-item [routerLink]="'/profile'"><mat-icon>account_box</mat-icon>My Profile</a>
+            <a mat-list-item [routerLink]="'/logout'"><mat-icon>supervisor_account</mat-icon>Logout </a>
+        </mat-nav-list>
+    </td-navigation-drawer>
+    <td-layout-nav toolbarTitle="CRMAP" navigationRoute="/">
+        <button mat-icon-button td-menu-button tdLayoutToggle>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <td-layout-manage-list opened="true" mode="side">
+            <mat-toolbar td-sidenav-content>{{categoryTitle}}</mat-toolbar>
+            <mat-nav-list td-sidenav-content>
+                <div *ngIf="isProcessRoute">
+                    <div style=" margin-left:20%; margin-top:10%; margin-bottom:10%;">
+                        <a color="accent" style="color:slateblue; cursor:pointer" (click)="createProcess()">New</a>
+                        <a color="accent" style="color:slateblue; margin:20px; cursor:pointer" (click)="reloadState()">Refresh</a>
+                    </div>
+                    <div flex="70" style=" margin-left:20%" *ngFor="let p of process">
+                            <tree-component [item]="p" style="float:left"> </tree-component>
+                     </div>
+                </div>
+                <ng-template let-item let-last="last" ngFor [ngForOf]="menu">
+                    <div *ngIf="item.title == 'Assets' || item.title == 'Categories'|| item.title == 'Administrative'; then templateSubMenu ; else templateName" ></div>
+                    <ng-template #templateSubMenu>
+                        <mat-expansion-panel style="display:initial !important">
+                            <mat-expansion-panel-header style="padding:0px !important; padding-right:20px !important">
+                                <a mat-list-item>
+                                    <mat-icon matListIcon>{{item.icon}}</mat-icon> {{item.title}}
+                                </a>
+                            </mat-expansion-panel-header>
+                            <a mat-list-item *ngFor="let child of item.subMenu" [routerLink]="'/' + child.route">
+                                <mat-icon matListIcon>{{child.icon}}</mat-icon> {{child.title}}
+                            </a>
+                        </mat-expansion-panel>
+                    </ng-template>
+                    <ng-template #templateName>
+                        <a mat-list-item [routerLink]="'/' + item.route" #templateName>
+                            <mat-icon matListIcon>{{item.icon}}</mat-icon> {{item.title}}
+                        </a>
+                    </ng-template>
+                </ng-template>
+            </mat-nav-list>
+            <mat-toolbar>
+                <button mat-icon-button tdLayoutManageListToggle>
+                    <mat-icon>settings_ethernet</mat-icon>
+                </button>
+                {{componentTitle}}
+            </mat-toolbar>
+            <router-outlet></router-outlet>
+        </td-layout-manage-list>
+
+        <td-layout-footer>
+            <div layout="row" layout-align="center start">
+                <img src="./raap-logo-3.png" alt="Real-Time Risk Management and Asset Protection" class="raaplogo" />
+                <span class="mat-caption">Copyright &copy; 2018 Real-Time Risk Management and Asset Protection </span>
+            </div>
+        </td-layout-footer>
+    </td-layout-nav>
+</td-layout>
+
+<!--<td-layout>
+    <td-layout-nav toolbarTitle="Real-Time Risk Management and Asset Protection">
+        <button mat-icon-button td-menu-button (click)="sidenavLayout.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <div td-toolbar-content layout="row" layout-align="start center" flex>
+            <span flex></span>
+           <button mat-button [matMenuTriggerFor]="menu">
+                {{tokenData.username}}
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>close</mat-icon>
+                    <span>Sign out</span>
+                </button>
+            </mat-menu>
+        </div>
+        <td-layout-manage-list #sidenavLayout>
+            <mat-nav-list td-sidenav-content>
+                <mat-list-item>
+                    <a mdLine [routerLink]="['/home']">
+                        <mat-icon mat-list-icon class="menu-icon menu-icon-color">insert_chart</mat-icon>
+                        Status
+                    </a>
+                </mat-list-item>
+                <mat-list-item>
+                    <a mdLine [routerLink]="['/something']">
+                        <mat-icon mat-list-icon class="menu-icon menu-icon-color">view_list</mat-icon>
+                        Page2
+                    </a>
+                </mat-list-item>
+            </mat-nav-list>
+            <router-outlet></router-outlet>
+        </td-layout-manage-list>
+        <td-layout-footer>
+            <div layout="row" layout-align="start center">
+                <img src="./raap-logo-3.png" alt="Real-Time Risk Management and Asset Protection" class="raaplogo" />
+                <span class="mat-caption">Copyright &copy; 2016-2018 Real-Time Risk Management and Asset Protection </span>
+            </div>
+        </td-layout-footer>
+    </td-layout-nav>
+</td-layout>-->

@@ -1,0 +1,54 @@
+﻿<div class="threats-container">
+    <md-table-container>
+        <table md-table>
+            <thead md-head md-order="vm.orderBy" md-on-reorder="gridReOrder">
+                <tr md-row>
+                    <th md-column md-order-by="name"><span>Threat</span></th>
+                    <th md-column md-order-by="assetName"><span>Asset</span></th>
+      
+                    <th md-column ng-repeat="risk in threats[0].risks">
+                        <span>{{risk.name}}</span><br/><span>(Reg/Calc)</span>
+                    </th>
+
+
+                    <th md-column class="align-right"><span>Controls</span></th>
+                </tr>
+            </thead>
+            <tbody md-body>
+            <tr md-row ng-repeat="item in threats | orderBy:predicate:reverse">
+                <td md-cell>{{item.name}}</td>
+                <td md-cell>{{item.assetName}}</td>
+
+
+
+                <td md-cell ng-repeat="thisRisk in item.risks">
+                    <div class="threat-container" ng-bind-html='thisRisk | riskFilter'></div>
+                    <div class="threat-container" ng-bind-html='thisRisk | riskFilterCalculated'></div>
+                </td>
+
+             
+
+
+                <td md-cell class="align-right">
+                    <span ng-show="item.controls.length == 0">0</span>
+                    <md-button ng-show="item.controls.length > 0" class="md-mini md-accent" ng-click="showControls(item.controls)">
+                        {{item.controls.length}} controls
+                    </md-button>
+
+                </td>
+
+
+            </tr>
+            <tr ng-show="threats.length <= 0">
+                <td colspan="8">
+                    No threats found!
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </md-table-container>
+
+</div>
+

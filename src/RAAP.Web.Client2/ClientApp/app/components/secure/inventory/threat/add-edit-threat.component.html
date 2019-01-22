@@ -1,0 +1,246 @@
+﻿
+<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <form [formGroup]="threatForm">
+        <mat-card>
+            <mat-card-content>
+                <div class="container">
+                    <div [fxFlex]="calc3cols" class="col3"></div>
+                    <div>
+                        <div class="button-row">
+                            <mat-slide-toggle class="matSlideDecoration" name="enabled" formControlName="enabled">Enabled</mat-slide-toggle>
+                            <button *ngIf="editMode" mat-raised-button color="warn" (click)="onDelete()" [disabled]="disableButtons">DELETE</button>
+                            <button type="submit" mat-raised-button color="accent" (click)="onSubmit()" [disabled]="threatForm.invalid || disableButtons">{{ editMode ? 'UPDATE' : 'ADD' }}</button>
+                            <a mat-raised-button (click)="onExit()">EXIT</a>
+                        </div>
+                    </div>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+
+        <mat-tab-group class="demo-tab-group matTabDecoration" >
+            <mat-tab label="THREAT">
+                <mat-card-content flex id="main-view">
+                    <div layout="column" flex="noshrink">
+                        <mat-card class="matDialogBox">
+                            <mat-card-content class="md-padding">
+                                <div layout-gt-sm="row">
+                                    <div layout-gt-sm="column" flex="50">
+                                        <mat-form-field class="md-block" flex-gt-sm>
+                                            <input matInput placeholder="Name"
+                                                   formControlName="name">
+                                            <mat-error *ngIf="threatForm.hasError('required', 'name')">Name is required field</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="50" class="secondDivThread">
+                                        <mat-form-field class="md-block" flex-gt-sm *ngIf="editMode; else templateName">
+                                            <mat-select placeholder="Category" name="categoryName" formControlName="categoryName" [(ngModel)]="threatForm.controls.category.value.threatCategoryId">
+                                                <mat-option *ngFor="let cat of threatCategory" [value]="cat.threatCategoryId">
+                                                    {{ cat.name }}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="threatForm.hasError('required', 'category')">Please choose a category</mat-error>
+                                        </mat-form-field>
+
+                                        <ng-template #templateName>
+                                            <mat-form-field class="md-block" flex-gt-sm>
+                                                <mat-select placeholder="Category" name="category" formControlName="category" [(ngModel)] = "selectedCategory">
+                                                    <mat-option *ngFor="let cat of threatCategory" [value]="cat">
+                                                        {{ cat.name }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="threatForm.hasError('required', 'category')">Please choose a category</mat-error>
+                                            </mat-form-field>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                                <div layout-gt-sm="row">
+                                    <mat-form-field class="md-block" flex-gt-sm>
+                                        <textarea matInput #input placeholder="Description" rows="4"
+                                                  formControlName="description" maxlength="1000">
+                                        </textarea>
+                                        <mat-hint align="end">{{input.value?.length || 0}}/1000</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div layout-gt-sm="row">
+                                    <div layout-gt-sm="column" flex="30">
+                                        <p><strong>Type of threat:</strong></p>
+                                        <mat-radio-group formControlName="internalExternal">
+                                            <mat-radio-button class="matRadioDecoration"
+                                                              *ngFor="let itemType of typeOfThreat"
+                                                              [value]="itemType.value">
+                                                {{ itemType.name }}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+
+                                        <p><strong>Origin of threat:</strong></p>
+                                        <mat-radio-group formControlName="securitySafety">
+                                            <mat-radio-button class="matRadioDecoration" style="margin-bottom:10px"
+                                                              *ngFor="let itemOrigin of originOfThreat"
+                                                              [value]="itemOrigin.value">
+                                                {{ itemOrigin.name }}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div flex="70" layout-gt-sm="column" flex-gt-sm>
+                                        <p>
+                                            <strong>Risk</strong>
+                                        </p>
+                                        <div layout-gt-sm="row" flex-gt-sm>
+                                            <mat-slide-toggle class="matSlideDecoration md-block" formControlName="avoidRisk">
+                                                Avoid risk
+                                            </mat-slide-toggle>
+
+                                            <mat-slide-toggle class="matSlideDecoration md-block" formControlName="shareRisk">
+                                                Share risk
+                                            </mat-slide-toggle>
+
+                                            <mat-slide-toggle class="matSlideDecoration md-block" formControlName="reduceRisk" >
+                                                Reduce risk
+                                            </mat-slide-toggle>
+
+                                            <mat-slide-toggle class="matSlideDecoration md-block" formControlName="acceptRisk" >
+                                                Accept risk
+                                            </mat-slide-toggle>
+                                        </div>
+
+                                        <p><strong>Threat affects</strong></p>
+                                        <div layout-gt-sm="row" flex-gt-sm>
+                                            <mat-slide-toggle class="matSlideDecoration md-block" formControlName="confidenciality">
+                                                Confidenciality
+                                            </mat-slide-toggle>
+
+                                            <mat-slide-toggle class="matSlideDecoration md-block" formControlName="integrity">
+                                                Integrity
+                                            </mat-slide-toggle>
+
+                                            <mat-slide-toggle class="matSlideDecoration md-block" formControlName="availability" >
+                                                Availability
+                                            </mat-slide-toggle>
+
+                                            <mat-slide-toggle class="matSlideDecoration md-block" formControlName="authenticity">
+                                                Authenticity
+                                            </mat-slide-toggle>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                        <div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-tab>
+
+            <mat-tab label="RISK ASSESSMENT">
+                <div class="divRiskDecoration">
+                        <a class="riskAssessmentLink">Risk assessment method: </a>
+                    <mat-slide-toggle class="matRadioRiskButton"  (click)="openTabs()" name="enabled">
+                        <p>ISO27005</p>
+                    </mat-slide-toggle>
+                </div>
+                <div  formArrayName="risks">
+                    <div flex="100" *ngFor="let r of threatForm.controls.risks.controls; let i = index">
+                        <div [formGroupName]="i">
+                            <mat-tab-group class="matTabDecoration">
+                                <mat-tab label="{{r.value.name}}">
+                                    <div>
+                                        <div *ngIf="openTabsValue" layout-gt-sm="row" class="{{slider1.value|sliderFilter}}">
+                                            <a class="riskNameDecoration">Probability</a>
+                                            <mat-slider flex="90" min="1" max="5" step="1" #slider1 color="warm" aria-label="Primary color slider" formControlName="isoProbability" value="{{r.value.isoProbability}}"></mat-slider>
+                                            <a class="riskNameDecoration sliderColor" >{{slider1.value|sliderName}}</a>
+                                        </div>
+
+                                        <div *ngIf="openTabsValue" layout-gt-sm="row" class="{{slider2.value|sliderFilter}}">
+                                            <a   class="riskNameDecoration">Impact</a>
+                                            <mat-slider flex="90" min="1" max="5" step="1" #slider2 color="warm" aria-label="Primary color slider" formControlName="isoImpact" value="{{r.value.isoImpact}}"></mat-slider>
+                                            <a class="sliderColor riskNameDecoration">
+                                                {{slider2.value|sliderName}}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+           
+          <mat-tab label="CONTROLS">
+                <mat-card class="matDialogBox">
+                    <ngx-datatable class="material fullscreen matDialogBox"
+                                   [columnMode]="'force'"
+                                   [headerHeight]="50"
+                                   [footerHeight]="0"
+                                   [rowHeight]="50"
+                                   [rows]="threatForm.value.controls">
+                        <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+                        <ngx-datatable-column name="Category" prop="category.name"></ngx-datatable-column>
+                        <ngx-datatable-column name="Deadline" prop="deadline">
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                {{value | appDate:'short'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Executed date" prop="executedDate">
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                {{value | appDate:'short'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="">
+                            <ng-template let-row="row" ngx-datatable-cell-template class="templateLinksControls">
+                                <a class="removeControlsbtn" (click)="onRemoveControl(row['controlId'])">REMOVE</a>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                        <a class="marginDiv-Asset" mat-raised-button color="basic" (click)="onOpenControlDialog()">ADD CONTROL</a>
+                </mat-card>
+            </mat-tab>
+
+            <mat-tab label="CAUSES">
+                <mat-card class="matDialogBox">
+                                <ngx-datatable class="material fullscreen matDialogBox"
+                                               [columnMode]="'force'"
+                                               [headerHeight]="50"
+                                               [footerHeight]="0"
+                                               [rowHeight]="50"
+                                               [rows]="threatForm.value.causes">
+                                    <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+                                    <ngx-datatable-column name="Description" prop="description"></ngx-datatable-column>
+                                    <ngx-datatable-column name="Category" prop="attributeCategoryName"></ngx-datatable-column>
+                                    <ngx-datatable-column name="Created" prop="createdOn">
+                                        <ng-template let-value="value" ngx-datatable-cell-template>
+                                            {{value | appDate}}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="">
+                                        <ng-template let-row="row" ngx-datatable-cell-template class="templateLinksCause">
+                                            <a class="removeCausesBtn"  (click)="onRemoveCause(row['attributeId'])">REMOVE</a>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                </ngx-datatable>
+                        <a class="marginDiv-Asset" mat-raised-button color="basic" (click)="onOpenCausesDialog()">ADD CAUSE</a>
+                </mat-card>
+            </mat-tab>
+          
+            <mat-tab label="EVALUATION">
+                <mat-card class="matDialogBox">
+                    <mat-card-content>
+                        <div class="evaluationDiv-Thread">
+                            <div *ngIf="selectedEvaluation" [innerHtml]="selectedEvaluation.text" disabled></div>
+                        </div>
+                        <div class="flex-row">
+                            <a class="evaluationLink-Thread" mat-raised-button color="basic" (click)="onOpenEvaluationDialog()">EDIT EVALUATION</a>
+                            <mat-form-field class="fixed-width">
+                                <mat-select [(value)]="selectedEvaluation" placeholder="Revision">
+                                    <mat-option *ngFor="let evaluaton of evaluations" [value]="evaluaton">
+                                        {{evaluaton.revision}}: {{evaluaton.createdOn | date:'dd.MM.yyyy hh:mm'}} ({{evaluaton.user.username}})
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </form>
+</div>

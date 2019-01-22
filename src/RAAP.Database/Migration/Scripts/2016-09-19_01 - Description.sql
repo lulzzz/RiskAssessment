@@ -1,0 +1,1 @@
+alter table RiskType add Description nvarchar(255);

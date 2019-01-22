@@ -1,0 +1,54 @@
+﻿<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h3>
+            Edit central files
+        </h3>
+        <span flex></span>
+    </div>
+</md-toolbar>
+
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+        <md-card>
+            <div class="md-padding" layout-xs="column" layout="column" id="templates">
+                <v-accordion class="vAccordion--default firstlevel" control="accordion1" id="accordion1">
+                    <v-pane multiple ng-repeat="template in vm.templates">
+                        <v-pane-header>
+                            <div layout="row">
+                                <span flex="10"><strong>{{template.name}}</strong></span>
+                                <span><strong>{{template.description}}</strong></span>
+                            </div>
+                        </v-pane-header>
+                        <v-pane-content>
+                            <div layout="row" ng-repeat="f in template.templatefiles">
+                                <span>Template: <a href="{{fileBaseUri}}{{f.guid}}">{{f.fileName}}</a></span>
+                            </div>
+                            <div layout="row" ng-repeat="f in template.myfiles">
+                                <span><a href="{{fileBaseUri}}{{f.guid}}">{{f.fileName}}</a></span> <md-button class="md-raised" ng-click="deleteFile(f.guid, template)">Delete</md-button>
+                            </div>
+                            <div layout="row" ng-controller="uploadController">
+                                <md-button class="md-raised" aria-label="Create" type="file" ngf-select="uploadFiles($file, $invalidFiles, template.id, 3, false, template.files)">
+                                    Upload file
+                                </md-button>
+                                <div>
+                                    <span class="progress" ng-show="f.progress >= 0">
+                                        <div ng-bind="f.progress + '%'"></div>
+                                    </span>
+                                </div>
+                            </div>
+                        </v-pane-content>
+</v-pane>
+                </v-accordion>
+</div>
+        </md-card>
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+

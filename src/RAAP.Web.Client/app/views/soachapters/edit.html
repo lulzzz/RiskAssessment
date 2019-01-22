@@ -1,0 +1,201 @@
+﻿
+<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h3>
+            Edit Statement of Applicability chapters
+        </h3>
+        <span flex></span>
+
+        <md-button class="md-raised md-warn" aria-label="Delete" ng-click="exit()">
+            Exit
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="save(true)">
+            Save & Exit
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="save(false)">
+            Save
+        </md-button>
+    </div>
+</md-toolbar>
+
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+
+        <md-card>
+        <div class="md-padding" layout-xs="column" layout="row">
+            <button class="btn btn-lg btn-success btn-sm btn-after-tbl" data-ng-click="addChapter(null)">Add main chapter</button>
+        </div>
+        <div class="md-padding" layout-xs="column" layout="row" id="soa">
+            
+            <!--<div>SoA Chapters:</div>-->
+
+
+            <v-accordion class="vAccordion--default firstlevel" control="accordion1" id="accordion1">
+
+                <v-pane multiple ng-repeat="level1 in vm.chapters">
+                    <v-pane-header inactive>
+                      
+                        <div layout="row">
+                            
+                            <md-input-container class="md-block" flex-gt-sm ng-click="$pane.toggle()" flex="40">
+                                <label>Chapter</label>
+                                <input type="text" placeholder="Chapter" data-ng-model="level1.name"/>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm flex="40">
+                                <label>Name</label>
+                                <input type="text" placeholder="Name" data-ng-model="level1.description" />
+                            </md-input-container>
+
+                            <span flex="10">
+                                <md-button  data-ng-click="deleteChapter(level1, null)" class="md-warn">Delete</md-button>
+                            </span>
+                            <span flex="10">
+                                <md-button data-ng-click="addChapter(level1)" class="md-primary">Add chapter</md-button>
+                            </span>
+
+                        </div>
+
+                    </v-pane-header>
+
+                    <v-pane-content>
+
+                        <div layout="column" ng-repeat="level2 in level1.subChapters">
+
+                            <div layout="column">
+                                <div layout="row">
+                                    <span flex="10">
+
+                                    </span>
+
+                                    <md-input-container class="md-block" flex-gt-sm flex="30">
+                                        <label>Chapter</label>
+                                        <input type="text" placeholder="Chapter" data-ng-model="level2.name" />
+                                    </md-input-container>
+
+                                    <md-input-container class="md-block" flex-gt-sm flex="40">
+                                        <label>Name</label>
+                                        <input type="text" placeholder="Name" data-ng-model="level2.description" />
+                                    </md-input-container>
+
+                                    <span flex="10">
+                                        <md-button data-ng-click="deleteChapter(level2, level1)" class="md-warn">Delete</md-button>
+                                    </span>
+                                    <span flex="10">
+                                        <md-button data-ng-click="addChapter(level2)" class="md-primary">Add chapter</md-button>
+                                    </span>
+
+                                </div>
+                                <div layout="row">
+                                    <span flex="10">
+
+                                    </span>
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Description</label>
+                                        <textarea ng-model="level2.goal" md-maxlength="1000" rows="3" md-no-autogrow md-select-on-focus></textarea>
+                                    </md-input-container>
+                                    <span flex="20">
+
+                                    </span>
+                                </div>
+
+
+                                <div layout="column" ng-repeat="level3 in level2.subChapters track by $index">
+                                    <div layout="row">
+                                        <span flex="20">
+
+                                        </span>
+
+                                        <md-input-container class="md-block" flex-gt-sm flex="20">
+                                            <label>Chapter</label>
+                                            <input type="text" placeholder="Chapter" data-ng-model="level3.name" />
+                                        </md-input-container>
+
+                                        <md-input-container class="md-block" flex-gt-sm flex="40">
+                                            <label>Name</label>
+                                            <input type="text" placeholder="Name" data-ng-model="level3.description" />
+                                        </md-input-container>
+
+                                        <span flex="10">
+                                            <md-button data-ng-click="deleteChapter(level3, level2)" class="md-warn">Delete</md-button>
+                                        </span>
+                                        <span flex="10">
+                                           
+                                        </span>
+
+                                    </div>
+                                    <div layout="row">
+                                        <span flex="20">
+
+                                        </span>
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>Description</label>
+                                            <textarea ng-model="level3.goal" md-maxlength="1000" rows="3" md-no-autogrow md-select-on-focus></textarea>
+                                        </md-input-container>
+                                        <span flex="20">
+
+                                        </span>
+                                    </div>
+                                    <div layout="row">
+                                        <span flex="20">
+
+                                        </span>
+                                     
+                                        <md-input-container class="md-block" flex="30">
+                                            <label>How to</label>
+                                            <textarea ng-model="level3.howTo" md-no-autogrow rows="6" md-select-on-focus></textarea>
+                                        </md-input-container>
+                                        <md-input-container class="md-block" flex="30">
+                                            <label>Info</label>
+                                            <textarea ng-model="level3.info"  md-no-autogrow rows="6" md-select-on-focus></textarea>
+                                        </md-input-container>
+
+                                  
+                                        <span flex="20">
+
+                                        </span>
+                                    </div>
+                                    <hr />
+
+                                
+
+                                </div>
+                            </div>
+
+                          
+
+                        </div>
+                      
+                    
+                    </v-pane-content>
+                </v-pane>
+
+
+
+            </v-accordion>
+
+
+        </div>
+
+
+
+
+
+
+
+
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+

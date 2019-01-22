@@ -1,0 +1,297 @@
+﻿
+
+<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h3>
+            {{vm.asset.name}} ({{mapCategoryToName(item.category) + "/" + vm.asset.subCategory.name}})
+        </h3>
+        <span flex></span>
+
+        <md-button class="md-raised md-warn" aria-label="Delete" ng-click="delete()" ng-show="!createMode">
+            Delete
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="edit()">
+            Edit
+        </md-button>
+
+    </div>
+</md-toolbar>
+
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+
+        <md-card>
+            <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="asset">
+
+            <div class="md-padding" layout-xs="column" layout="row">
+
+                <div flex-xs flex-gt-xs="50" layout="column">
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">ISO 27001 (Calculated)</span>
+                            <ng-md-icon icon="assignment" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+                            <div risk-graphs risks="vm.asset.risks" hasregistered="false" flex></div>
+                        </md-card-content>
+                    </md-card>
+
+
+                </div>
+                <div flex-xs flex-gt-xs="50" layout="column">
+                  
+                    <md-card >
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Description</span>
+                            <ng-md-icon icon="description" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+                            {{vm.asset.description}}
+                        </md-card-content>
+                    </md-card>
+                    <md-card>
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Criticality</span>
+                            <ng-md-icon icon="description" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="row" flex="25" class="criticality-container">
+                                    <em class="fa fa-bar-chart fa-2x"></em>
+                                    <h4 class="mt0" ng-bind-html='vm.asset.confidenciality | numberColorFilter'></h4>
+                                    <p class="mb0 text-muted text-uppercase">Confidenciality</p>
+                                </div>
+                                <div layout-gt-sm="row" flex="25" class="criticality-container">
+                                    <em class="fa fa-bar-chart fa-2x"></em>
+                                    <h4 class="mt0" ng-bind-html='vm.asset.integrity | numberColorFilter'></h4>
+                                    <p class="mb0 text-muted text-uppercase">Integrity</p>
+                                </div>
+                                <div layout-gt-sm="row" flex="25" class="criticality-container">
+                                    <em class="fa fa-bar-chart fa-2x"></em>
+                                    <h4 class="mt0" ng-bind-html='vm.asset.availability | numberColorFilter'></h4>
+                                    <p class="mb0 text-muted text-uppercase">Availability</p>
+                                </div>
+                                <div layout-gt-sm="row" flex="25" class="criticality-container">
+                                    <em class="fa fa-bar-chart fa-2x"></em>
+                                    <h4 class="mt0" ng-bind-html='vm.asset.authenticity | numberColorFilter'></h4>
+                                    <p class="mb0 text-muted text-uppercase">Authenticity</p>
+                                </div>
+                                <div layout-gt-sm="row" flex="25" class="criticality-container">
+                                    <em class="fa fa-bar-chart fa-2x"></em>
+                                    <h4 class="mt0">{{vm.asset.criticalityCategory.name}}</h4>
+                                    <p class="mb0 text-muted text-uppercase">Criticality category</p>
+                                </div>
+
+
+                            </div>
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card>
+
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Recovery</span>
+                            <ng-md-icon icon="description" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+
+                            <div layout="column" class="asset-recovery">
+                                <div layout="row">
+                                    <div flex="40"></div>
+                                    <div flex="30" class="recovery-text">Time (dd:hh:mm)</div>
+                                    <div flex="30" class="recovery-text">Cost</div>
+                                </div>
+                                <div layout="row">
+                                    <div flex="40" class="recovery-text">System recovery</div>
+                                    <div flex="30"><h4 class="mt0">{{vm.asset.calculatedSystemRecoveryTime.minutesToDDHHmm()}}</h4>
+                                    </div>
+                                    <div flex="30"><h4 class="mt0">{{vm.asset.calculatedSystemRecoveryCost}}</h4>
+                                    </div>
+                                </div>
+                                <div layout="row">
+                                    <div flex="40" class="recovery-text">Data recovery</div>
+                                    <div flex="30">
+                                        <h4 class="mt0">{{vm.asset.calculatedDataRecoveryTime.minutesToDDHHmm()}}</h4>
+                                    </div>
+                                    <div flex="30">
+                                        <div> <h4 class="mt0">{{vm.asset.calculatedDataRecoveryCost}} </h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div layout="row">
+                                    <div flex="40" class="recovery-text">Integrity check</div>
+                                    <div flex="30"><h4 class="mt0">{{vm.asset.calculatedIntegrityCheckTime.minutesToDDHHmm()}}</h4>
+                                    </div>
+                                    <div flex="30"><h4 class="mt0">{{vm.asset.calculatedIntegrityCheckCost}}</h4>
+                                    </div>
+                                </div>
+                                <div layout="row">
+                                    <div flex="40" class="recovery-text">Max down</div>
+                                    <div flex="30"><h4 class="mt0">{{(vm.asset.calculatedDataRecoveryTime+vm.asset.calculatedIntegrityCheckTime+vm.asset.calculatedSystemRecoveryTime).minutesToDDHHmm()}}</h4>
+                                    </div>
+                                    <div flex="30"><h4 class="mt0">{{vm.asset.calculatedDataRecoveryCost+vm.asset.calculatedIntegrityCheckCost+vm.asset.calculatedSystemRecoveryCost}}</h4>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </md-card-content>
+                    </md-card>
+
+                   
+                </div>
+
+            </div>
+
+    
+
+
+
+                    <div class="md-padding" layout-xs="column" layout="row">
+                        <md-card flex>
+                            <div class="custom-card-header md-padding">
+                                <span class="md-headline">Timeline Criticality</span>
+                                <ng-md-icon icon="description" size="30"></ng-md-icon>
+                            </div>
+                            <md-card-content>
+
+                                <div layout-gt-sm="row">
+
+                                    <div layout-gt-sm="column" flex="20">
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>T1 (minutes)</label>
+                                            <input type="number" data-ng-model="vm.asset.timeCosts[0].time" readonly="readonly" />
+                                            <span class="label-span">{{vm.asset.timeCosts[0].time.minutesToDDHHmm()}}</span>
+                                        </md-input-container>
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>T1 (cost)</label>
+                                            <input type="number" data-ng-model="vm.asset.timeCosts[0].cost" readonly="readonly" />
+                                        </md-input-container>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="20">
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>T2 (minutes)</label>
+                                            <input type="number" data-ng-model="vm.asset.timeCosts[1].time" readonly="readonly" />
+                                            <span class="label-span">{{vm.asset.timeCosts[1].time.minutesToDDHHmm()}}</span>
+                                        </md-input-container>
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>T2 (cost)</label>
+                                            <input type="number" data-ng-model="vm.asset.timeCosts[1].cost" readonly="readonly" />
+                                        </md-input-container>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="20">
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>T3(minutes)</label>
+                                            <input type="number" data-ng-model="vm.asset.timeCosts[2].time" readonly="readonly" />
+                                            <span class="label-span">{{vm.asset.timeCosts[2].time.minutesToDDHHmm()}}</span>
+                                        </md-input-container>
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>T3 (cost)</label>
+                                            <input type="number" data-ng-model="vm.asset.timeCosts[2].cost" readonly="readonly" />
+                                        </md-input-container>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="20">
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>T4 (minutes)</label>
+                                            <input type="number" data-ng-model="vm.asset.timeCosts[3].time" readonly="readonly" />
+                                            <span class="label-span">{{vm.asset.timeCosts[3].time.minutesToDDHHmm()}}</span>
+                                        </md-input-container>
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>T4 (cost)</label>
+                                            <input type="number" data-ng-model="vm.asset.timeCosts[3].cost" readonly="readonly" />
+                                        </md-input-container>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="20">
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>T5 (minutes)</label>
+                                            <input type="number" data-ng-model="vm.asset.timeCosts[4].time" readonly="readonly" />
+                                            <span class="label-span">{{vm.asset.timeCosts[4].time.minutesToDDHHmm()}}</span>
+                                        </md-input-container>
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>T5 (cost)</label>
+                                            <input type="number" data-ng-model="vm.asset.timeCosts[4].cost" readonly="readonly" />
+                                        </md-input-container>
+                                    </div>
+
+                                </div>
+                            </md-card-content>
+                        </md-card>
+
+
+
+                  
+
+                    </div>
+
+                <div class="md-padding" layout-xs="column" layout="row">
+                    <md-card flex>
+                        <div class="custom-card-header md-padding">
+                            <span class="md-headline">Threats</span>
+                            <ng-md-icon icon="description" size="30"></ng-md-icon>
+                        </div>
+                        <md-card-content>
+
+                            <div layout-gt-sm="row">
+
+                       
+                                <div flex threat-list threats="vm.asset.threats"></div>
+                            </div>
+                         
+                        </md-card-content>
+                    </md-card>
+                   
+
+
+
+
+                </div>
+                <div style="height:70px;width:100%;"></div>
+
+
+</md-tab>
+                <md-tab label="Business contiuity plan" ng-if="vm.asset.requiresBusinessContinuityPlan === true">
+                    <md-content class="md-padding">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Business contiuity plan</strong>
+                            </div>
+                            <div class="panel-body">
+                                <div ng-bind-html="vm.asset.businessContinuityPlans[0].text" class="evaluation-view"></div>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="evaluation">
+                    <md-content class="md-padding">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Evaluation</strong></div>
+                            <div class="panel-body">
+                                <div ng-bind-html="vm.asset.evaluations[0].text" class="evaluation-view"></div>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+           
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+
+
+

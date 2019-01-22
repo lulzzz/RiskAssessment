@@ -1,0 +1,24 @@
+﻿.text-right {
+    text-align: right;
+}
+
+.text-right a {
+    color: rgb(255,64,129);
+}
+
+.text-right :hover {
+    cursor: pointer;
+}
+
+.text-right a + a {
+    margin-left: 20px;
+}
+
+.no-bottom-border {
+    border-bottom: none !important;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}

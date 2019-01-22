@@ -1,0 +1,1 @@
+alter table Soa add SoaType int not null default 1;

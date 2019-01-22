@@ -1,0 +1,235 @@
+﻿<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h2>
+            <span><span ng-if="createMode">Create</span><span ng-if="!createMode">Edit</span> control</span>
+        </h2>
+        <span flex></span>
+        <md-switch ng-model="vm.enabled" aria-label="Enabled" class="md-block">
+            Enabled
+        </md-switch>
+
+        <md-button class="md-raised md-warn" aria-label="Delete" ng-click="delete()" ng-hide="createMode || runningInModalChild">
+            Delete
+        </md-button>
+        <md-button class="md-raised" aria-label="Save" ng-click="save(createMode)">
+            Save
+        </md-button>
+        <md-button class="md-raised" aria-label="Save & Exit" ng-click="save(true)" ng-show="!createMode">
+            Save & Exit
+        </md-button>
+        <md-button class="md-raised" aria-label="Exit" ng-click="exit()">
+            Exit
+        </md-button>
+
+    </div>
+</md-toolbar>
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+        <md-card>
+            <form class="form-group" role="form" id="editControlForm" name="editControlForm">
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="control">
+                        <md-content class="md-padding">
+
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Name</label>
+                                    <input ng-model="vm.name" required placeholder="Name">
+                                </md-input-container>
+
+                            </div>
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Category</label>
+                                        <md-select ng-model="vm.category">
+                                            <md-option ng-repeat="category in categories" ng-value="category">
+                                                {{category.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Status</label>
+                                        <md-select ng-model="vm.status">
+                                            <md-option ng-repeat="status in statusCodes" ng-value="status.id">
+                                                {{status.name}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+
+                              
+                            </div>
+
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Responsible user</label>
+                                        <responsible-user-selector responsible-user-id="vm.responsibleUserId" />
+                                    </md-input-container>
+                                </div>
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-switch ng-model="vm.legalObligation" aria-label="Legal obligation" class="md-block">
+                                        Legal obligation
+                                    </md-switch>
+                                </div>
+
+
+
+                            </div>
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Purpose of control</label>
+                                        
+                                    </md-input-container>
+                                </div>
+                                <div flex="50"  layout-gt-sm="row" flex-gt-sm>
+
+                                    <md-switch ng-model="vm.prevent" aria-label="Prevent" class="md-block" >
+                                        Prevent
+                                    </md-switch>
+
+                                    <md-switch ng-model="vm.detect" aria-label="Detect" class="md-block" >
+                                        Detect
+                                    </md-switch>
+
+                                    <md-switch ng-model="vm.react" aria-label="React" class="md-block" >
+                                        React
+                                    </md-switch>
+
+                                    <md-switch ng-model="vm.avoid" aria-label="Avoid" class="md-block">
+                                        Avoid
+                                    </md-switch>
+                                </div>
+
+
+
+                            </div>
+
+
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Description</label>
+                                    <textarea ng-model="vm.description" md-maxlength="1000" rows="5" md-select-on-focus></textarea>
+                                </md-input-container>
+
+                            </div>
+
+
+
+
+                        </md-content>
+                    </md-tab>
+
+                    <md-tab label="dates and cost">
+                        <md-content class="md-padding">
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Alert persom</label>
+                                        <responsible-user-selector responsible-user-id="vm.alertUserId" />
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="column" flex="25">
+                                    <p>Alert date</p>
+                                    <md-datepicker ng-model="vm.alertDate" md-placeholder="Alert date"></md-datepicker>
+                                </div>
+
+
+                            </div>
+
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="25">
+                                    <p>Deadline</p>
+                                    <md-datepicker ng-model="vm.deadline" md-placeholder="Deadline"></md-datepicker>
+                                </div>
+                                <div layout-gt-sm="column" flex="25">
+                                    <p>Executed date</p>
+                                    <md-datepicker ng-model="vm.executedDate" md-placeholder="Executed Date"></md-datepicker>
+                                </div>
+                                <div layout-gt-sm="column" flex="25">
+                                    <p>Valid to</p>
+                                    <md-datepicker ng-model="vm.validTo" md-placeholder="Valid to"></md-datepicker>
+                                </div>
+                                <div layout-gt-sm="column" flex="25">
+                               
+                                </div>
+
+                            </div>
+
+
+                            <div layout-gt-sm="row">
+
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Investment Cost</label>
+                                        <input type="number" placeholder="Investment Cost" data-ng-model="vm.investmentCost"  />
+
+                                    </md-input-container>
+                                </div>
+                                <div layout-gt-sm="column" flex="50">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Maintenance Cost</label>
+                                        <input type="number" placeholder="Maintenance Cost" data-ng-model="vm.maintenanceCost" />
+
+                                    </md-input-container>
+                                </div>
+
+
+
+                            </div>
+
+
+
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="risk reduce">
+                        <md-content class="md-padding">
+
+                            <div risks-reduce-editor createmode="createMode" risks="vm.risks""></div>
+
+
+                         </md-content>
+                    </md-tab>
+                    <md-tab label="evaluation">
+                        <md-content class="md-padding">
+                            <div evaluation-editor editmode="true" evaluations="vm.evaluations" editform="editControlForm"></div>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </form>
+        </md-card>
+
+
+    </div>
+
+    <div layout="row" flex="noshrink" ng-hide="runningInModalChild">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+
+
+
+
+

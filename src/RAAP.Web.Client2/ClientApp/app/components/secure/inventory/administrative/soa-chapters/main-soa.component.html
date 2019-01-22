@@ -1,0 +1,43 @@
+<form [formGroup]="mainForm">
+    <div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+        <mat-card>
+            <mat-card-content>
+                <div class="container">
+                    <div [fxFlex]="calc3cols" class="col3">
+                    </div>
+                    <div>
+                        <div class="button-row">
+                            <mat-slide-toggle style="min-width: 160px;" *ngIf="checkSoaLayout">Relevant</mat-slide-toggle>
+                            <button type="submit" mat-raised-button color="accent" (click)="onSubmit()">SAVE</button>
+                            <a mat-raised-button routerLink="/dashboardmain">EXIT</a>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-content>
+                <div class="container">
+                    <div [fxFlex]="calc3cols" class="col3">
+                        <div class="button-row">
+                            <button mat-raised-button color="accent" (click)="onAddNewFirtChapterLevel()" *ngIf="!checkSoaLayout">ADD MAIN CHAPTER</button>
+                        </div>
+                        <div formArrayName="soaChaptersItems" class="chapters-padding">
+                            <div *ngFor="let app-first-chapter-level of mainForm.controls.soaChaptersItems.controls; let i=index">
+                                <div layout-gt-sm="row" [formGroupName]="i">
+                                    <app-first-chapter-level [firstChapterLevelGroup]="mainForm.controls.soaChaptersItems.controls[i]" 
+                                                             [isNewest]="isNewestChapter(i)"
+                                                             [checkSoaLayout]="checkSoaLayout"
+                                                             [soaType]="soaType"
+                                                             [soaCode]="soaCode"
+                                                             [parrentArray]="mainForm.controls.soaChaptersItems">        
+                                    </app-first-chapter-level>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</form>

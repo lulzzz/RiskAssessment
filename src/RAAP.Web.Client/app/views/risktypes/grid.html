@@ -1,0 +1,43 @@
+﻿<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h2>
+            <span>Risk Types</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-raised" aria-label="Create" ng-click="create()" ng-show="authentication.hasRole('Administrator') || authentication.hasRole('SystemAdministrator')">
+            Create
+        </md-button>
+    </div>
+</md-toolbar>
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+        <md-card>
+            <md-table-container>
+                <table md-table>
+                    <thead md-head md-order="vm.orderBy" md-on-reorder="gridReOrder">
+                        <tr md-row>
+                            <th md-column md-order-by="name"><span>Name</span></th>
+                            <th md-column md-order-by="description"><span>Description</span></th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="item in vm.dataset.items">
+                            <td md-cell><a ng-show="authentication.hasRole('Administrator') || authentication.hasRole('SystemAdministrator')" href="{{ 'app/risktype/edit/' + item.riskTypeId}}">{{item.name}}</a>
+                                <span ng-show="!authentication.hasRole('Administrator') && !authentication.hasRole('SystemAdministrator')">{{item.name}}</span></td>
+                            <td md-cell>{{item.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <md-table-pagination md-limit="vm.pageSize" md-page="vm.page" md-total="{{vm.dataset.totalItems}}" md-on-paginate="gridPagination" md-options="[5, 10, 15, 20]"></md-table-pagination>
+            </md-table-container>
+        </md-card>
+    </div>
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+

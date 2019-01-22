@@ -1,0 +1,49 @@
+﻿<div #panel [formGroup]="firstChapterLevelGroup">
+    <mat-expansion-panel #firstPanel [expanded]="isNewest">
+        <mat-expansion-panel-header>
+            <mat-panel-description>
+                <div class="title-width">
+                    <h4>{{firstChapterLevelGroup.value.name}}</h4>
+                </div>
+                <h4 mat-line>{{firstChapterLevelGroup.value.description}}</h4>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div *ngIf="firstPanel.expanded">
+            <div *ngIf="!checkSoaLayout">
+                <div layout-gt-sm="row">
+                    <div layout-gt-sm="column" flex="50">
+                        <mat-form-field class="md-block" flex-gt-sm>
+                            <input matInput placeholder="Chapter" formControlName="name">
+                        </mat-form-field>
+                    </div>
+                    <div layout-gt-sm="column" flex="50" class="second-div-control">
+                        <mat-form-field class="md-block" flex-gt-sm>
+                            <input matInput placeholder="Name" formControlName="description">
+                        </mat-form-field>
+                    </div>
+                    <div layout-gt-sm="column" flex="150" class="second-div-control delete-chapter">
+                        <button mat-button (click)="onRemoveFirstChapterLevel()">DELETE</button>
+                    </div>
+                    <div layout-gt-sm="column" flex="150" class="second-div-control add-chapter">
+                        <button mat-button (click)="onAddNewSecondChapterLevel()">ADD CHAPTER</button>
+                    </div>
+                </div>
+            </div>
+            <div layout-gt-sm="row" class="chapters-padding-left">
+                <div formArrayName="subChapters" layout-gt-sm="column" flex="1">
+                    <div *ngFor="let app-second-chapter-level of firstChapterLevelGroup.controls.subChapters.controls; let i=index">
+                        <div layout-gt-sm="row" [formGroupName]="i">
+                            <app-second-chapter-level [secondChapterLevelGroup]="firstChapterLevelGroup.controls.subChapters.controls[i]"
+                                                      [isNewest]="isNewestChapter(i)"
+                                                      [checkSoaLayout]="checkSoaLayout"
+                                                      [soaType]="soaType"
+                                                      [soaCode]="soaCode"
+                                                      [parrentArray]="firstChapterLevelGroup.controls.soaChaptersItems">
+                            </app-second-chapter-level>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>

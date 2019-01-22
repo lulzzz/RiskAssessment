@@ -1,0 +1,66 @@
+﻿<md-toolbar class="md-whiteframe-1dp white-tb">
+    <div class="md-toolbar-tools">
+        <h3>
+            Edit central files templates and chapters
+        </h3>
+        <span flex></span>
+
+        <md-button class="md-raised" aria-label="Save" ng-click="save(false)">
+            Save
+        </md-button>
+    </div>
+</md-toolbar>
+
+
+<md-content flex id="main-view">
+    <div layout="column" flex="noshrink">
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+        <md-card>
+            <div class="md-padding" layout-xs="column" layout="column" id="templates">
+                <div ng-repeat="template in vm.templates">
+                    <div layout="row">
+
+                        <md-input-container class="md-block" flex-gt-sm flex="40">
+                            <label>Chapter</label>
+                            <input type="text" placeholder="Chapter" data-ng-model="template.name" />
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex-gt-sm flex="40">
+                            <label>Name</label>
+                            <input type="text" placeholder="Name" data-ng-model="template.description" />
+                        </md-input-container>
+
+                        <span flex="10">
+                            <md-button data-ng-click="deleteTemplate(template)" class="md-warn">Delete</md-button>
+                        </span>
+                    </div>
+                    <div layout="row" ng-repeat="f in template.files">
+                        <span><a href="{{fileBaseUri}}{{f.guid}}">{{f.fileName}}</a></span> <md-button class="md-raised" ng-click="deleteFile(f.guid, template)">Delete</md-button>
+                    </div>
+                    <div layout="row" ng-controller="uploadController">
+                        <md-button class="md-raised" aria-label="Create" type="file" ngf-select="uploadFiles($file, $invalidFiles, template.id, 3, true, template.files)">
+                            Upload file
+                        </md-button>
+                        <div>
+                            <span class="progress" ng-show="f.progress >= 0">
+                                <div ng-bind="f.progress + '%'"></div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div layout="row">
+                    <span flex="10">
+                        <md-button data-ng-click="addTemplate()" class="md-primary">Add template</md-button>
+                    </span>
+                </div>
+            </div>
+        </md-card>
+    </div>
+
+    <div layout="row" flex="noshrink">
+        <div id="footer-text" ng-include="'app/views/shared/footer.html'"></div>
+    </div>
+</md-content>
+
+

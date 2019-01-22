@@ -1,0 +1,43 @@
+<div #panel [formGroup]="secondChapterLevelGroup">
+    <div *ngIf="checkSoaLayout; then soa else soachapters"></div>
+    <ng-template #soa>
+        <h3> {{secondChapterLevelGroup.value.name}} {{secondChapterLevelGroup.value.description}}</h3>
+    </ng-template>
+    <ng-template #soachapters>
+        <div layout-gt-sm="row">
+            <div layout-gt-sm="column" flex="50">
+                <mat-form-field class="md-block" flex-gt-sm>
+                    <input matInput placeholder="Chapter" formControlName="name">
+                </mat-form-field>
+            </div>
+            <div layout-gt-sm="column" flex="50" class="second-div-control">
+                <mat-form-field class="md-block" flex-gt-sm>
+                    <input matInput placeholder="Name" formControlName="description">
+                </mat-form-field>
+            </div>
+            <div layout-gt-sm="column" flex="150" class="second-div-control delete-chapter">
+                <button mat-button (click)="onRemoveSecondChapterLevel">DELETE</button>
+            </div>
+            <div layout-gt-sm="column" flex="150" class="second-div-control add-chapter">
+                <button mat-button (click)="onAddNewThirdChapterLevel()">ADD CHAPTER</button>
+            </div>
+        </div>
+        <div layout-gt-sm="row">
+            <mat-form-field class="md-block" flex-gt-sm>
+                <textarea matInput placeholder="Description" rows="4" formControlName="goal"></textarea>
+            </mat-form-field>
+        </div>
+    </ng-template>
+    <div layout-gt-sm="row" class="chapters-padding-left">
+        <div formArrayName="subChapters" layout-gt-sm="column" flex="1">
+            <div *ngFor="let app-second-chapter-level of secondChapterLevelGroup.controls.subChapters.controls; let i=index">
+                <div layout-gt-sm="row" [formGroupName]="i">
+                    <app-third-chapter-level [thirdChapterLevelGroup]="secondChapterLevelGroup.controls.subChapters.controls[i]" 
+                                             [isNewest]="isNewestChapter(i)"
+                                             [checkSoaLayout]="checkSoaLayout">
+                    </app-third-chapter-level>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

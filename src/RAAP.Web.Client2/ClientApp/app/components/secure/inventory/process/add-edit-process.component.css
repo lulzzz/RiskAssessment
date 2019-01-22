@@ -1,0 +1,72 @@
+﻿
+.removeAssetbtn {
+    float: right;
+    color: rgb(255,64,129);
+}
+
+    .removeAssetbtn:hover {
+        cursor: pointer;
+        border-color: gray;
+    }
+
+.firstDiv-process {
+    margin-left: 20px;
+}
+
+.linkAdd-process {
+    margin-top:10px;
+    margin-left:20px;
+}
+
+.evalutionDiv-process div:first-child {
+    word-wrap: break-word;
+    padding: 15px 15px;
+    font-size: 14px;
+}
+
+.evalutionDiv-process {
+    min-height: 300px;
+    border: 1px solid #cfdbe2;
+    background-color: #EDF1F2;
+    overflow-x: scroll;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+    .flex-row .fixed-width {
+        width: 200px;
+        padding-top: 1.25em;
+        margin-left: 1.25em;
+    }
+
+.matDialogBox {
+    box-shadow: none !important;
+}
+
+.matSlideDecoration {
+    min-width: 160px;
+}
+
+.matTabDecoration {
+   background-color:white; 
+   margin:8px;
+}
+
+.copyProcesssbtn {
+    float: right;
+    padding-right: 50px;
+    color: rgb(255,64,129);
+}
+
+    .copyProcesssbtn:hover {
+        cursor: pointer;
+        border-color: gray;
+    }
+
+.evaluationEditButton {
+    margin: 5px 0px 0px 10px;
+}

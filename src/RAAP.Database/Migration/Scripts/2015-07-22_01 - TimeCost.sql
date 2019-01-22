@@ -1,0 +1,33 @@
+USE [RAAP]
+
+
+/****** Object:  Table [dbo].[TimeCost]    Script Date: 22.07.2015 20:09:16 ******/
+SET ANSI_NULLS ON
+
+
+SET QUOTED_IDENTIFIER ON
+
+
+CREATE TABLE [dbo].[TimeCost](
+	[TimeCostId] [int] IDENTITY(1,1) NOT NULL,
+	[Time] [int] NOT NULL,
+	[Cost] [decimal](18, 2) NOT NULL,
+	[AssetId] [int] NOT NULL,
+ CONSTRAINT [PK_TimeCost] PRIMARY KEY CLUSTERED 
+(
+	[TimeCostId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+
+ALTER TABLE [dbo].[TimeCost]  WITH CHECK ADD  CONSTRAINT [FK_TimeCost_Asset] FOREIGN KEY([AssetId])
+REFERENCES [dbo].[Asset] ([AssetId])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+
+
+ALTER TABLE [dbo].[TimeCost] CHECK CONSTRAINT [FK_TimeCost_Asset]
+
+
+

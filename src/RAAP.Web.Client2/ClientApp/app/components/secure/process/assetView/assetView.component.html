@@ -1,0 +1,266 @@
+﻿<div tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+    <form [formGroup]="assetViewForm">
+        <mat-card>
+            <mat-card-content>
+                <div class="container">
+                    <div [fxFlex]="calc3cols" class="col3">
+                        <p class="headerNameSize">{{assetViewForm.value.name}}({{assetViewForm.value.subCategory.name}})</p>
+                    </div>
+                    <div class="headerButtonMargin">
+                        <div class="button-row">
+                            <button mat-raised-button color="warn" (click)="onDelete();">DELETE</button>
+                            <button type="submit" mat-raised-button color="accent" [routerLink]="['/asset/edit/',assetViewForm.value.assetId]">{{ 'EDIT' }}</button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <app-alert></app-alert>
+        </mat-card>
+
+        <mat-tab-group class="demo-tab-group" style="background-color:white; margin:8px">
+            <mat-tab label="ASSET">
+                <mat-card-content flex id="main-view">
+                    <div layout="column" flex="noshrink">
+                        <mat-card class="matDialogBox">
+                            <mat-card-content class="md-padding">
+                                <div layout-gt-sm="row">
+                                    <div layout-gt-sm="column" flex="50" class="marginDiv-Asset">
+                                        <mat-card>
+                                            <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                <a style="color:white; font-size:18px; margin:10px;">ISO 27001 (Calculated)</a>
+                                            </mat-card-header>
+                                            <mat-tab-group class="demo-tab-group" style="background-color:white; margin:8px" *ngFor="let r of risks">
+                                                <mat-tab label="{{r.name}}">
+                                                </mat-tab>
+                                            </mat-tab-group>
+                                            <mat-card-content> No risks found for this item</mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                    <div layout-gt-sm="column" flex="50">
+                                        <mat-card>
+                                            <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                <a style="color:white; font-size:18px; margin:10px;">Description</a>
+                                            </mat-card-header>
+                                            <mat-card-content>{{ assetViewForm.value.description }}  </mat-card-content>
+                                        </mat-card>
+                                        <mat-card>
+                                            <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                <a style="color:white; font-size:18px; margin:10px;">Criticality</a>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <div layout-gt-sm="row">
+                                                    <div layout-gt-sm="row" flex="25" class="criticality-container">
+                                                        <em class="fa fa-bar-chart fa-2x"></em>
+                                                        <h4 class="mt0">{{ assetViewForm.value.confidenciality }} </h4>
+                                                        <p class="mb0 text-muted text-uppercase">Confidenciality</p>
+                                                    </div>
+                                                    <div layout-gt-sm="row" flex="25" class="criticality-container">
+                                                        <em class="fa fa-bar-chart fa-2x"></em>
+                                                        <h4 class="mt0">{{assetViewForm.value.integrity}}</h4>
+                                                        <p class="mb0 text-muted text-uppercase">Integrity</p>
+                                                    </div>
+                                                    <div layout-gt-sm="row" flex="25" class="criticality-container">
+                                                        <em class="fa fa-bar-chart fa-2x"></em>
+                                                        <h4 class="mt0">{{ assetViewForm.value.availability }}</h4>
+                                                        <p class="mb0 text-muted text-uppercase">Availability</p>
+                                                    </div>
+                                                    <div layout-gt-sm="row" flex="25" class="criticality-container">
+                                                        <em class="fa fa-bar-chart fa-2x"></em>
+                                                        <h4 class="mt0">{{ assetViewForm.value.authenticity }}</h4>
+                                                        <p class="mb0 text-muted text-uppercase">Authenticity</p>
+                                                    </div>
+                                                    <div layout-gt-sm="row" flex="25" class="criticality-container">
+                                                        <em class="fa fa-bar-chart fa-2x"></em>
+                                                        <h4 class="mt0">{{ assetViewForm.value.criticalityCategory.name }}</h4>
+                                                        <p class="mb0 text-muted text-uppercase">Criticality category</p>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+
+                                        <mat-card>
+                                            <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                                <a style="color:white; font-size:18px; margin:10px;">Recovery</a>
+                                            </mat-card-header>
+                                            <mat-card-content>
+
+                                                <div layout="column" class="asset-recovery">
+                                                    <div layout="row">
+                                                        <div flex="40"></div>
+                                                        <div flex="30" class="recovery-text">Time (dd:hh:mm)</div>
+                                                        <div flex="30" class="recovery-text">Cost</div>
+                                                    </div>
+                                                    <div layout="row">
+                                                        <div flex="40" class="recovery-text">System recovery</div>
+                                                        <div flex="30">
+                                                            <h4 class="mt0">{{ assetViewForm.value.systemRecoveryTime }}</h4>
+                                                        </div>
+                                                        <div flex="30">
+                                                            <h4 class="mt0">{{ assetViewForm.value.systemRecoveryCost }}</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div layout="row">
+                                                        <div flex="40" class="recovery-text">Data recovery</div>
+                                                        <div flex="30">
+                                                            <h4 class="mt0">{{ assetViewForm.value.dataRecoveryTime }}</h4>
+                                                        </div>
+                                                        <div flex="30">
+                                                            <div>
+                                                                <h4 class="mt0">{{ assetViewForm.value.dataRecoveryCost }} </h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div layout="row">
+                                                        <div flex="40" class="recovery-text">Integrity check</div>
+                                                        <div flex="30">
+                                                            <h4 class="mt0">{{ assetViewForm.value.integrityCheckTime }}</h4>
+                                                        </div>
+                                                        <div flex="30">
+                                                            <h4 class="mt0">{{ assetViewForm.value.integrityCheckCost }}</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div layout="row">
+                                                        <div flex="40" class="recovery-text">Max down</div>
+                                                        <div flex="30">
+                                                            <h4 class="mt0">{{( assetViewForm.value.calculatedDataRecoveryTime + assetViewForm.value.calculatedIntegrityCheckTime +  assetViewForm.value.calculatedSystemRecoveryTime) |  date:'MM/dd/yyyy' }}</h4>
+                                                        </div>
+                                                        <div flex="30">
+                                                            <h4 class="mt0">{{ assetViewForm.value.calculatedDataRecoveryCost + assetViewForm.value.calculatedIntegrityCheckCost + assetViewForm.value.calculatedSystemRecoveryCost |  date:'MM/dd/yyyy' }}</h4>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+
+
+                                                <!--<h4>System recovery :  {{  assetViewForm.value.systemRecoveryCost | date:'MM/dd/yyyy' }} Time : {{  assetViewForm.value.systemRecoveryTime }}</h4>
+                                                <h4>Data recovery : {{  assetViewForm.value.dataRecoveryCost | date:'MM/dd/yyyy' }}  Time : {{  assetViewForm.value.dataRecoveryTime }}</h4>
+                                                <h4>Integrity check : {{  assetViewForm.value.integrityCheckCost | date:'MM/dd/yyyy'}}  Time : {{  assetViewForm.value.integrityCheckTime }}</h4>
+                                                <h4>Max down :  {{  assetViewForm.value.maxDownCost | date:'MM/dd/yyyy' }}  Time : {{  assetViewForm.value.maxDownTime }}</h4>-->
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                                <div layout-gt-sm="column" flex="100" class="marginDiv-Asset">
+                                    <mat-card>
+                                        <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                            <a style="color:white; font-size:18px; margin:10px;">Timeline Criticality</a>
+                                        </mat-card-header>
+                                        <mat-card-content *ngIf="timeCosts">
+                                            <div layout-gt-sm="row">
+                                                <div layout-gt-sm="column" flex="20">
+                                                    <mat-form-field class="md-block timelineAssetsInput" flex-gt-sm>
+                                                        <input matInput placeholder="T1 (minutes)" value="{{timeCosts[0].time}}" readonly>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div layout-gt-sm="column" flex="25" class="marginDiv-Asset">
+                                                    <mat-form-field class="md-block  timelineAssetsInput" flex-gt-sm>
+                                                        <input matInput placeholder="T2 (minutes)"
+                                                               value="{{timeCosts[1].time}}" readonly>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div layout-gt-sm="column" flex="25" class="marginDiv-Asset">
+                                                    <mat-form-field class="md-block  timelineAssetsInput" flex-gt-sm>
+                                                        <input matInput placeholder="T3 (minutes)"
+                                                               value="{{timeCosts[2].time}}" readonly>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div layout-gt-sm="column" flex="20" class="marginDiv-Asset">
+                                                    <mat-form-field class="md-block  timelineAssetsInput" flex-gt-sm>
+                                                        <input matInput placeholder="T4 (minutes)"
+                                                               value="{{timeCosts[3].time}}" readonly>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div layout-gt-sm="column" flex="20" class="marginDiv-Asset">
+                                                    <mat-form-field class="md-block  timelineAssetsInput" flex-gt-sm>
+                                                        <input matInput placeholder="T5 (minutes)"
+                                                               value="{{timeCosts[4].time}}" readonly>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div layout-gt-sm="row">
+                                                <div layout-gt-sm="column" flex="20">
+                                                    <mat-form-field class="md-block  timelineAssetsInput" flex-gt-sm>
+                                                        <input matInput placeholder="T1 (cost)"
+                                                               value="{{timeCosts[0].cost}}" readonly>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div layout-gt-sm="column" flex="25" class="marginDiv-Asset">
+                                                    <mat-form-field class="md-block  timelineAssetsInput" flex-gt-sm>
+                                                        <input matInput placeholder="T2 (cost)"
+                                                               value="{{timeCosts[1].cost}}" readonly>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div layout-gt-sm="column" flex="25" class="marginDiv-Asset">
+                                                    <mat-form-field class="md-block  timelineAssetsInput" flex-gt-sm>
+                                                        <input matInput placeholder="T3 (cost)"
+                                                               value="{{timeCosts[2].cost}}" readonly>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div layout-gt-sm="column" flex="20" class="marginDiv-Asset">
+                                                    <mat-form-field class="md-block timelineAssetsInput" flex-gt-sm>
+                                                        <input matInput placeholder="T4 (cost)"
+                                                               value="{{timeCosts[3].cost}}" readonly>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div layout-gt-sm="column" flex="20" class="marginDiv-Asset">
+                                                    <mat-form-field class="md-block timelineAssetsInput" flex-gt-sm>
+                                                        <input matInput placeholder="T5 (cost)"
+                                                               value="{{timeCosts[4].cost}}" readonly>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <div layout-gt-sm="column" flex="100" class="marginDiv-Asset">
+                                    <mat-card>
+                                        <mat-card-header style=" height:40px; background-color: dodgerblue;">
+                                            <a style="color:white; font-size:18px; margin:10px;">Threats</a>
+                                        </mat-card-header>
+                                        <mat-card-content>
+                                            <div class="container">
+                                                <div [fxFlex]="calc3cols" class="col4">
+                                                    <ngx-datatable #table
+                                                                   [columnMode]="'force'"
+                                                                   [headerHeight]="50"
+                                                                   [footerHeight]="0"
+                                                                   [rowHeight]="50"
+                                                                   [sorts]="[{prop: 'processId', dir: 'asc'}]"
+                                                                   [rows]="rows">
+                                                        <ngx-datatable-column name="Threat" prop="name"></ngx-datatable-column>
+                                                        <ngx-datatable-column name="Asset" prop="assetName"></ngx-datatable-column>
+                                                        <ngx-datatable-column name="Controls" prop="controlsCount"></ngx-datatable-column>
+                                                    </ngx-datatable>
+                                                </div>
+                                            </div>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </mat-card-content>
+            </mat-tab>
+            <mat-tab label="EVELUATION">
+                <mat-card class="matDialogBox">
+                    <mat-card-content>
+                        <div class="bussinessDivEvaluation">
+                            <!--<div *ngIf="selectedEvaluation" [innerHtml]="selectedEvaluation.text" disabled></div>-->
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </form>
+</div>
+

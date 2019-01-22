@@ -1,0 +1,1 @@
+EXEC sp_rename 'Asset_SoaChapter.SoaChapterId', 'SoaId', 'COLUMN';  

@@ -1,0 +1,29 @@
+.bussinessDivEvaluation {
+    min-height: 300px;
+    border: 1px solid #cfdbe2;
+    background-color: #EDF1F2;
+    overflow-x: scroll;
+}
+
+    .bussinessDivEvaluation div {
+        word-wrap: break-word;
+        padding: 15px 15px;
+        font-size: 14px;
+    }
+
+    .timelineAssetsInput{
+        width:90%;
+    }
+
+.label-span {
+    font-size: 14px;
+    color: rgba(0,0,0,0.54);
+}
+
+.headerNameSize{
+    font-size:20px;
+}
+
+.headerButtonMargin {
+    margin-top: 15px;
+}
